@@ -1,0 +1,68 @@
+{
+  "name": "emma-cli",
+  "description": "An aswesome assistant which helps you search packages.",
+  "author": "Matic Zavadlal <matic.zavadlal@gmail.com>",
+  "version": "0.0.0",
+  "bin": {
+    "emma": "dist/index.js"
+  },
+  "scripts": {
+    "build": "babel src --out-dir dist --ignore __tests__",
+    "prepublish": "cross-env NODE_ENV=production npm run build",
+    "dev": "babel -w src --out-dir dist --ignore __tests__"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/maticzav/emma",
+  "keywords": [
+    "emma"
+  ],
+  "bugs": {
+    "url": "https://github.com/maticzav/emma/issues"
+  },
+  "dependencies": {
+    "algoliasearch": "^3.24.12",
+    "child_process": "^1.0.2",
+    "execa": "^0.9.0",
+    "has-ansi": "^3.0.0",
+    "ink": "^0.4.1",
+    "ink-redux": "^1.0.0",
+    "ink-select-input": "^1.0.0",
+    "ink-spinner": "^1.0.0",
+    "ink-text-input": "^1.1.1",
+    "meow": "^4.0.0",
+    "redux": "^3.7.2",
+    "update-notifier": "^2.3.0",
+    "yargs": "^11.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.40",
+    "@babel/core": "^7.0.0-beta.40",
+    "@babel/preset-env": "^7.0.0-beta.40",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "cross-env": "^5.1.3",
+    "eslint-config-xo-react": "^0.16.0",
+    "eslint-plugin-react": "^7.7.0",
+    "xo": "^0.20.3"
+  },
+  "xo": {
+    "extends": "xo-react",
+    "semicolon": false,
+    "space": 3,
+    "rules": {
+      "react/prop-types": 0,
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ]
+    },
+    "settings": {
+      "react": {
+        "pragma": "h"
+      }
+    }
+  },
+  "license": "MIT"
+}
