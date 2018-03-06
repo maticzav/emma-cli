@@ -1,5 +1,6 @@
 import path from 'path'
 import fs from 'fs'
+
 import { h, render, Component } from 'ink'
 
 // Helpers -------------------------------------------------------------------
@@ -16,35 +17,10 @@ const shouldUseYarn = () => {
 
 // Emma ----------------------------------------------------------------------
 
-class Counter extends Component {
+class Emma extends Component {
    constructor() {
       super()
-
-      this.state = {
-         i: 0
-      }
-   }
-
-   render(props, state) {
-      return `Iteration #${state.i} ${useYarn}`
-   }
-
-   componentDidMount() {
-      this.timer = setInterval(() => {
-         this.setState({
-            i: this.state.i + 1
-         })
-      }, 100)
-   }
-
-   componentWillUnmount() {
-      clearInterval(this.timer)
    }
 }
 
-const unmount = render(<Counter/>)
-
-setTimeout(() => {
-// Enough counting
-   unmount()
-}, 1000)
+export default Emma
