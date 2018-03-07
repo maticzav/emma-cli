@@ -2,7 +2,7 @@
   "name": "emma-cli",
   "description": "An aswesome assistant which helps you search packages.",
   "author": "Matic Zavadlal <matic.zavadlal@gmail.com>",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "bin": {
     "emma": "dist/index.js"
   },
