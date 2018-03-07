@@ -77,8 +77,8 @@ const PackageAttribute = ({ pkg, attr, ...props }) => (
 const Package = pkg => (
    <Text bold>
       <PackageAttribute pkg={pkg} attr="humanDownloadsLast30Days" red/>
-      <PackageAttribute pkg={pkg} attr="owner.name" green/>
       <PackageAttribute pkg={pkg} attr="name" blue/>
+      <PackageAttribute pkg={pkg} attr="owner.name" green/>
       <PackageAttribute pkg={pkg} attr="description"/>
    </Text>
 )
@@ -121,7 +121,7 @@ const SelectedPackages = ({ selectedPackages }) => {
 
 const SearchResults = ({ foundPackages, onToggle, loading }) => {
    return (
-      <div>
+      <span>
          <SelectInput
             items={foundPackages}
             itemComponent={Package}
@@ -132,7 +132,7 @@ const SearchResults = ({ foundPackages, onToggle, loading }) => {
                <Spinner green/> Fetching
             </Text>
          )}
-      </div>
+      </span>
    )
 }
 
@@ -156,13 +156,11 @@ const ErrorInfo = () => (
    </div>
 )
 
-const EmptyLine = () => <div/>
-
 // Emma
 
 class Emma extends Component {
-   constructor() {
-      super()
+   constructor(props) {
+      super(props)
 
       this.state = {
          query: '',
@@ -206,14 +204,6 @@ class Emma extends Component {
                   onToggle={this.handleTogglePackage}
                   loading={loading}
                />
-            )}
-            {loading === PROGRESS_NOT_LOADED && (
-               <div>
-                  <EmptyLine/>
-                  <EmptyLine/>
-                  <EmptyLine/>
-                  <EmptyLine/>
-               </div>
             )}
          </div>
       )
@@ -287,24 +277,21 @@ class Emma extends Component {
          return
       }
 
-      if (isEmpty(selectedPackages)) {
-         this.props.onExit()
-      }
-
       // ENV
       const isDev = this.props.dev
       const yarn = shouldUseYarn()
-      const env = yarn ? 'yarn add' : 'npm install --save'
+      const env = yarn ? 'yarnpkg' : 'npm'
+      const arg = yarn ? 'add' : 'install --save'
       const devArg = yarn ? '-D' : '--save-dev'
 
       // Packages
       const packages = selectedPackages.map(pkg => pkg.name)
-      const args = [...packages, isDev ? devArg : '']
+      const args = [arg, ...packages, isDev ? devArg : '']
 
       // Install the queries
 
       try {
-         await execa(env, args, { stdr: `inherit` })
+         await execa(env, args)
       } catch (err) {
          console.log(err)
       }
