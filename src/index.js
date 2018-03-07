@@ -15,13 +15,12 @@ updateNotifier({ pkg }).notify()
 
 const cli = meow(`
    Usage
-     $ emma [add|remove] [package-name]
+     $ emma
 
    Example
-     $ emma add graphql-shield
+     $ emma -D
 
    Options
-     --verbose -v  Include version select.
      --dev -D      Add to dev dependencies.
 
    Run without package-name to enter live search.
@@ -29,12 +28,11 @@ const cli = meow(`
    Use up/down to select packages.
    Click enter to trigger the install.   
 `, {
-   boolean: [
-      'dev'
-   ],
-   alias: {
-      v: 'verbose',
-      D: 'dev'
+   flags: {
+      dev: {
+         type: 'boolean',
+         alias: 'D'
+      }
    }
 })
 
@@ -51,10 +49,10 @@ const main = () => {
       process.exit()
    }
 
-   // Uses `h` instead of JSX to avoid transpiling this file
-   unmount = render(h(emma, { onError, onExit }))
-}
+   const { dev } = cli.flags
 
-console.log(cli)
+   // Uses `h` instead of JSX to avoid transpiling this file
+   unmount = render(h(emma, { dev, onError, onExit }))
+}
 
 main()

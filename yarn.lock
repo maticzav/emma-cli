@@ -232,7 +232,7 @@
     "@babel/helper-remap-async-to-generator" "7.0.0-beta.40"
     "@babel/plugin-syntax-async-generators" "7.0.0-beta.40"
 
-"@babel/plugin-proposal-object-rest-spread@7.0.0-beta.40":
+"@babel/plugin-proposal-object-rest-spread@7.0.0-beta.40", "@babel/plugin-proposal-object-rest-spread@^7.0.0-beta.40":
   version "7.0.0-beta.40"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-object-rest-spread/-/plugin-proposal-object-rest-spread-7.0.0-beta.40.tgz#ce35d2240908e52706a612eb26d67db667cd700f"
   dependencies:
@@ -1766,7 +1766,7 @@ dom-walk@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/dom-walk/-/dom-walk-0.1.1.tgz#672226dc74c8f799ad35307df936aba11acd6018"
 
-dot-prop@^4.1.0:
+dot-prop@^4.1.0, dot-prop@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-4.2.0.tgz#1f19e0c2e1aa0e32797c49799f2837ac6af69c57"
   dependencies:

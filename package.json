@@ -23,8 +23,10 @@
     "url": "https://github.com/maticzav/emma/issues"
   },
   "dependencies": {
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.40",
     "algoliasearch": "^3.24.12",
     "child_process": "^1.0.2",
+    "dot-prop": "^4.2.0",
     "execa": "^0.9.0",
     "has-ansi": "^3.0.0",
     "ink": "^0.4.1",
@@ -32,6 +34,7 @@
     "ink-spinner": "^1.0.0",
     "ink-text-input": "^1.1.1",
     "meow": "^4.0.0",
+    "term-size": "^1.2.0",
     "update-notifier": "^2.3.0",
     "yargs": "^11.0.0"
   },
