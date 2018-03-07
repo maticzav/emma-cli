@@ -267,7 +267,12 @@ class Emma extends Component {
    }
 
    handleTogglePackage(pkg) {
-      const { selectedPackages } = this.state
+      const { selectedPackages, loading } = this.state
+
+      if (loading !== PROGRESS_LOADED) {
+         return
+      }
+
       const exists = selectedPackages.some(({ objectID }) => objectID === pkg.objectID)
 
       if (exists) {
@@ -288,6 +293,10 @@ class Emma extends Component {
 
       if (notEmpty(query)) {
          return
+      }
+
+      if (isEmpty(selectedPackages)) {
+         this.props.onExit()
       }
 
       // ENV
