@@ -75,11 +75,11 @@ const PackageAttribute = ({ pkg, attr, ...props }) => (
 )
 
 const Package = pkg => (
-   <Text bold>
-      <PackageAttribute pkg={pkg} attr="humanDownloadsLast30Days" red/>
-      <PackageAttribute pkg={pkg} attr="name" blue/>
-      <PackageAttribute pkg={pkg} attr="owner.name" green/>
-      <PackageAttribute pkg={pkg} attr="description"/>
+   <Text>
+      <PackageAttribute pkg={pkg} attr="humanDownloadsLast30Days"/>
+      <PackageAttribute pkg={pkg} attr="name" blueBright bold/>
+      <PackageAttribute pkg={pkg} attr="owner.name" cyan/>
+      <PackageAttribute pkg={pkg} attr="description" bold/>
    </Text>
 )
 
@@ -87,8 +87,8 @@ const Package = pkg => (
 
 const Search = ({ value, onChange, onSubmit }) => (
    <div>
-      <Text bold blue>
-         {`Search packages 🔎  : `}
+      <Text bold white>
+         {`Search packages 📦  : `}
       </Text>
       <TextInput
          value={value}
@@ -101,21 +101,31 @@ const Search = ({ value, onChange, onSubmit }) => (
 
 // Overview
 
-const SelectedPackages = ({ selectedPackages }) => {
-   const list = selectedPackages.map(pkg => (
-      <div key={pkg.name}>
-         <Text>
-            {`📦  ${pkg.name}`}
-         </Text>
-      </div>
-   ))
+const SelectedPackage = ({ pkg }) => (
+   <div>
+      <Text magenta>
+         {` ›`}
+      </Text>
+      <Text bold white>
+         {` ${pkg.name} `}
+      </Text>
+      <Text grey>
+         {` ${pkg.version} `}
+      </Text>
+   </div>
+)
 
-   return (
+const SelectedPackages = ({ selectedPackages }) => (
+   <div>
+      <div/>
       <div>
-         {list}
+         <Text bold white>Picked: </Text>
       </div>
-   )
-}
+      {selectedPackages.map(pkg => (
+         <SelectedPackage key={pkg.name} pkg={pkg}/>
+      ))}
+   </div>
+)
 
 // Restults
 
@@ -128,9 +138,11 @@ const SearchResults = ({ foundPackages, onToggle, loading }) => {
             onSelect={onToggle}
          />
          {loading === PROGRESS_LOADING && (
-            <Text bold>
-               <Spinner green/> Fetching
-            </Text>
+            <div>
+               <Text bold>
+                  <Spinner red/> Fetching
+               </Text>
+            </div>
          )}
       </span>
    )
@@ -140,13 +152,13 @@ const SearchResults = ({ foundPackages, onToggle, loading }) => {
 
 const SearchInfo = () => (
    <div>
-      <Text>Try typing in to search the database.</Text>
+      <Text grey>Try typing in to search the database.</Text>
    </div>
 )
 
 const InstallInfo = () => (
    <div>
-      <Text>Press enter to install all of your packages.</Text>
+      <Text grey>Press enter to install all of your packages.</Text>
    </div>
 )
 
@@ -184,11 +196,6 @@ class Emma extends Component {
 
       return (
          <div>
-            {notEmpty(selectedPackages) && (
-               <SelectedPackages
-                  selectedPackages={selectedPackages}
-               />
-            )}
             <Search
                value={query}
                onChange={this.handleQueryChange}
@@ -203,6 +210,11 @@ class Emma extends Component {
                   foundPackages={foundPackages}
                   onToggle={this.handleTogglePackage}
                   loading={loading}
+               />
+            )}
+            {notEmpty(selectedPackages) && (
+               <SelectedPackages
+                  selectedPackages={selectedPackages}
                />
             )}
          </div>
@@ -236,6 +248,7 @@ class Emma extends Component {
          query,
          attributesToRetrieve: [
             'name',
+            'version',
             'description',
             'owner',
             'humanDownloadsLast30Days'
@@ -265,7 +278,7 @@ class Emma extends Component {
       } else {
          this.setState({
             query: '',
-            selectedPackages: [pkg, ...selectedPackages]
+            selectedPackages: [...selectedPackages, pkg]
          })
       }
    }
@@ -286,14 +299,18 @@ class Emma extends Component {
 
       // Packages
       const packages = selectedPackages.map(pkg => pkg.name)
-      const args = [arg, ...packages, isDev ? devArg : '']
+      const args = [
+         arg,
+         ...packages,
+         ...(isDev ? [devArg] : [])
+      ]
 
       // Install the queries
 
       try {
-         await execa(env, args)
+         await execa.sync(env, args, { stdio: `inherit` })
       } catch (err) {
-         console.log(err)
+         throw err
       }
 
       this.props.onExit()
