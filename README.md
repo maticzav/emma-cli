@@ -18,13 +18,15 @@ Emma is a command line assistant which helps you search and install packages mor
 
 - __Extremly fast:__ Search all the packages from NPM and Yarn using your terminal.
 - __Build the stack:__ Search for multiple packages and install them with one keystroke.
-- __Automatic tool detection:__ Detects whether it should use Yarn and NPM out of the box.
+- __Automatic tool detection:__ Detects whether it should use Yarn or NPM, out of the box.
 
 ## Install
 
 ```bash
 npm install -g emma-cli
 ```
+
+Use Yarn or NPM to install.
 
 ## Example
 
@@ -62,3 +64,9 @@ Click enter to trigger the install.
 ## License
 
 MIT © [Matic Zavadlal](https://github.com/maticzav)
+
+---
+
+
+
+<p align="center"><img src="media/algolia.svg" width="500" /></p>
