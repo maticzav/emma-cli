@@ -1,6 +1,5 @@
 import { execSync } from 'child_process'
 import execa from 'execa'
-import algoliasearch from 'algoliasearch'
 import dot from 'dot-prop'
 import { h, Component, Text } from 'ink'
 import terminal from 'term-size'
@@ -8,7 +7,7 @@ import TextInput from 'ink-text-input'
 import SelectInput from 'ink-select-input'
 import Spinner from 'ink-spinner'
 
-import { algolia } from './config'
+import { search } from './algolia'
 
 // Helpers -------------------------------------------------------------------
 
@@ -16,20 +15,6 @@ import { algolia } from './config'
 
 const { columns } = terminal()
 const maxCellSize = columns / 4
-
-// Algolia
-
-const client = algoliasearch(algolia.appId, algolia.apiKey).initIndex(algolia.indexName)
-
-const search = query => new Promise((resolve, reject) => {
-   client.search(query, (err, res) => {
-      if (err) {
-         reject(err)
-      } else {
-         resolve(res)
-      }
-   })
-})
 
 // Yarn
 

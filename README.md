@@ -1,4 +1,4 @@
-# Emma 
+# Emma 📦
 
 [![npm version](https://badge.fury.io/js/emma-cli.svg)](https://badge.fury.io/js/emma-cli)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo)
@@ -23,6 +23,21 @@ Emma is a command line assistant which helps you search and install packages mor
 npm install -g emma-cli
 ```
 
+## Example
+
+```bash
+❯ emma-cli ~ emma
+Search packages 📦  : graphql
+❯ 2m     graphql          graphql         A Query Language and Runtime which can target any service.
+  176    graph.ql         MatthewMueller  Faster and simpler technique for creating and querying Grap
+  971.6k @types/graphql   DefinitelyTyped TypeScript definitions for graphql
+  950.5k graphql-tag      apollostack     A JavaScript template literal tag that parses GraphQL queri
+  790.2k graphql-anywhere apollographql   Run GraphQL queries with no schema and just one resolver
+
+Picked:
+› ava  0.25.0
+```
+
 ## API
 
 ```md
@@ -43,4 +58,4 @@ Click enter to trigger the install.
 
 ## License
 
-MIT @maticzav
+MIT © [Matic Zavadlal](https://github.com/maticzav)
