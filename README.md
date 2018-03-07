@@ -7,6 +7,8 @@
 
 Power by Algolia and Yarn.
 
+<p align="center"><img src="media/example.gif" width="800" /></p>
+
 ## Overview
 
 Emma is a command line assistant which helps you search and install packages more quickly. Using the power of Algolia it is extremly responsive and gives you all the information you need to decide which package is the right one.
