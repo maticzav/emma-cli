@@ -2,7 +2,7 @@
   "name": "emma-cli",
   "description": "An aswesome assistant which helps you search Yarn and NPM in your terminal.",
   "author": "Matic Zavadlal <matic.zavadlal@gmail.com>",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "bin": {
     "emma": "dist/index.js"
   },
