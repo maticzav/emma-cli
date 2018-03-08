@@ -12,11 +12,11 @@ Power by Algolia and Yarn.
 
 ## Overview
 
-Emma is a command line assistant which helps you search and install packages more quickly. Using the power of Algolia it is extremly responsive and gives you all the information you need to decide which package is the right one.
+Emma is a command line assistant which helps you search and install packages more quickly. Using the power of Algolia it is extremely responsive and gives you all the information you need to decide which package is the right one.
 
 ## Features
 
-- __Extremly fast:__ Search all the packages from NPM and Yarn using your terminal.
+- __Extremely fast:__ Search all the packages from NPM and Yarn using your terminal.
 - __Build the stack:__ Search for multiple packages and install them with one keystroke.
 - __Automatic tool detection:__ Detects whether it should use Yarn or NPM, out of the box.
 
