@@ -8,4 +8,4 @@ export const algolia = {
 
 const client = algoliasearch(algolia.appId, algolia.apiKey).initIndex(algolia.indexName)
 
-export const search = query => client.search({ query })
+export const search = query => client.search(query)
