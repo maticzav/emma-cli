@@ -13,8 +13,7 @@ import { search } from './algolia'
 
 // Terminal
 
-const { columns } = terminal()
-const maxCellSize = columns / 4
+const maxCellSize = () => terminal().columns / 4
 
 // Yarn
 
@@ -55,7 +54,7 @@ const PROGRESS_ERROR = 3
 
 const PackageAttribute = ({ pkg, attr, ...props }) => (
    <Text {...props}>
-      {`${dot.get(pkg, attr)} ${pkg._cell(attr)}`.slice(0, maxCellSize)}
+      {`${dot.get(pkg, attr)} ${pkg._cell(attr)}`.slice(0, maxCellSize())}
    </Text>
 )
 
@@ -122,6 +121,9 @@ const SearchResults = ({ foundPackages, onToggle, loading }) => {
             itemComponent={Package}
             onSelect={onToggle}
          />
+         {isEmpty(foundPackages) && (
+           <NotFoundInfo/>
+         )}
          {loading === PROGRESS_LOADING && (
             <div>
                <Text bold>
@@ -145,6 +147,12 @@ const InstallInfo = () => (
    <div>
       <Text grey>Press enter to install all of your packages.</Text>
    </div>
+)
+
+const NotFoundInfo = () => (
+  <div>
+      <Text grey>We haven't found any package that would match your input...</Text>
+  </div>
 )
 
 const ErrorInfo = () => (
