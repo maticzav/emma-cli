@@ -122,7 +122,7 @@ const SearchResults = ({ foundPackages, onToggle, loading }) => {
             onSelect={onToggle}
          />
          {isEmpty(foundPackages) && (
-           <NotFoundInfo/>
+            <NotFoundInfo/>
          )}
          {loading === PROGRESS_LOADING && (
             <div>
@@ -150,9 +150,11 @@ const InstallInfo = () => (
 )
 
 const NotFoundInfo = () => (
-  <div>
-      <Text grey>We haven't found any package that would match your input...</Text>
-  </div>
+   <div>
+      <Text grey>
+         {`We couldn't find any package that would match your input...`}
+      </Text>
+   </div>
 )
 
 const ErrorInfo = () => (
