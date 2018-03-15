@@ -179,15 +179,11 @@ class Emma extends Component {
       this.handleQueryChange = this.handleQueryChange.bind(this)
       this.handleInstall = this.handleInstall.bind(this)
       this.handleTogglePackage = this.handleTogglePackage.bind(this)
+      this.handleKeyPress = this.handleKeyPress.bind(this)
    }
 
    render() {
-      const {
-         query,
-         foundPackages,
-         selectedPackages,
-         loading
-      } = this.state
+      const { query, foundPackages, selectedPackages, loading } = this.state
 
       return (
          <div>
@@ -208,9 +204,7 @@ class Emma extends Component {
                />
             )}
             {notEmpty(selectedPackages) && (
-               <SelectedPackages
-                  selectedPackages={selectedPackages}
-               />
+               <SelectedPackages selectedPackages={selectedPackages}/>
             )}
          </div>
       )
@@ -268,14 +262,20 @@ class Emma extends Component {
          return
       }
 
-      const exists = selectedPackages.some(({ objectID }) => objectID === pkg.objectID)
+      const exists = selectedPackages.some(
+         ({ objectID }) => objectID === pkg.objectID
+      )
 
       if (exists) {
          this.setState({
-            selectedPackages: selectedPackages.filter(({ objectID }) => objectID !== pkg.objectID)
+            query: '',
+            selectedPackages: selectedPackages.filter(
+               ({ objectID }) => objectID !== pkg.objectID
+            )
          })
       } else {
          this.setState({
+            query: '',
             selectedPackages: [...selectedPackages, pkg]
          })
       }
@@ -301,11 +301,7 @@ class Emma extends Component {
 
       // Packages
       const packages = selectedPackages.map(pkg => pkg.name)
-      const args = [
-         arg,
-         ...packages,
-         ...(isDev ? [devArg] : [])
-      ]
+      const args = [arg, ...packages, ...(isDev ? [devArg] : [])]
 
       // Install the queries
 
