@@ -179,7 +179,6 @@ class Emma extends Component {
       this.handleQueryChange = this.handleQueryChange.bind(this)
       this.handleInstall = this.handleInstall.bind(this)
       this.handleTogglePackage = this.handleTogglePackage.bind(this)
-      this.handleKeyPress = this.handleKeyPress.bind(this)
    }
 
    render() {
