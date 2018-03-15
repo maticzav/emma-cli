@@ -1,3 +1,5 @@
+<p align="center"><img src="media/emma.png" width="800" /></p>
+
 # Emma 📦
 
 [![CircleCI](https://circleci.com/gh/maticzav/emma-cli.svg?style=shield)](https://circleci.com/gh/maticzav/emma-cli)

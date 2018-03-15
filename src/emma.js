@@ -272,12 +272,10 @@ class Emma extends Component {
 
       if (exists) {
          this.setState({
-            query: '',
             selectedPackages: selectedPackages.filter(({ objectID }) => objectID !== pkg.objectID)
          })
       } else {
          this.setState({
-            query: '',
             selectedPackages: [...selectedPackages, pkg]
          })
       }
