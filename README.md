@@ -8,7 +8,7 @@
 
 > Install the package you are looking for.
 
-Power by Algolia and Yarn.
+Powered by [Algolia search API](https://www.algolia.com/) and the [Yarn](http://yarnpkg.com/) package manager.
 
 <p align="center"><img src="media/example.gif" width="800" /></p>
 
