@@ -67,4 +67,4 @@ Click enter to trigger the install.
 
 MIT © [Matic Zavadlal](https://github.com/maticzav)
 
-<p align="center"><img src="media/algolia.svg" width="400" /></p>
+<p align="center"><a href="https://www.algolia.com"><img src="media/algolia.svg" width="400" /></a></p>
