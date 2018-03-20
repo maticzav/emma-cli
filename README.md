@@ -8,7 +8,7 @@
 
 > Install the package you are looking for.
 
-Power by Algolia and Yarn.
+Powered by [Algolia search API](https://www.algolia.com/) and the [Yarn](http://yarnpkg.com/) package manager.
 
 <p align="center"><img src="media/example.gif" width="800" /></p>
 
@@ -67,4 +67,4 @@ Click enter to trigger the install.
 
 MIT © [Matic Zavadlal](https://github.com/maticzav)
 
-<p align="center"><img src="media/algolia.svg" width="400" /></p>
+<p align="center"><a href="https://www.algolia.com"><img src="media/algolia.svg" width="400" /></a></p>
