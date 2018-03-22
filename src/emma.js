@@ -124,6 +124,7 @@ const SearchResults = ({ foundPackages, onToggle, loading }) => {
          {isEmpty(foundPackages) && (
             <NotFoundInfo/>
          )}
+         <AlgoliaInfo/>
          {loading === PROGRESS_LOADING && (
             <div>
                <Text bold>
@@ -160,6 +161,14 @@ const NotFoundInfo = () => (
 const ErrorInfo = () => (
    <div>
       <Text red>Check your internet connection.</Text>
+   </div>
+)
+
+const AlgoliaInfo = () => (
+   <div>
+      <Text>Search powered by</Text>
+      <Text blue> Algolia</Text>
+      <Text>.</Text>
    </div>
 )
 
