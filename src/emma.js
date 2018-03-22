@@ -121,6 +121,7 @@ const SearchResults = ({ foundPackages, onToggle, loading }) => {
             itemComponent={Package}
             onSelect={onToggle}
          />
+         <Text>search by Algolia</Text>
          {isEmpty(foundPackages) && (
             <NotFoundInfo/>
          )}
