@@ -310,12 +310,12 @@ class Emma extends Component {
       const isDev = this.props.dev
       const yarn = await shouldUseYarn()
       const env = yarn ? 'yarnpkg' : 'npm'
-      const arg = yarn ? 'add' : 'install --save'
+      const arg = yarn ? ['add'] : ['install', '--save']
       const devArg = yarn ? '-D' : '--save-dev'
 
       // Packages
       const packages = selectedPackages.map(pkg => pkg.name)
-      const args = [arg, ...packages, ...(isDev ? [devArg] : [])]
+      const args = [...arg, ...packages, ...(isDev ? [devArg] : [])]
 
       // Install the queries
 
