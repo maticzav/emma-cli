@@ -1,4 +1,6 @@
-import { execSync } from 'child_process'
+import childProcess from 'child_process'
+import fs from 'fs'
+import { promisify } from 'util'
 import execa from 'execa'
 import dot from 'dot-prop'
 import { h, Component, Text } from 'ink'
@@ -9,6 +11,9 @@ import Spinner from 'ink-spinner'
 
 import { search } from './algolia'
 
+const canAccessFile = promisify(fs.access)
+const exec = promisify(childProcess.exec)
+
 // Helpers -------------------------------------------------------------------
 
 // Terminal
@@ -17,13 +22,14 @@ const maxCellSize = () => terminal().columns / 4
 
 // Yarn
 
+const isYarnInstalled = () => exec(`yarnpkg --version`, { stdio: `ignore` })
+   .then(() => true)
+   .catch(() => false)
+
 const shouldUseYarn = () => {
-   try {
-      execSync(`yarnpkg --version`, { stdio: `ignore` })
-      return true
-   } catch (e) {
-      return false
-   }
+   return canAccessFile('package-lock.json')
+      .then(() => false)
+      .catch(isYarnInstalled)
 }
 
 // Additional
@@ -302,7 +308,7 @@ class Emma extends Component {
 
       // ENV
       const isDev = this.props.dev
-      const yarn = shouldUseYarn()
+      const yarn = await shouldUseYarn()
       const env = yarn ? 'yarnpkg' : 'npm'
       const arg = yarn ? 'add' : 'install --save'
       const devArg = yarn ? '-D' : '--save-dev'
