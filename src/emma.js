@@ -22,14 +22,22 @@ const maxCellSize = () => terminal().columns / 4
 
 // Yarn
 
-const isYarnInstalled = () => exec(`yarnpkg --version`, { stdio: `ignore` })
-   .then(() => true)
-   .catch(() => false)
+const isYarnInstalled = async () => {
+   try {
+      await exec(`yarnpkg --version`, { stdio: `ignore` })
+      return true
+   } catch (err) {
+      return false
+   }
+}
 
-const shouldUseYarn = () => {
-   return canAccessFile('package-lock.json')
-      .then(() => false)
-      .catch(isYarnInstalled)
+const shouldUseYarn = async () => {
+   try {
+      await canAccessFile('package-lock.json')
+      return false
+   } catch (err) {
+      return isYarnInstalled()
+   }
 }
 
 // Additional
