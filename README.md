@@ -4,6 +4,7 @@
 
 [![CircleCI](https://circleci.com/gh/maticzav/emma-cli.svg?style=shield)](https://circleci.com/gh/maticzav/emma-cli)
 [![npm version](https://badge.fury.io/js/emma-cli.svg)](https://badge.fury.io/js/emma-cli)
+![npm](https://img.shields.io/npm/dt/emma-cli.svg)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo)
 
 > Install the package you are looking for.
