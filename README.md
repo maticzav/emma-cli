@@ -15,7 +15,7 @@ Powered by [Algolia search API](https://www.algolia.com/) and the [Yarn](http://
 
 ## Overview
 
-Emma is a command line assistant which helps you search and install packages more quickly. Using the power of Algolia it is extremely responsive and gives you all the information you need to decide which package is the right one.
+Emma is a command line assistant which helps you search and install packages more efficiently. Algolia's responsive and interactive features gives you the information you need to find the right package.
 
 ## Features
 
