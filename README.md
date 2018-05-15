@@ -6,6 +6,7 @@
 [![npm version](https://badge.fury.io/js/emma-cli.svg)](https://badge.fury.io/js/emma-cli)
 ![npm](https://img.shields.io/npm/dt/emma-cli.svg)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo)
+[![Backers on Open Collective](https://opencollective.com/emma-cli/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/emma-cli/sponsors/badge.svg)](#sponsors) 
 
 > Install the package you are looking for.
 
@@ -63,6 +64,36 @@ Use keyboard to search through package library.
 Use up/down to select packages.
 Click enter to trigger the install.
 ```
+
+## Contributors
+
+This project exists thanks to all the people who contribute. 
+<a href="graphs/contributors"><img src="https://opencollective.com/emma-cli/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/emma-cli#backer)]
+
+<a href="https://opencollective.com/emma-cli#backers" target="_blank"><img src="https://opencollective.com/emma-cli/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/emma-cli#sponsor)]
+
+<a href="https://opencollective.com/emma-cli/sponsor/0/website" target="_blank"><img src="https://opencollective.com/emma-cli/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/emma-cli/sponsor/1/website" target="_blank"><img src="https://opencollective.com/emma-cli/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/emma-cli/sponsor/2/website" target="_blank"><img src="https://opencollective.com/emma-cli/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/emma-cli/sponsor/3/website" target="_blank"><img src="https://opencollective.com/emma-cli/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/emma-cli/sponsor/4/website" target="_blank"><img src="https://opencollective.com/emma-cli/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/emma-cli/sponsor/5/website" target="_blank"><img src="https://opencollective.com/emma-cli/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/emma-cli/sponsor/6/website" target="_blank"><img src="https://opencollective.com/emma-cli/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/emma-cli/sponsor/7/website" target="_blank"><img src="https://opencollective.com/emma-cli/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/emma-cli/sponsor/8/website" target="_blank"><img src="https://opencollective.com/emma-cli/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/emma-cli/sponsor/9/website" target="_blank"><img src="https://opencollective.com/emma-cli/sponsor/9/avatar.svg"></a>
+
+
 
 ## License
 
