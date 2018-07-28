@@ -85,7 +85,7 @@ const Package = pkg => (
 
 const Search = ({ value, onChange, onSubmit }) => (
    <div>
-      <Text bold white>
+      <Text bold>
          {`Search packages 📦  : `}
       </Text>
       <TextInput
