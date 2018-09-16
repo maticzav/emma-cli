@@ -1,60 +1,22 @@
-import childProcess from 'child_process';
-import fs from 'fs';
-import { promisify } from 'util';
 import execa from 'execa';
 import dot from 'dot-prop';
+
 import { h, Component, Text } from 'ink';
-import terminal from 'term-size';
 import TextInput from 'ink-text-input';
 import SelectInput from 'ink-select-input';
 import Spinner from 'ink-spinner';
 
-import { search } from './algolia';
+import {
+  maxCellSize,
+  shouldUseYarn,
+  notEmpty,
+  isEmpty,
+  hitsToCells
+} from './utils';
+import { getSearch } from './libs/algoliaSearch';
+import { getSuggestions } from './libs/npm-suggestions';
 
-const canAccessFile = promisify(fs.access);
-const exec = promisify(childProcess.exec);
-
-// Helpers -------------------------------------------------------------------
-
-// Terminal
-
-const maxCellSize = () => terminal().columns / 4;
-
-// Yarn
-
-const isYarnInstalled = async () => {
-  try {
-    await exec(`yarnpkg --version`, { stdio: `ignore` });
-    return true;
-  } catch (err) {
-    return false;
-  }
-};
-
-const shouldUseYarn = async () => {
-  try {
-    await canAccessFile('package-lock.json');
-    return false;
-  } catch (err) {
-    return isYarnInstalled();
-  }
-};
-
-// Additional
-
-const notEmpty = x => x.length !== 0;
-const isEmpty = x => x.length === 0;
-const getCellPadding = (pkgs, pkg) => attr => {
-  const cells = pkgs.map(_pkg => dot.get(_pkg, attr));
-
-  const cellWidth = Math.max(...cells.map(cell => (cell ? cell.length : 0)));
-
-  const cellValueWidth =
-    dot.get(pkg, attr) === null ? 0 : dot.get(pkg, attr).length;
-  const width = cellWidth - cellValueWidth;
-
-  return ` `.repeat(width);
-};
+// Emma ----------------------------------------------------------------------
 
 // Progress
 
@@ -63,7 +25,10 @@ const PROGRESS_LOADING = 1;
 const PROGRESS_LOADED = 2;
 const PROGRESS_ERROR = 3;
 
-// Emma ----------------------------------------------------------------------
+// Focused
+
+const FOCUSED_SEARCH = 0;
+const FOCUSED_SUGGESTIONS = 1;
 
 // Package
 
@@ -84,15 +49,12 @@ const Package = pkg => (
 
 // Search
 
-const Search = ({ value, onChange, onSubmit }) => (
+const Search = ({ value, onChange }) => (
   <div>
-    <Text bold>{`Search packages 📦  : `}</Text>
-    <TextInput
-      value={value}
-      onChange={onChange}
-      onSubmit={onSubmit}
-      placeholder="..."
-    />
+    <Text bold white>
+      {`Search packages 📦  : `}
+    </Text>
+    <TextInput value={value} onChange={onChange} placeholder="..." />
   </div>
 );
 
@@ -113,8 +75,9 @@ const SelectedPackages = ({ selectedPackages }) => (
     <div />
     <div>
       <Text bold white>
-        Picked:{' '}
+        Picked:
       </Text>
+      <Text grey> Press Space to install packages...</Text>
     </div>
     {selectedPackages.map(pkg => (
       <SelectedPackage key={pkg.name} pkg={pkg} />
@@ -124,22 +87,81 @@ const SelectedPackages = ({ selectedPackages }) => (
 
 // Restults
 
-const SearchResults = ({ foundPackages, onToggle, loading }) => {
+const SearchResults = ({ foundPackages, onToggle, loading, focused }) => {
+  if (loading === PROGRESS_LOADING) {
+    return (
+      <div>
+        <Text bold>
+          <Spinner red /> Fetching search
+        </Text>
+      </div>
+    );
+  }
+
+  if (loading === PROGRESS_ERROR) {
+    return <ErrorInfo err="Couldn't reach Algolia search!" />;
+  }
+
+  if (isEmpty(foundPackages)) {
+    return <NotFoundSearchInfo />;
+  }
+
   return (
     <span>
-      <SelectInput
-        items={foundPackages}
-        itemComponent={Package}
-        onSelect={onToggle}
-      />
-      {isEmpty(foundPackages) && <NotFoundInfo />}
-      <AlgoliaInfo />
-      {loading === PROGRESS_LOADING && (
-        <div>
-          <Text bold>
-            <Spinner red /> Fetching
-          </Text>
-        </div>
+      <div>
+        <Text bold white>
+          Search results:
+        </Text>
+        {!focused && <Text grey> Press Tab to select search results</Text>}
+      </div>
+      {focused ? (
+        <SelectInput
+          items={foundPackages}
+          itemComponent={Package}
+          onSelect={onToggle}
+        />
+      ) : (
+        foundPackages.map(pkg => <div> {Package(pkg)}</div>)
+      )}
+    </span>
+  );
+};
+
+const SuggestionsResults = ({ foundPackages, onToggle, loading, focused }) => {
+  if (loading === PROGRESS_LOADING) {
+    return (
+      <div>
+        <Text bold>
+          <Spinner red /> Fetching suggestions
+        </Text>
+      </div>
+    );
+  }
+
+  if (loading === PROGRESS_ERROR) {
+    return <ErrorInfo err="Couldn't get suggestions!" />;
+  }
+
+  if (isEmpty(foundPackages)) {
+    return <NotFoundSuggestionsInfo />;
+  }
+
+  return (
+    <span>
+      <div>
+        <Text bold white>
+          Suggestions results:
+        </Text>
+        {!focused && <Text grey> Press Tab to select suggestions</Text>}
+      </div>
+      {focused ? (
+        <SelectInput
+          items={foundPackages}
+          itemComponent={Package}
+          onSelect={onToggle}
+        />
+      ) : (
+        foundPackages.map(pkg => <div> {Package(pkg)}</div>)
       )}
     </span>
   );
@@ -147,29 +169,37 @@ const SearchResults = ({ foundPackages, onToggle, loading }) => {
 
 // Info
 
-const SearchInfo = () => (
+const EmptyQuery = () => (
   <div>
     <Text grey>Try typing in to search the database.</Text>
   </div>
 );
 
-const InstallInfo = () => (
+const NoSelectedPackages = () => (
   <div>
-    <Text grey>Press enter to install all of your packages.</Text>
+    <Text grey>Select packages to get suggestions.</Text>
   </div>
 );
 
-const NotFoundInfo = () => (
+const NotFoundSearchInfo = () => (
   <div>
     <Text grey>
-      {`We couldn't find any package that would match your input...`}
+      We couldn't find any package that would match your input...
     </Text>
   </div>
 );
 
-const ErrorInfo = () => (
+const NotFoundSuggestionsInfo = () => (
   <div>
-    <Text red>Check your internet connection.</Text>
+    <Text grey>
+      We couldn't suggest any package that would match your picked packages...
+    </Text>
+  </div>
+);
+
+const ErrorInfo = ({ err }) => (
+  <div>
+    <Text red>Error: {err}</Text>
   </div>
 );
 
@@ -189,37 +219,67 @@ class Emma extends Component {
 
     this.state = {
       query: '',
-      foundPackages: [],
+      foundSearchPackages: [],
+      foundSuggestionsPackages: [],
       selectedPackages: [],
-      loading: PROGRESS_NOT_LOADED
+      loadingSearch: PROGRESS_NOT_LOADED,
+      loadingSuggestions: PROGRESS_NOT_LOADED,
+      focused: FOCUSED_SEARCH
     };
 
+    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleQueryChange = this.handleQueryChange.bind(this);
     this.handleInstall = this.handleInstall.bind(this);
     this.handleTogglePackage = this.handleTogglePackage.bind(this);
   }
 
+  componentDidMount() {
+    process.stdin.on('keypress', this.handleKeyPress);
+  }
+
+  componentWillUnmount() {
+    process.stdin.removeListener('keypress', this.handleKeyPress);
+  }
+
   render() {
-    const { query, foundPackages, selectedPackages, loading } = this.state;
+    const {
+      query,
+      foundSearchPackages,
+      foundSuggestionsPackages,
+      selectedPackages,
+      loadingSearch,
+      loadingSuggestions,
+      focused
+    } = this.state;
 
     return (
       <div>
         <Search
           value={query}
           onChange={this.handleQueryChange}
-          onSubmit={this.handleInstall}
-          loading={loading}
+          loading={loadingSearch}
         />
-        {loading === PROGRESS_NOT_LOADED && <SearchInfo />}
-        {isEmpty(query) && <InstallInfo />}
-        {loading === PROGRESS_ERROR && <ErrorInfo />}
-        {notEmpty(query) && (
+        {isEmpty(query) ? (
+          <EmptyQuery />
+        ) : (
           <SearchResults
-            foundPackages={foundPackages}
+            foundPackages={foundSearchPackages}
             onToggle={this.handleTogglePackage}
-            loading={loading}
+            loading={loadingSearch}
+            focused={focused === FOCUSED_SEARCH}
           />
         )}
+        {isEmpty(selectedPackages) ? (
+          <NoSelectedPackages />
+        ) : (
+          <SuggestionsResults
+            foundPackages={foundSuggestionsPackages}
+            onToggle={this.handleTogglePackage}
+            loading={loadingSuggestions}
+            focused={focused === FOCUSED_SUGGESTIONS}
+          />
+        )}
+        <AlgoliaInfo />
         {notEmpty(selectedPackages) && (
           <SelectedPackages selectedPackages={selectedPackages} />
         )}
@@ -227,83 +287,112 @@ class Emma extends Component {
     );
   }
 
+  handleKeyPress(_, key) {
+    const {
+      focused,
+      foundSearchPackages,
+      query,
+      foundSuggestionsPackages
+    } = this.state;
+
+    switch (key.name) {
+      case 'tab':
+        if (focused === FOCUSED_SEARCH && notEmpty(foundSuggestionsPackages)) {
+          this.setState({
+            focused: FOCUSED_SUGGESTIONS
+          });
+        } else if (
+          focused === FOCUSED_SUGGESTIONS &&
+          notEmpty(foundSearchPackages) &&
+          notEmpty(query)
+        ) {
+          this.setState({
+            focused: FOCUSED_SEARCH
+          });
+        }
+        break;
+      case 'space':
+        this.handleInstall();
+        break;
+      default:
+        break;
+    }
+  }
+
   async handleQueryChange(query) {
+    //check if tab or space have been pressed
+    if (/\s/g.test(query)) {
+      return;
+    }
+
     this.setState({
       query,
-      loading: PROGRESS_LOADING
+      loadingSearch: PROGRESS_LOADING,
+      focused: FOCUSED_SEARCH
     });
 
     try {
-      const res = await this.fetchPackages(query);
+      const hits = await getSearch(query);
+      const cells = hitsToCells(hits);
 
       if (this.state.query === query) {
         this.setState({
-          foundPackages: res,
-          loading: PROGRESS_LOADED
+          foundSearchPackages: cells,
+          loadingSearch: PROGRESS_LOADED
         });
       }
     } catch (err) {
       this.setState({
-        loading: PROGRESS_ERROR
+        loadingSearch: PROGRESS_ERROR
       });
     }
   }
 
-  async fetchPackages(query) {
-    const res = await search({
-      query,
-      attributesToRetrieve: [
-        'name',
-        'version',
-        'description',
-        'owner',
-        'humanDownloadsLast30Days'
-      ],
-      offset: 0,
-      length: 5
-    });
+  async handleTogglePackage(pkg) {
+    const { selectedPackages: selectedPackagesOld, focused } = this.state;
+    const { dev: isDev } = this.props;
 
-    const { hits } = res;
-    const packages = hits.map(hit => ({
-      ...hit,
-      _cell: getCellPadding(hits, hit)
-    }));
-
-    return packages;
-  }
-
-  handleTogglePackage(pkg) {
-    const { selectedPackages, loading } = this.state;
-
-    if (loading !== PROGRESS_LOADED) {
-      return;
+    if (focused === FOCUSED_SEARCH) {
+      this.setState({
+        query: ''
+      });
     }
 
-    const exists = selectedPackages.some(
+    const exists = selectedPackagesOld.some(
       ({ objectID }) => objectID === pkg.objectID
     );
 
-    if (exists) {
+    const selectedPackages = exists
+      ? selectedPackagesOld.filter(({ objectID }) => objectID !== pkg.objectID)
+      : [...selectedPackagesOld, pkg];
+
+    this.setState({
+      query: '',
+      selectedPackages,
+      focused: FOCUSED_SUGGESTIONS,
+      loadingSuggestions: PROGRESS_LOADING
+    });
+
+    try {
+      const hits = await getSuggestions(
+        selectedPackages.map(selectedPackage => selectedPackage.name),
+        isDev
+      );
+      const cells = hitsToCells(hits);
+
       this.setState({
-        query: '',
-        selectedPackages: selectedPackages.filter(
-          ({ objectID }) => objectID !== pkg.objectID
-        )
+        foundSuggestionsPackages: cells,
+        loadingSuggestions: PROGRESS_LOADED
       });
-    } else {
+    } catch (err) {
       this.setState({
-        query: '',
-        selectedPackages: [...selectedPackages, pkg]
+        loadingSuggestions: PROGRESS_ERROR
       });
     }
   }
 
   async handleInstall() {
-    const { query, selectedPackages } = this.state;
-
-    if (notEmpty(query)) {
-      return;
-    }
+    const { selectedPackages } = this.state;
 
     if (isEmpty(selectedPackages)) {
       this.props.onExit();
