@@ -30,6 +30,55 @@ const PROGRESS_ERROR = 3;
 const FOCUSED_SEARCH = 0;
 const FOCUSED_SUGGESTIONS = 1;
 
+// Info
+
+const EmptyQuery = () => (
+  <div>
+    <Text grey>{'Try typing in to search the database.'}</Text>
+  </div>
+);
+
+const NoSelectedPackages = () => (
+  <div>
+    <Text grey>{'Select packages to get suggestions.'}</Text>
+  </div>
+);
+
+const NotFoundSearchInfo = () => (
+  <div>
+    <Text grey>
+      {"We couldn't find any package that would match your input..."}
+    </Text>
+  </div>
+);
+
+const NotFoundSuggestionsInfo = () => (
+  <div>
+    <Text grey>
+      {
+        "We couldn't suggest any package that would match your picked packages..."
+      }
+    </Text>
+  </div>
+);
+
+const ErrorInfo = ({ err }) => (
+  <div>
+    <Text red>
+      {'Error: '}
+      {err}
+    </Text>
+  </div>
+);
+
+const AlgoliaInfo = () => (
+  <div>
+    <Text>{'Search powered by'}</Text>
+    <Text blue>{' Algolia'}</Text>
+    <Text>{'.'}</Text>
+  </div>
+);
+
 // Package
 
 const PackageAttribute = ({ pkg, attr, ...props }) => (
@@ -158,55 +207,6 @@ const SuggestionsResults = ({ foundPackages, onToggle, loading, focused }) => {
     </span>
   );
 };
-
-// Info
-
-const EmptyQuery = () => (
-  <div>
-    <Text grey>{'Try typing in to search the database.'}</Text>
-  </div>
-);
-
-const NoSelectedPackages = () => (
-  <div>
-    <Text grey>{'Select packages to get suggestions.'}</Text>
-  </div>
-);
-
-const NotFoundSearchInfo = () => (
-  <div>
-    <Text grey>
-      {"We couldn't find any package that would match your input..."}
-    </Text>
-  </div>
-);
-
-const NotFoundSuggestionsInfo = () => (
-  <div>
-    <Text grey>
-      {
-        "We couldn't suggest any package that would match your picked packages..."
-      }
-    </Text>
-  </div>
-);
-
-const ErrorInfo = ({ err }) => (
-  <div>
-    <Text red>
-      {'Error: '}
-      {err}
-    </Text>
-  </div>
-);
-
-const AlgoliaInfo = () => (
-  <div>
-    <Text>{'Search powered by'}</Text>
-    <Text blue>{' Algolia'}</Text>
-    <Text>{'.'}</Text>
-  </div>
-);
 
 // Emma
 
