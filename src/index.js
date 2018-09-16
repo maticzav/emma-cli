@@ -27,7 +27,9 @@ const cli = meow(
    Run without package-name to enter live search.
    Use keyboard to search through package library.
    Use up/down to select packages.
-   Click enter to trigger the install.   
+   Use enter to select a package.
+   Use tab to move between search/suggestions.
+   Click space to trigger the install.   
 `,
   {
     flags: {
