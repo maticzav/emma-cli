@@ -128,7 +128,13 @@ const SelectedPackages = ({ selectedPackages }) => (
 
 // Restults
 
-const SearchResults = ({ foundPackages, onToggle, loading, focused }) => {
+const SearchResults = ({
+  foundPackages,
+  onToggle,
+  loading,
+  loadingBackground,
+  focused,
+}) => {
   if (loading === PROGRESS_LOADING) {
     return (
       <div>
@@ -144,7 +150,7 @@ const SearchResults = ({ foundPackages, onToggle, loading, focused }) => {
     return <ErrorInfo err="Couldn't reach Algolia search!" />
   }
 
-  if (isEmpty(foundPackages)) {
+  if (isEmpty(foundPackages) && !loadingBackground) {
     return <NotFoundSearchInfo />
   }
 
@@ -218,6 +224,7 @@ class Emma extends Component {
       foundSuggestionsPackages: [],
       selectedPackages: [],
       loadingSearch: PROGRESS_NOT_LOADED,
+      loadingSearchBackground: false,
       loadingSuggestions: PROGRESS_NOT_LOADED,
       focused: FOCUSED_SEARCH,
     }
@@ -245,6 +252,7 @@ class Emma extends Component {
       foundSuggestionsPackages,
       selectedPackages,
       loadingSearch,
+      loadingSearchBackground,
       loadingSuggestions,
       focused,
     } = this.state
@@ -263,6 +271,7 @@ class Emma extends Component {
             foundPackages={foundSearchPackages}
             onToggle={this.handleTogglePackage}
             loading={loadingSearch}
+            loadingBackground={loadingSearchBackground}
             focused={focused === FOCUSED_SEARCH}
           />
         )}
@@ -351,26 +360,40 @@ class Emma extends Component {
 
   async fetchSearch() {
     const { query } = this.state
-    const { limit, dev } = this.props
+    const { limit } = this.props
 
     this.setState({
       focused: FOCUSED_SEARCH,
-      loadingSearch: PROGRESS_LOADING,
+      loadingSearchBackground: true,
     })
+
+    setTimeout(() => {
+      if (this.state.loadingSearchBackground) {
+        this.setState({
+          loadingSearch: PROGRESS_LOADING,
+          loadingSearchBackground: false,
+        })
+      }
+    }, 1500)
 
     try {
       const hits = await getSearch(query, limit)
       const cells = hitsToCells(hits)
 
+      this.setState({
+        loadingSearch: PROGRESS_LOADED,
+        loadingSearchBackground: false,
+      })
+
       if (this.state.query === query) {
         this.setState({
           foundSearchPackages: cells,
-          loadingSearch: PROGRESS_LOADED,
         })
       }
     } catch (err) {
       this.setState({
-        loadingSearch: PROGRESS_ERROR,
+        loadingSearchBackground: PROGRESS_ERROR,
+        loadingSearchBackground: false,
       })
     }
   }
