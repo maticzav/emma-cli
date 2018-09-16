@@ -26,7 +26,7 @@ export const suggestionsQuery = gql`
           name
         }
         humanDownloadsLast30Days
-        popular
+        objectID
       }
       devSuggestions {
         name
@@ -36,7 +36,7 @@ export const suggestionsQuery = gql`
           name
         }
         humanDownloadsLast30Days
-        popular
+        objectID
       }
     }
   }

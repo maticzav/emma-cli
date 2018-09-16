@@ -228,6 +228,8 @@ class Emma extends Component {
     this.handleQueryChange = this.handleQueryChange.bind(this);
     this.handleInstall = this.handleInstall.bind(this);
     this.handleTogglePackage = this.handleTogglePackage.bind(this);
+    this.fetchSearch = this.fetchSearch.bind(this);
+    this.fetchSuggestions = this.fetchSuggestions.bind(this);
   }
 
   componentDidMount() {
@@ -284,12 +286,13 @@ class Emma extends Component {
     );
   }
 
-  handleKeyPress(_, key) {
+  async handleKeyPress(_, key) {
     const {
-      focused,
-      foundSearchPackages,
       query,
-      foundSuggestionsPackages
+      foundSearchPackages,
+      foundSuggestionsPackages,
+      selectedPackages,
+      focused
     } = this.state;
 
     switch (key.name) {
@@ -308,9 +311,20 @@ class Emma extends Component {
           });
         }
         break;
+
       case 'space':
         this.handleInstall();
         break;
+
+      case 'backspace':
+        if (isEmpty(query)) {
+          await this.setState({
+            selectedPackages: selectedPackages.slice(0, -1)
+          });
+
+          this.fetchSuggestions();
+        }
+
       default:
         break;
     }
@@ -322,10 +336,46 @@ class Emma extends Component {
       return;
     }
 
+    if (isEmpty(query)) {
+      this.setState({
+        query,
+        focused: FOCUSED_SUGGESTIONS
+      });
+      return;
+    }
+
+    await this.setState({
+      query
+    });
+
+    this.fetchSearch();
+  }
+
+  async handleTogglePackage(pkg) {
+    const { selectedPackages: selectedPackagesOld } = this.state;
+
+    const exists = selectedPackagesOld.some(
+      ({ objectID }) => objectID === pkg.objectID
+    );
+
+    if (exists) {
+      return;
+    }
+
+    await this.setState({
+      query: '',
+      selectedPackages: [...selectedPackagesOld, pkg]
+    });
+
+    this.fetchSuggestions();
+  }
+
+  async fetchSearch() {
+    const { query } = this.state;
+
     this.setState({
-      query,
-      loadingSearch: PROGRESS_LOADING,
-      focused: FOCUSED_SEARCH
+      focused: FOCUSED_SEARCH,
+      loadingSearch: PROGRESS_LOADING
     });
 
     try {
@@ -345,27 +395,11 @@ class Emma extends Component {
     }
   }
 
-  async handleTogglePackage(pkg) {
-    const { selectedPackages: selectedPackagesOld, focused } = this.state;
+  async fetchSuggestions() {
+    const { selectedPackages } = this.state;
     const { dev: isDev } = this.props;
 
-    if (focused === FOCUSED_SEARCH) {
-      this.setState({
-        query: ''
-      });
-    }
-
-    const exists = selectedPackagesOld.some(
-      ({ objectID }) => objectID === pkg.objectID
-    );
-
-    const selectedPackages = exists
-      ? selectedPackagesOld.filter(({ objectID }) => objectID !== pkg.objectID)
-      : [...selectedPackagesOld, pkg];
-
     this.setState({
-      query: '',
-      selectedPackages,
       focused: FOCUSED_SUGGESTIONS,
       loadingSuggestions: PROGRESS_LOADING
     });

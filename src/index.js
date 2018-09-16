@@ -29,6 +29,7 @@ const cli = meow(
    Use up/down to select packages.
    Use enter to select a package.
    Use tab to move between search/suggestions.
+   When query is empty use backspace to remove packages.
    Click space to trigger the install.   
 `,
   {
