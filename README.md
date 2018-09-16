@@ -11,7 +11,7 @@
 
 Powered by [Algolia search API](https://www.algolia.com/), [npm-suggestions](https://github.com/JureSotosek/npm-suggestions) and the [Yarn](http://yarnpkg.com/) package manager.
 
-<p align="center"><img src="media/example.gif" width="620" /></p>
+<p align="center"><img src="media/newExample.gif" width="620" /></p>
 
 ## Overview
 
