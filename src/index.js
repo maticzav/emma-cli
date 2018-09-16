@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
-import meow from 'meow';
-import { h, render } from 'ink';
-import updateNotifier from 'update-notifier';
+import meow from 'meow'
+import { h, render } from 'ink'
+import updateNotifier from 'update-notifier'
 
-import emma from './emma';
+import emma from './emma'
 
 // Notify updater
-const pkg = require(`../package.json`);
+const pkg = require(`../package.json`)
 
-updateNotifier({ pkg }).notify();
+updateNotifier({ pkg }).notify()
 
 // CLI
 
@@ -37,34 +37,34 @@ const cli = meow(
     flags: {
       dev: {
         type: 'boolean',
-        alias: 'D'
+        alias: 'D',
       },
       limit: {
         type: 'string',
         alias: 'L',
-        default: '5'
-      }
-    }
-  }
-);
+        default: '5',
+      },
+    },
+  },
+)
 
 const main = () => {
-  let unmount; // eslint-disable-line prefer-const
+  let unmount // eslint-disable-line prefer-const
 
   const onError = () => {
-    unmount();
-    process.exit(1);
-  };
+    unmount()
+    process.exit(1)
+  }
 
   const onExit = () => {
-    unmount();
-    process.exit();
-  };
+    unmount()
+    process.exit()
+  }
 
-  const { dev, limit } = cli.flags;
+  const { dev, limit } = cli.flags
 
   // Uses `h` instead of JSX to avoid transpiling this file
-  unmount = render(h(emma, { dev, limit, onError, onExit }));
-};
+  unmount = render(h(emma, { dev, limit, onError, onExit }))
+}
 
-main();
+main()

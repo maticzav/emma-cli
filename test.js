@@ -1,14 +1,8 @@
-import test from 'ava';
-import { search } from './dist/algolia';
+import test from 'ava'
+import { getSearch } from './dist/libs/algoliaSearch'
 
 test('Algolia search', async t => {
-  const res = await search({
-    query: 'graphql-shield',
-    attributesToRetrieve: ['name'],
-    attributesToHighlight: [],
-    offset: 0,
-    length: 1
-  });
+  const hits = await getSearch('graphql-shield')
 
-  t.is(res.hits[0].name, 'graphql-shield');
-});
+  t.is(hits[0].name, 'graphql-shield')
+})
