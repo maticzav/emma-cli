@@ -36,15 +36,23 @@ Use Yarn or NPM to install.
 
 ```bash
 ❯ emma-cli ~ emma
-Search packages 📦  : graphql
-❯ 2m     graphql          graphql         A Query Language and Runtime which can target any service.
-  176    graph.ql         MatthewMueller  Faster and simpler technique for creating and querying Grap
-  971.6k @types/graphql   DefinitelyTyped TypeScript definitions for graphql
-  950.5k graphql-tag      apollostack     A JavaScript template literal tag that parses GraphQL queri
-  790.2k graphql-anywhere apollographql   Run GraphQL queries with no schema and just one resolver
+Search packages 📦  : grap
+Search results:
+  11   grap           loopingrage     Utility that GReps for gAPs and out of sequence line in log
+  8.4m sass-graph     xzyfer          Parse sass files and extract a graph of imports
+  3.7m @types/graphql DefinitelyTyped TypeScript definitions for graphql
+❯ 2.9m graphql        graphql         A Query Language and Runtime which can target any service.
+  1.8m graphlib       dagrejs         A directed and undirected multi-graph library
+Suggestions results: Press Tab to select suggestions
+  10.2m react-dom  facebook  React package for working with the DOM.
+  14.6m prop-types facebook  Runtime type checking for React props and similar objects.
+  7m    classnames JedWatson A simple utility for conditionally joining classNames toget
+  65.3m lodash     lodash    Lodash modular utilities.
+  7.2m  redux      reactjs   Predictable state container for JavaScript apps
+Search powered by Algolia.
 
-Picked:
-› ava  0.25.0
+Picked: Press Space to install packages...
+› react  16.5.1
 ```
 
 ## API
