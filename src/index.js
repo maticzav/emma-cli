@@ -1,19 +1,20 @@
 #!/usr/bin/env node
 
-import meow from 'meow'
-import { h, render } from 'ink'
-import updateNotifier from 'update-notifier'
+import meow from 'meow';
+import { h, render } from 'ink';
+import updateNotifier from 'update-notifier';
 
-import emma from './emma'
+import emma from './emma';
 
 // Notify updater
-const pkg = require(`../package.json`)
+const pkg = require(`../package.json`);
 
-updateNotifier({ pkg }).notify()
+updateNotifier({ pkg }).notify();
 
 // CLI
 
-const cli = meow(`
+const cli = meow(
+  `
    Usage
      $ emma
 
@@ -27,32 +28,34 @@ const cli = meow(`
    Use keyboard to search through package library.
    Use up/down to select packages.
    Click enter to trigger the install.   
-`, {
-   flags: {
+`,
+  {
+    flags: {
       dev: {
-         type: 'boolean',
-         alias: 'D'
+        type: 'boolean',
+        alias: 'D'
       }
-   }
-})
+    }
+  }
+);
 
 const main = () => {
-   let unmount // eslint-disable-line prefer-const
+  let unmount; // eslint-disable-line prefer-const
 
-   const onError = () => {
-      unmount()
-      process.exit(1)
-   }
+  const onError = () => {
+    unmount();
+    process.exit(1);
+  };
 
-   const onExit = () => {
-      unmount()
-      process.exit()
-   }
+  const onExit = () => {
+    unmount();
+    process.exit();
+  };
 
-   const { dev } = cli.flags
+  const { dev } = cli.flags;
 
-   // Uses `h` instead of JSX to avoid transpiling this file
-   unmount = render(h(emma, { dev, onError, onExit }))
-}
+  // Uses `h` instead of JSX to avoid transpiling this file
+  unmount = render(h(emma, { dev, onError, onExit }));
+};
 
-main()
+main();

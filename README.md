@@ -6,7 +6,7 @@
 [![npm version](https://badge.fury.io/js/emma-cli.svg)](https://badge.fury.io/js/emma-cli)
 ![npm](https://img.shields.io/npm/dt/emma-cli.svg)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo)
-[![Backers on Open Collective](https://opencollective.com/emma-cli/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/emma-cli/sponsors/badge.svg)](#sponsors) 
+[![Backers on Open Collective](https://opencollective.com/emma-cli/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/emma-cli/sponsors/badge.svg)](#sponsors)
 
 > Install the package you are looking for.
 
@@ -20,9 +20,9 @@ Emma is a command line assistant which helps you search and install packages mor
 
 ## Features
 
-- __Extremely fast:__ Search all the packages from NPM and Yarn using your terminal.
-- __Build the stack:__ Search for multiple packages and install them with one keystroke.
-- __Automatic tool detection:__ Detects whether it should use Yarn or NPM, out of the box.
+- **Extremely fast:** Search all the packages from NPM and Yarn using your terminal.
+- **Build the stack:** Search for multiple packages and install them with one keystroke.
+- **Automatic tool detection:** Detects whether it should use Yarn or NPM, out of the box.
 
 ## Install
 
@@ -51,13 +51,13 @@ Picked:
 
 ```md
 Usage
-   $ emma
+$ emma
 
 Example
-   $ emma -D
+$ emma -D
 
 Options
-   --dev -D      Add to dev dependencies.
+--dev -D Add to dev dependencies.
 
 Run without package-name to enter live search.
 Use keyboard to search through package library.
@@ -67,16 +67,14 @@ Click enter to trigger the install.
 
 ## Contributors
 
-This project exists thanks to all the people who contribute. 
+This project exists thanks to all the people who contribute.
 <a href="graphs/contributors"><img src="https://opencollective.com/emma-cli/contributors.svg?width=890&button=false" /></a>
-
 
 ## Backers
 
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/emma-cli#backer)]
 
 <a href="https://opencollective.com/emma-cli#backers" target="_blank"><img src="https://opencollective.com/emma-cli/backers.svg?width=890"></a>
-
 
 ## Sponsors
 
@@ -92,8 +90,6 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a href="https://opencollective.com/emma-cli/sponsor/7/website" target="_blank"><img src="https://opencollective.com/emma-cli/sponsor/7/avatar.svg"></a>
 <a href="https://opencollective.com/emma-cli/sponsor/8/website" target="_blank"><img src="https://opencollective.com/emma-cli/sponsor/8/avatar.svg"></a>
 <a href="https://opencollective.com/emma-cli/sponsor/9/website" target="_blank"><img src="https://opencollective.com/emma-cli/sponsor/9/avatar.svg"></a>
-
-
 
 ## License
 

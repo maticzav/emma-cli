@@ -1,340 +1,335 @@
-import childProcess from 'child_process'
-import fs from 'fs'
-import { promisify } from 'util'
-import execa from 'execa'
-import dot from 'dot-prop'
-import { h, Component, Text } from 'ink'
-import terminal from 'term-size'
-import TextInput from 'ink-text-input'
-import SelectInput from 'ink-select-input'
-import Spinner from 'ink-spinner'
+import childProcess from 'child_process';
+import fs from 'fs';
+import { promisify } from 'util';
+import execa from 'execa';
+import dot from 'dot-prop';
+import { h, Component, Text } from 'ink';
+import terminal from 'term-size';
+import TextInput from 'ink-text-input';
+import SelectInput from 'ink-select-input';
+import Spinner from 'ink-spinner';
 
-import { search } from './algolia'
+import { search } from './algolia';
 
-const canAccessFile = promisify(fs.access)
-const exec = promisify(childProcess.exec)
+const canAccessFile = promisify(fs.access);
+const exec = promisify(childProcess.exec);
 
 // Helpers -------------------------------------------------------------------
 
 // Terminal
 
-const maxCellSize = () => terminal().columns / 4
+const maxCellSize = () => terminal().columns / 4;
 
 // Yarn
 
 const isYarnInstalled = async () => {
-   try {
-      await exec(`yarnpkg --version`, { stdio: `ignore` })
-      return true
-   } catch (err) {
-      return false
-   }
-}
+  try {
+    await exec(`yarnpkg --version`, { stdio: `ignore` });
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
 
 const shouldUseYarn = async () => {
-   try {
-      await canAccessFile('package-lock.json')
-      return false
-   } catch (err) {
-      return isYarnInstalled()
-   }
-}
+  try {
+    await canAccessFile('package-lock.json');
+    return false;
+  } catch (err) {
+    return isYarnInstalled();
+  }
+};
 
 // Additional
 
-const notEmpty = x => x.length !== 0
-const isEmpty = x => x.length === 0
+const notEmpty = x => x.length !== 0;
+const isEmpty = x => x.length === 0;
 const getCellPadding = (pkgs, pkg) => attr => {
-   const cells = pkgs.map(_pkg => dot.get(_pkg, attr))
+  const cells = pkgs.map(_pkg => dot.get(_pkg, attr));
 
-   const cellWidth = Math.max(...cells.map(cell => cell ? cell.length : 0))
+  const cellWidth = Math.max(...cells.map(cell => (cell ? cell.length : 0)));
 
-   const cellValueWidth = dot.get(pkg, attr) === null ? 0 : dot.get(pkg, attr).length
-   const width = cellWidth - cellValueWidth
+  const cellValueWidth =
+    dot.get(pkg, attr) === null ? 0 : dot.get(pkg, attr).length;
+  const width = cellWidth - cellValueWidth;
 
-   return ` `.repeat(width)
-}
+  return ` `.repeat(width);
+};
 
 // Progress
 
-const PROGRESS_NOT_LOADED = 0
-const PROGRESS_LOADING = 1
-const PROGRESS_LOADED = 2
-const PROGRESS_ERROR = 3
+const PROGRESS_NOT_LOADED = 0;
+const PROGRESS_LOADING = 1;
+const PROGRESS_LOADED = 2;
+const PROGRESS_ERROR = 3;
 
 // Emma ----------------------------------------------------------------------
 
 // Package
 
 const PackageAttribute = ({ pkg, attr, ...props }) => (
-   <Text {...props}>
-      {`${dot.get(pkg, attr)} ${pkg._cell(attr)}`.slice(0, maxCellSize())}
-   </Text>
-)
+  <Text {...props}>
+    {`${dot.get(pkg, attr)} ${pkg._cell(attr)}`.slice(0, maxCellSize())}
+  </Text>
+);
 
 const Package = pkg => (
-   <Text>
-      <PackageAttribute pkg={pkg} attr="humanDownloadsLast30Days"/>
-      <PackageAttribute pkg={pkg} attr="name" blueBright bold/>
-      <PackageAttribute pkg={pkg} attr="owner.name" cyan/>
-      <PackageAttribute pkg={pkg} attr="description" bold/>
-   </Text>
-)
+  <Text>
+    <PackageAttribute pkg={pkg} attr="humanDownloadsLast30Days" />
+    <PackageAttribute pkg={pkg} attr="name" blueBright bold />
+    <PackageAttribute pkg={pkg} attr="owner.name" cyan />
+    <PackageAttribute pkg={pkg} attr="description" bold />
+  </Text>
+);
 
 // Search
 
 const Search = ({ value, onChange, onSubmit }) => (
-   <div>
-      <Text bold>
-         {`Search packages 📦  : `}
-      </Text>
-      <TextInput
-         value={value}
-         onChange={onChange}
-         onSubmit={onSubmit}
-         placeholder="..."
-      />
-   </div>
-)
+  <div>
+    <Text bold>{`Search packages 📦  : `}</Text>
+    <TextInput
+      value={value}
+      onChange={onChange}
+      onSubmit={onSubmit}
+      placeholder="..."
+    />
+  </div>
+);
 
 // Overview
 
 const SelectedPackage = ({ pkg }) => (
-   <div>
-      <Text magenta>
-         {` ›`}
-      </Text>
-      <Text bold white>
-         {` ${pkg.name} `}
-      </Text>
-      <Text grey>
-         {` ${pkg.version} `}
-      </Text>
-   </div>
-)
+  <div>
+    <Text magenta>{` ›`}</Text>
+    <Text bold white>
+      {` ${pkg.name} `}
+    </Text>
+    <Text grey>{` ${pkg.version} `}</Text>
+  </div>
+);
 
 const SelectedPackages = ({ selectedPackages }) => (
-   <div>
-      <div/>
-      <div>
-         <Text bold white>Picked: </Text>
-      </div>
-      {selectedPackages.map(pkg => (
-         <SelectedPackage key={pkg.name} pkg={pkg}/>
-      ))}
-   </div>
-)
+  <div>
+    <div />
+    <div>
+      <Text bold white>
+        Picked:{' '}
+      </Text>
+    </div>
+    {selectedPackages.map(pkg => (
+      <SelectedPackage key={pkg.name} pkg={pkg} />
+    ))}
+  </div>
+);
 
 // Restults
 
 const SearchResults = ({ foundPackages, onToggle, loading }) => {
-   return (
-      <span>
-         <SelectInput
-            items={foundPackages}
-            itemComponent={Package}
-            onSelect={onToggle}
-         />
-         {isEmpty(foundPackages) && (
-            <NotFoundInfo/>
-         )}
-         <AlgoliaInfo/>
-         {loading === PROGRESS_LOADING && (
-            <div>
-               <Text bold>
-                  <Spinner red/> Fetching
-               </Text>
-            </div>
-         )}
-      </span>
-   )
-}
+  return (
+    <span>
+      <SelectInput
+        items={foundPackages}
+        itemComponent={Package}
+        onSelect={onToggle}
+      />
+      {isEmpty(foundPackages) && <NotFoundInfo />}
+      <AlgoliaInfo />
+      {loading === PROGRESS_LOADING && (
+        <div>
+          <Text bold>
+            <Spinner red /> Fetching
+          </Text>
+        </div>
+      )}
+    </span>
+  );
+};
 
 // Info
 
 const SearchInfo = () => (
-   <div>
-      <Text grey>Try typing in to search the database.</Text>
-   </div>
-)
+  <div>
+    <Text grey>Try typing in to search the database.</Text>
+  </div>
+);
 
 const InstallInfo = () => (
-   <div>
-      <Text grey>Press enter to install all of your packages.</Text>
-   </div>
-)
+  <div>
+    <Text grey>Press enter to install all of your packages.</Text>
+  </div>
+);
 
 const NotFoundInfo = () => (
-   <div>
-      <Text grey>
-         {`We couldn't find any package that would match your input...`}
-      </Text>
-   </div>
-)
+  <div>
+    <Text grey>
+      {`We couldn't find any package that would match your input...`}
+    </Text>
+  </div>
+);
 
 const ErrorInfo = () => (
-   <div>
-      <Text red>Check your internet connection.</Text>
-   </div>
-)
+  <div>
+    <Text red>Check your internet connection.</Text>
+  </div>
+);
 
 const AlgoliaInfo = () => (
-   <div>
-      <Text>Search powered by</Text>
-      <Text blue> Algolia</Text>
-      <Text>.</Text>
-   </div>
-)
+  <div>
+    <Text>Search powered by</Text>
+    <Text blue> Algolia</Text>
+    <Text>.</Text>
+  </div>
+);
 
 // Emma
 
 class Emma extends Component {
-   constructor(props) {
-      super(props)
+  constructor(props) {
+    super(props);
 
-      this.state = {
-         query: '',
-         foundPackages: [],
-         selectedPackages: [],
-         loading: PROGRESS_NOT_LOADED
+    this.state = {
+      query: '',
+      foundPackages: [],
+      selectedPackages: [],
+      loading: PROGRESS_NOT_LOADED
+    };
+
+    this.handleQueryChange = this.handleQueryChange.bind(this);
+    this.handleInstall = this.handleInstall.bind(this);
+    this.handleTogglePackage = this.handleTogglePackage.bind(this);
+  }
+
+  render() {
+    const { query, foundPackages, selectedPackages, loading } = this.state;
+
+    return (
+      <div>
+        <Search
+          value={query}
+          onChange={this.handleQueryChange}
+          onSubmit={this.handleInstall}
+          loading={loading}
+        />
+        {loading === PROGRESS_NOT_LOADED && <SearchInfo />}
+        {isEmpty(query) && <InstallInfo />}
+        {loading === PROGRESS_ERROR && <ErrorInfo />}
+        {notEmpty(query) && (
+          <SearchResults
+            foundPackages={foundPackages}
+            onToggle={this.handleTogglePackage}
+            loading={loading}
+          />
+        )}
+        {notEmpty(selectedPackages) && (
+          <SelectedPackages selectedPackages={selectedPackages} />
+        )}
+      </div>
+    );
+  }
+
+  async handleQueryChange(query) {
+    this.setState({
+      query,
+      loading: PROGRESS_LOADING
+    });
+
+    try {
+      const res = await this.fetchPackages(query);
+
+      if (this.state.query === query) {
+        this.setState({
+          foundPackages: res,
+          loading: PROGRESS_LOADED
+        });
       }
-
-      this.handleQueryChange = this.handleQueryChange.bind(this)
-      this.handleInstall = this.handleInstall.bind(this)
-      this.handleTogglePackage = this.handleTogglePackage.bind(this)
-   }
-
-   render() {
-      const { query, foundPackages, selectedPackages, loading } = this.state
-
-      return (
-         <div>
-            <Search
-               value={query}
-               onChange={this.handleQueryChange}
-               onSubmit={this.handleInstall}
-               loading={loading}
-            />
-            {loading === PROGRESS_NOT_LOADED && <SearchInfo/>}
-            {isEmpty(query) && <InstallInfo/>}
-            {loading === PROGRESS_ERROR && <ErrorInfo/>}
-            {notEmpty(query) && (
-               <SearchResults
-                  foundPackages={foundPackages}
-                  onToggle={this.handleTogglePackage}
-                  loading={loading}
-               />
-            )}
-            {notEmpty(selectedPackages) && (
-               <SelectedPackages selectedPackages={selectedPackages}/>
-            )}
-         </div>
-      )
-   }
-
-   async handleQueryChange(query) {
+    } catch (err) {
       this.setState({
-         query,
-         loading: PROGRESS_LOADING
-      })
+        loading: PROGRESS_ERROR
+      });
+    }
+  }
 
-      try {
-         const res = await this.fetchPackages(query)
+  async fetchPackages(query) {
+    const res = await search({
+      query,
+      attributesToRetrieve: [
+        'name',
+        'version',
+        'description',
+        'owner',
+        'humanDownloadsLast30Days'
+      ],
+      offset: 0,
+      length: 5
+    });
 
-         if (this.state.query === query) {
-            this.setState({
-               foundPackages: res,
-               loading: PROGRESS_LOADED
-            })
-         }
-      } catch (err) {
-         this.setState({
-            loading: PROGRESS_ERROR
-         })
-      }
-   }
+    const { hits } = res;
+    const packages = hits.map(hit => ({
+      ...hit,
+      _cell: getCellPadding(hits, hit)
+    }));
 
-   async fetchPackages(query) {
-      const res = await search({
-         query,
-         attributesToRetrieve: [
-            'name',
-            'version',
-            'description',
-            'owner',
-            'humanDownloadsLast30Days'
-         ],
-         offset: 0,
-         length: 5
-      })
+    return packages;
+  }
 
-      const { hits } = res
-      const packages = hits.map(hit => ({
-         ...hit,
-         _cell: getCellPadding(hits, hit)
-      }))
+  handleTogglePackage(pkg) {
+    const { selectedPackages, loading } = this.state;
 
-      return packages
-   }
+    if (loading !== PROGRESS_LOADED) {
+      return;
+    }
 
-   handleTogglePackage(pkg) {
-      const { selectedPackages, loading } = this.state
+    const exists = selectedPackages.some(
+      ({ objectID }) => objectID === pkg.objectID
+    );
 
-      if (loading !== PROGRESS_LOADED) {
-         return
-      }
+    if (exists) {
+      this.setState({
+        query: '',
+        selectedPackages: selectedPackages.filter(
+          ({ objectID }) => objectID !== pkg.objectID
+        )
+      });
+    } else {
+      this.setState({
+        query: '',
+        selectedPackages: [...selectedPackages, pkg]
+      });
+    }
+  }
 
-      const exists = selectedPackages.some(
-         ({ objectID }) => objectID === pkg.objectID
-      )
+  async handleInstall() {
+    const { query, selectedPackages } = this.state;
 
-      if (exists) {
-         this.setState({
-            query: '',
-            selectedPackages: selectedPackages.filter(
-               ({ objectID }) => objectID !== pkg.objectID
-            )
-         })
-      } else {
-         this.setState({
-            query: '',
-            selectedPackages: [...selectedPackages, pkg]
-         })
-      }
-   }
+    if (notEmpty(query)) {
+      return;
+    }
 
-   async handleInstall() {
-      const { query, selectedPackages } = this.state
+    if (isEmpty(selectedPackages)) {
+      this.props.onExit();
+    }
 
-      if (notEmpty(query)) {
-         return
-      }
+    // ENV
+    const isDev = this.props.dev;
+    const yarn = await shouldUseYarn();
+    const env = yarn ? 'yarnpkg' : 'npm';
+    const arg = yarn ? ['add'] : ['install', '--save'];
+    const devArg = yarn ? '-D' : '--save-dev';
 
-      if (isEmpty(selectedPackages)) {
-         this.props.onExit()
-      }
+    // Packages
+    const packages = selectedPackages.map(pkg => pkg.name);
+    const args = [...arg, ...packages, ...(isDev ? [devArg] : [])];
 
-      // ENV
-      const isDev = this.props.dev
-      const yarn = await shouldUseYarn()
-      const env = yarn ? 'yarnpkg' : 'npm'
-      const arg = yarn ? ['add'] : ['install', '--save']
-      const devArg = yarn ? '-D' : '--save-dev'
+    // Install the queries
 
-      // Packages
-      const packages = selectedPackages.map(pkg => pkg.name)
-      const args = [...arg, ...packages, ...(isDev ? [devArg] : [])]
+    try {
+      await execa.sync(env, args, { stdio: `inherit` });
+    } catch (err) {
+      throw err;
+    }
 
-      // Install the queries
-
-      try {
-         await execa.sync(env, args, { stdio: `inherit` })
-      } catch (err) {
-         throw err
-      }
-
-      this.props.onExit()
-   }
+    this.props.onExit();
+  }
 }
 
-export default Emma
+export default Emma;
