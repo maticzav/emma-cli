@@ -5,7 +5,6 @@
 [![CircleCI](https://circleci.com/gh/maticzav/emma-cli.svg?style=shield)](https://circleci.com/gh/maticzav/emma-cli)
 [![npm version](https://badge.fury.io/js/emma-cli.svg)](https://badge.fury.io/js/emma-cli)
 ![npm](https://img.shields.io/npm/dt/emma-cli.svg)
-[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo)
 [![Backers on Open Collective](https://opencollective.com/emma-cli/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/emma-cli/sponsors/badge.svg)](#sponsors)
 
 > Install the package you are looking for.
@@ -54,11 +53,12 @@ Picked:
 Usage
 $ emma
 
-Example
-$ emma -D
-
 Options
 --dev -D Add to dev dependencies.
+--limit -L Number of packages shown, defaults to 5.
+
+Example
+$ emma -D
 
 Run without package-name to enter live search.
 Use keyboard to search through package library.

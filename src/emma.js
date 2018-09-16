@@ -16,8 +16,6 @@ import {
 import { getSearch } from './libs/algoliaSearch';
 import { getSuggestions } from './libs/npm-suggestions';
 
-// Emma ----------------------------------------------------------------------
-
 // Progress
 
 const PROGRESS_NOT_LOADED = 0;
@@ -353,6 +351,7 @@ class Emma extends Component {
 
   async fetchSearch() {
     const { query } = this.state;
+    const { limit, dev } = this.props;
 
     this.setState({
       focused: FOCUSED_SEARCH,
@@ -360,7 +359,7 @@ class Emma extends Component {
     });
 
     try {
-      const hits = await getSearch(query);
+      const hits = await getSearch(query, limit);
       const cells = hitsToCells(hits);
 
       if (this.state.query === query) {
@@ -397,7 +396,7 @@ class Emma extends Component {
 
   async fetchSuggestions() {
     const { selectedPackages } = this.state;
-    const { dev: isDev } = this.props;
+    const { dev: isDev, limit } = this.props;
 
     this.setState({
       focused: FOCUSED_SUGGESTIONS,
@@ -407,6 +406,7 @@ class Emma extends Component {
     try {
       const hits = await getSuggestions(
         selectedPackages.map(selectedPackage => selectedPackage.name),
+        limit,
         isDev
       );
       const cells = hitsToCells(hits);

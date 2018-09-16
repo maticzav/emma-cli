@@ -15,28 +15,34 @@ updateNotifier({ pkg }).notify();
 
 const cli = meow(
   `
-   Usage
-     $ emma
+  Usage
+    $ emma
 
-   Example
-     $ emma -D
+  Options
+    --dev -D      Add to dev dependencies.
+    --limit -L      Number of packages shown, defaults to 5.
 
-   Options
-     --dev -D      Add to dev dependencies.
+  Example
+    $ emma -D
 
-   Run without package-name to enter live search.
-   Use keyboard to search through package library.
-   Use up/down to select packages.
-   Use enter to select a package.
-   Use tab to move between search/suggestions.
-   When query is empty use backspace to remove packages.
-   Click space to trigger the install.   
+  Run without package-name to enter live search.
+  Use keyboard to search through package library.
+  Use up/down to select packages.
+  Use enter to select a package.
+  Use tab to move between search/suggestions.
+  When query is empty use backspace to remove packages.
+  Click space to trigger the install.   
 `,
   {
     flags: {
       dev: {
         type: 'boolean',
         alias: 'D'
+      },
+      limit: {
+        type: 'string',
+        alias: 'L',
+        default: '5'
       }
     }
   }
@@ -55,10 +61,10 @@ const main = () => {
     process.exit();
   };
 
-  const { dev } = cli.flags;
+  const { dev, limit } = cli.flags;
 
   // Uses `h` instead of JSX to avoid transpiling this file
-  unmount = render(h(emma, { dev, onError, onExit }));
+  unmount = render(h(emma, { dev, limit, onError, onExit }));
 };
 
 main();

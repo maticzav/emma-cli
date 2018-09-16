@@ -13,10 +13,15 @@ const client = new ApolloClient({
 });
 
 export const suggestionsQuery = gql`
-  query Suggestions($dependencies: [String!]!, $devDependencies: [String!]!) {
+  query Suggestions(
+    $dependencies: [String!]!
+    $devDependencies: [String!]!
+    $limit: Int
+  ) {
     suggestions(
       dependencies: $dependencies
       devDependencies: $devDependencies
+      limit: $limit
     ) {
       suggestions {
         name
@@ -33,10 +38,15 @@ export const suggestionsQuery = gql`
 `;
 
 export const devSuggestionsQuery = gql`
-  query Suggestions($dependencies: [String!]!, $devDependencies: [String!]!) {
+  query Suggestions(
+    $dependencies: [String!]!
+    $devDependencies: [String!]!
+    $limit: Int
+  ) {
     suggestions(
       dependencies: $dependencies
       devDependencies: $devDependencies
+      limit: $limit
     ) {
       devSuggestions {
         name
@@ -52,12 +62,13 @@ export const devSuggestionsQuery = gql`
   }
 `;
 
-export async function getSuggestions(dependencies, dev) {
+export async function getSuggestions(dependencies, limit, dev) {
   const res = await client.query({
     query: dev ? devSuggestionsQuery : suggestionsQuery,
     variables: {
       dependencies: dev ? [] : dependencies,
-      devDependencies: dev ? dependencies : []
+      devDependencies: dev ? dependencies : [],
+      limit
     }
   });
 

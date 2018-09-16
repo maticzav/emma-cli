@@ -10,7 +10,7 @@ const client = algoliasearch(algolia.appId, algolia.apiKey).initIndex(
   algolia.indexName
 );
 
-export const getSearch = async query => {
+export const getSearch = async (query, limit) => {
   const res = await client.search({
     query,
     attributesToRetrieve: [
@@ -21,7 +21,7 @@ export const getSearch = async query => {
       'humanDownloadsLast30Days'
     ],
     offset: 0,
-    length: 5
+    length: limit
   });
 
   const hits = res.hits;
