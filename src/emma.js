@@ -128,13 +128,7 @@ const SelectedPackages = ({ selectedPackages }) => (
 
 // Restults
 
-const SearchResults = ({
-  foundPackages,
-  onToggle,
-  loading,
-  loadingBackground,
-  focused,
-}) => {
+const SearchResults = ({ foundPackages, onToggle, loading, focused }) => {
   if (loading === PROGRESS_LOADING) {
     return (
       <div>
@@ -150,7 +144,7 @@ const SearchResults = ({
     return <ErrorInfo err="Couldn't reach Algolia search!" />
   }
 
-  if (isEmpty(foundPackages) && !loadingBackground) {
+  if (isEmpty(foundPackages)) {
     return <NotFoundSearchInfo />
   }
 
@@ -252,7 +246,6 @@ class Emma extends Component {
       foundSuggestionsPackages,
       selectedPackages,
       loadingSearch,
-      loadingSearchBackground,
       loadingSuggestions,
       focused,
     } = this.state
@@ -271,7 +264,6 @@ class Emma extends Component {
             foundPackages={foundSearchPackages}
             onToggle={this.handleTogglePackage}
             loading={loadingSearch}
-            loadingBackground={loadingSearchBackground}
             focused={focused === FOCUSED_SEARCH}
           />
         )}
@@ -368,28 +360,28 @@ class Emma extends Component {
     })
 
     setTimeout(() => {
-      if (this.state.loadingSearchBackground) {
+      if (this.state.loadingSearchBackground && this.state.query == query) {
         this.setState({
           loadingSearch: PROGRESS_LOADING,
           loadingSearchBackground: false,
         })
       }
-    }, 1500)
+    }, 500)
 
     try {
       const hits = await getSearch(query, limit)
       const cells = hitsToCells(hits)
-
-      this.setState({
-        loadingSearch: PROGRESS_LOADED,
-        loadingSearchBackground: false,
-      })
 
       if (this.state.query === query) {
         this.setState({
           foundSearchPackages: cells,
         })
       }
+
+      this.setState({
+        loadingSearch: PROGRESS_LOADED,
+        loadingSearchBackground: false,
+      })
     } catch (err) {
       this.setState({
         loadingSearchBackground: PROGRESS_ERROR,
