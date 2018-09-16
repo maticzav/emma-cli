@@ -50,6 +50,9 @@
     "ink-text-input": "^1.1.1",
     "meow": "^4.0.0",
     "opencollective": "^1.0.3",
+    "react": "^16.5.1",
+    "react-apollo": "^2.1.11",
+    "react-dom": "^16.5.1",
     "term-size": "^1.2.0",
     "update-notifier": "^2.3.0",
     "yargs": "^11.0.0"

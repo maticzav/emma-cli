@@ -37,13 +37,13 @@ export const notEmpty = x => x.length !== 0;
 
 export const isEmpty = x => x.length === 0;
 
-const getCellPadding = (pkgs, pkg) => attr => {
-  const cells = pkgs.map(_pkg => dot.get(_pkg, attr));
+const getCellPadding = (hits, hit) => attr => {
+  const cells = hits.map(_hit => dot.get(_hit, attr));
 
   const cellWidth = Math.max(...cells.map(cell => (cell ? cell.length : 0)));
 
   const cellValueWidth =
-    dot.get(pkg, attr) === null ? 0 : dot.get(pkg, attr).length;
+    dot.get(hit, attr) === null ? 0 : dot.get(hit, attr).length;
   const width = cellWidth - cellValueWidth;
 
   return ` `.repeat(width);

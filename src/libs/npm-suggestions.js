@@ -28,6 +28,16 @@ export const suggestionsQuery = gql`
         humanDownloadsLast30Days
         objectID
       }
+    }
+  }
+`;
+
+export const devSuggestionsQuery = gql`
+  query Suggestions($dependencies: [String!]!, $devDependencies: [String!]!) {
+    suggestions(
+      dependencies: $dependencies
+      devDependencies: $devDependencies
+    ) {
       devSuggestions {
         name
         description
@@ -44,7 +54,7 @@ export const suggestionsQuery = gql`
 
 export async function getSuggestions(dependencies, dev) {
   const res = await client.query({
-    query: suggestionsQuery,
+    query: dev ? devSuggestionsQuery : suggestionsQuery,
     variables: {
       dependencies: dev ? [] : dependencies,
       devDependencies: dev ? dependencies : []
