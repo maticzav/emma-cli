@@ -51,9 +51,7 @@ const Package = pkg => (
 
 const Search = ({ value, onChange }) => (
   <div>
-    <Text bold white>
-      {`Search packages 📦  : `}
-    </Text>
+    <Text bold>{`Search packages 📦  : `}</Text>
     <TextInput value={value} onChange={onChange} placeholder="..." />
   </div>
 );
@@ -63,9 +61,7 @@ const Search = ({ value, onChange }) => (
 const SelectedPackage = ({ pkg }) => (
   <div>
     <Text magenta>{` ›`}</Text>
-    <Text bold white>
-      {` ${pkg.name} `}
-    </Text>
+    <Text bold>{` ${pkg.name} `}</Text>
     <Text grey>{` ${pkg.version} `}</Text>
   </div>
 );
@@ -74,10 +70,8 @@ const SelectedPackages = ({ selectedPackages }) => (
   <div>
     <div />
     <div>
-      <Text bold white>
-        Picked:
-      </Text>
-      <Text grey> Press Space to install packages...</Text>
+      <Text bold>{'Picked:'}</Text>
+      <Text grey>{' Press Space to install packages...'}</Text>
     </div>
     {selectedPackages.map(pkg => (
       <SelectedPackage key={pkg.name} pkg={pkg} />
@@ -92,7 +86,8 @@ const SearchResults = ({ foundPackages, onToggle, loading, focused }) => {
     return (
       <div>
         <Text bold>
-          <Spinner red /> Fetching search
+          <Spinner red />
+          {' Fetching search'}
         </Text>
       </div>
     );
@@ -109,10 +104,8 @@ const SearchResults = ({ foundPackages, onToggle, loading, focused }) => {
   return (
     <span>
       <div>
-        <Text bold white>
-          Search results:
-        </Text>
-        {!focused && <Text grey> Press Tab to select search results</Text>}
+        <Text bold>{'Search results:'}</Text>
+        {!focused && <Text grey>{' Press Tab to select search results'}</Text>}
       </div>
       {focused ? (
         <SelectInput
@@ -132,7 +125,8 @@ const SuggestionsResults = ({ foundPackages, onToggle, loading, focused }) => {
     return (
       <div>
         <Text bold>
-          <Spinner red /> Fetching suggestions
+          <Spinner red />
+          {' Fetching suggestions'}
         </Text>
       </div>
     );
@@ -149,10 +143,8 @@ const SuggestionsResults = ({ foundPackages, onToggle, loading, focused }) => {
   return (
     <span>
       <div>
-        <Text bold white>
-          Suggestions results:
-        </Text>
-        {!focused && <Text grey> Press Tab to select suggestions</Text>}
+        <Text bold>{'Suggestions results:'}</Text>
+        {!focused && <Text grey>{' Press Tab to select suggestions'}</Text>}
       </div>
       {focused ? (
         <SelectInput
@@ -171,20 +163,20 @@ const SuggestionsResults = ({ foundPackages, onToggle, loading, focused }) => {
 
 const EmptyQuery = () => (
   <div>
-    <Text grey>Try typing in to search the database.</Text>
+    <Text grey>{'Try typing in to search the database.'}</Text>
   </div>
 );
 
 const NoSelectedPackages = () => (
   <div>
-    <Text grey>Select packages to get suggestions.</Text>
+    <Text grey>{'Select packages to get suggestions.'}</Text>
   </div>
 );
 
 const NotFoundSearchInfo = () => (
   <div>
     <Text grey>
-      We couldn't find any package that would match your input...
+      {"We couldn't find any package that would match your input..."}
     </Text>
   </div>
 );
@@ -192,22 +184,27 @@ const NotFoundSearchInfo = () => (
 const NotFoundSuggestionsInfo = () => (
   <div>
     <Text grey>
-      We couldn't suggest any package that would match your picked packages...
+      {
+        "We couldn't suggest any package that would match your picked packages..."
+      }
     </Text>
   </div>
 );
 
 const ErrorInfo = ({ err }) => (
   <div>
-    <Text red>Error: {err}</Text>
+    <Text red>
+      {'Error: '}
+      {err}
+    </Text>
   </div>
 );
 
 const AlgoliaInfo = () => (
   <div>
-    <Text>Search powered by</Text>
-    <Text blue> Algolia</Text>
-    <Text>.</Text>
+    <Text>{'Search powered by'}</Text>
+    <Text blue>{' Algolia'}</Text>
+    <Text>{'.'}</Text>
   </div>
 );
 
