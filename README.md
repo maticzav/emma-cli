@@ -10,13 +10,13 @@
 
 > Install the package you are looking for.
 
-Powered by [Algolia search API](https://www.algolia.com/) and the [Yarn](http://yarnpkg.com/) package manager.
+Powered by [Algolia search API](https://www.algolia.com/), [npm-suggestions](https://github.com/JureSotosek/npm-suggestions) and the [Yarn](http://yarnpkg.com/) package manager.
 
 <p align="center"><img src="media/example.gif" width="800" /></p>
 
 ## Overview
 
-Emma is a command line assistant which helps you search and install packages more efficiently. Algolia's responsive and interactive features gives you the information you need to find the right package, while [npm-suggestions](https://github.com/JureSotosek/npm-suggestions) make it quicker then ever to find the packages you need.
+Emma is a command line assistant which helps you search and install packages more efficiently. Algolia's responsive and interactive features gives you the information you need to find the right package, while npm-suggestions make it quicker then ever to find the packages you need.
 
 ## Features
 
