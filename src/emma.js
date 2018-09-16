@@ -226,10 +226,10 @@ class Emma extends Component {
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleQueryChange = this.handleQueryChange.bind(this);
-    this.handleInstall = this.handleInstall.bind(this);
     this.handleTogglePackage = this.handleTogglePackage.bind(this);
     this.fetchSearch = this.fetchSearch.bind(this);
     this.fetchSuggestions = this.fetchSuggestions.bind(this);
+    this.handleInstall = this.handleInstall.bind(this);
   }
 
   componentDidMount() {
@@ -351,25 +351,6 @@ class Emma extends Component {
     this.fetchSearch();
   }
 
-  async handleTogglePackage(pkg) {
-    const { selectedPackages: selectedPackagesOld } = this.state;
-
-    const exists = selectedPackagesOld.some(
-      ({ objectID }) => objectID === pkg.objectID
-    );
-
-    if (exists) {
-      return;
-    }
-
-    await this.setState({
-      query: '',
-      selectedPackages: [...selectedPackagesOld, pkg]
-    });
-
-    this.fetchSuggestions();
-  }
-
   async fetchSearch() {
     const { query } = this.state;
 
@@ -393,6 +374,25 @@ class Emma extends Component {
         loadingSearch: PROGRESS_ERROR
       });
     }
+  }
+
+  async handleTogglePackage(pkg) {
+    const { selectedPackages: selectedPackagesOld } = this.state;
+
+    const exists = selectedPackagesOld.some(
+      ({ objectID }) => objectID === pkg.objectID
+    );
+
+    if (exists) {
+      return;
+    }
+
+    await this.setState({
+      query: '',
+      selectedPackages: [...selectedPackagesOld, pkg]
+    });
+
+    this.fetchSuggestions();
   }
 
   async fetchSuggestions() {
@@ -441,7 +441,6 @@ class Emma extends Component {
     const args = [...arg, ...packages, ...(isDev ? [devArg] : [])];
 
     // Install the queries
-
     try {
       await execa.sync(env, args, { stdio: `inherit` });
     } catch (err) {
