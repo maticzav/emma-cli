@@ -34,7 +34,7 @@ Use Yarn or NPM to install.
 
 ## Example
 
-```bash
+```
 ❯ emma-cli ~ emma
 Search packages 📦  : grap
 Search results:
@@ -57,7 +57,7 @@ Picked: Press Space to install packages...
 
 ## API
 
-```md
+```
 Usage
 $ emma
 

@@ -16,7 +16,7 @@
     "build": "babel src --out-dir dist --ignore __tests__",
     "prepublish": "cross-env NODE_ENV=production npm run build",
     "dev": "babel -w src --out-dir dist --ignore __tests__",
-    "format": "prettier-check --ignore-path .gitignore {src,.}/*.js",
+    "format": "prettier --write --ignore-path .gitignore {src,.}/*.js",
     "test": "prettier-check --ignore-path .gitignore {src,.}/*.js && ava",
     "pretest": "npm run build",
     "semantic-release": "semantic-release",
