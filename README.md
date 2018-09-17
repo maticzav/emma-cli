@@ -5,24 +5,24 @@
 [![CircleCI](https://circleci.com/gh/maticzav/emma-cli.svg?style=shield)](https://circleci.com/gh/maticzav/emma-cli)
 [![npm version](https://badge.fury.io/js/emma-cli.svg)](https://badge.fury.io/js/emma-cli)
 ![npm](https://img.shields.io/npm/dt/emma-cli.svg)
-[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo)
-[![Backers on Open Collective](https://opencollective.com/emma-cli/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/emma-cli/sponsors/badge.svg)](#sponsors) 
+[![Backers on Open Collective](https://opencollective.com/emma-cli/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/emma-cli/sponsors/badge.svg)](#sponsors)
 
 > Install the package you are looking for.
 
-Powered by [Algolia search API](https://www.algolia.com/) and the [Yarn](http://yarnpkg.com/) package manager.
+Powered by [Algolia search API](https://www.algolia.com/), [npm-suggestions](https://github.com/JureSotosek/npm-suggestions) and the [Yarn](http://yarnpkg.com/) package manager.
 
-<p align="center"><img src="media/example.gif" width="800" /></p>
+<p align="center"><img src="media/newExample.gif" width="655" /></p>
 
 ## Overview
 
-Emma is a command line assistant which helps you search and install packages more efficiently. Algolia's responsive and interactive features gives you the information you need to find the right package.
+Emma is a command line assistant which helps you search and install packages more efficiently. Algolia's responsive and interactive features gives you the information you need to find the right package, while npm-suggestions make it quicker then ever to find the packages you need.
 
 ## Features
 
-- __Extremely fast:__ Search all the packages from NPM and Yarn using your terminal.
-- __Build the stack:__ Search for multiple packages and install them with one keystroke.
-- __Automatic tool detection:__ Detects whether it should use Yarn or NPM, out of the box.
+- **Extremely fast:** Search all the packages from NPM and Yarn using your terminal.
+- **Suggestions:** Get packages selected based on the ones you have already selected.
+- **Build the stack:** Search for multiple packages and install them with one keystroke.
+- **Automatic tool detection:** Detects whether it should use Yarn or NPM, out of the box.
 
 ## Install
 
@@ -34,49 +34,59 @@ Use Yarn or NPM to install.
 
 ## Example
 
-```bash
+```
 ❯ emma-cli ~ emma
-Search packages 📦  : graphql
-❯ 2m     graphql          graphql         A Query Language and Runtime which can target any service.
-  176    graph.ql         MatthewMueller  Faster and simpler technique for creating and querying Grap
-  971.6k @types/graphql   DefinitelyTyped TypeScript definitions for graphql
-  950.5k graphql-tag      apollostack     A JavaScript template literal tag that parses GraphQL queri
-  790.2k graphql-anywhere apollographql   Run GraphQL queries with no schema and just one resolver
+Search packages 📦  : grap
+Search results:
+  11   grap           loopingrage     Utility that GReps for gAPs and out of sequence line in log
+  8.4m sass-graph     xzyfer          Parse sass files and extract a graph of imports
+  3.7m @types/graphql DefinitelyTyped TypeScript definitions for graphql
+❯ 2.9m graphql        graphql         A Query Language and Runtime which can target any service.
+  1.8m graphlib       dagrejs         A directed and undirected multi-graph library
+Suggestions results: Press Tab to select suggestions
+  10.2m react-dom  facebook  React package for working with the DOM.
+  14.6m prop-types facebook  Runtime type checking for React props and similar objects.
+  7m    classnames JedWatson A simple utility for conditionally joining classNames toget
+  65.3m lodash     lodash    Lodash modular utilities.
+  7.2m  redux      reactjs   Predictable state container for JavaScript apps
+Search powered by Algolia.
 
-Picked:
-› ava  0.25.0
+Picked: Press Space to install packages...
+› react  16.5.1
 ```
 
 ## API
 
-```md
+```
 Usage
-   $ emma
-
-Example
-   $ emma -D
+$ emma
 
 Options
-   --dev -D      Add to dev dependencies.
+--dev -D Add to dev dependencies.
+--limit -L Number of packages shown, defaults to 5.
+
+Example
+$ emma -D
 
 Run without package-name to enter live search.
 Use keyboard to search through package library.
 Use up/down to select packages.
-Click enter to trigger the install.
+Use enter to select a package.
+Use tab to move between search/suggestions.
+When query is empty use backspace to remove packages.
+Click space to trigger the install.
 ```
 
 ## Contributors
 
-This project exists thanks to all the people who contribute. 
+This project exists thanks to all the people who contribute.
 <a href="graphs/contributors"><img src="https://opencollective.com/emma-cli/contributors.svg?width=890&button=false" /></a>
-
 
 ## Backers
 
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/emma-cli#backer)]
 
 <a href="https://opencollective.com/emma-cli#backers" target="_blank"><img src="https://opencollective.com/emma-cli/backers.svg?width=890"></a>
-
 
 ## Sponsors
 
@@ -92,8 +102,6 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a href="https://opencollective.com/emma-cli/sponsor/7/website" target="_blank"><img src="https://opencollective.com/emma-cli/sponsor/7/avatar.svg"></a>
 <a href="https://opencollective.com/emma-cli/sponsor/8/website" target="_blank"><img src="https://opencollective.com/emma-cli/sponsor/8/avatar.svg"></a>
 <a href="https://opencollective.com/emma-cli/sponsor/9/website" target="_blank"><img src="https://opencollective.com/emma-cli/sponsor/9/avatar.svg"></a>
-
-
 
 ## License
 
