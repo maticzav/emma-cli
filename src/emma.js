@@ -384,7 +384,7 @@ class Emma extends Component {
       })
     } catch (err) {
       this.setState({
-        loadingSearchBackground: PROGRESS_ERROR,
+        loadingSearch: PROGRESS_ERROR,
         loadingSearchBackground: false,
       })
     }
