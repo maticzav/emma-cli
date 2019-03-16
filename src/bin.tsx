@@ -32,4 +32,4 @@ if (notifier.update) {
 
 /* Main */
 
-render(<Emma />)
+render(<Emma />, { debug: false })

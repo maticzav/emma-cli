@@ -15,6 +15,7 @@
   },
   "scripts": {
     "build": "tsc -d",
+    "dev": "ts-node --files src/bin.tsx",
     "prepublish": "npm run build",
     "pretest": "npm run build",
     "semantic-release": "semantic-release",
@@ -34,7 +35,6 @@
     "url": "https://github.com/maticzav/emma-cli/issues"
   },
   "dependencies": {
-    "@types/ink-spinner": "^2.0.1",
     "algoliasearch": "^3.32.1",
     "execa": "^1.0.0",
     "ink": "^2.0.5",

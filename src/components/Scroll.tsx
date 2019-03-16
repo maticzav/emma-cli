@@ -29,7 +29,7 @@ class Scroll<T> extends React.Component<WithStdin<Props<T>>, State> {
   componentDidMount() {
     const { stdin, setRawMode } = this.props
 
-    setRawMode!(true)
+    if (setRawMode) setRawMode(true)
     stdin.on('data', this.handleInput)
   }
 
@@ -37,7 +37,7 @@ class Scroll<T> extends React.Component<WithStdin<Props<T>>, State> {
     const { stdin, setRawMode } = this.props
 
     stdin.removeListener('data', this.handleInput)
-    setRawMode!(false)
+    if (setRawMode) setRawMode(false)
   }
 
   handleInput = (data: any) => {
@@ -71,14 +71,11 @@ class Scroll<T> extends React.Component<WithStdin<Props<T>>, State> {
     props: Props<T>,
     state: State,
   ): State | null {
+    if (props.active === false) return { ...state, cursor: 0 }
     if (props.values.length < state.cursor) {
-      return {
-        ...state,
-        cursor: props.values.length,
-      }
-    } else {
-      return null
+      return { ...state, cursor: props.values.length }
     }
+    return null
   }
 
   /**
@@ -115,7 +112,10 @@ class Scroll<T> extends React.Component<WithStdin<Props<T>>, State> {
     return (
       <Box flexDirection="column">
         {values.map((value, i) =>
-          render({ ...value, active: i + mask === cursor }),
+          render({
+            ...value,
+            active: this.props.active && i + mask === cursor,
+          }),
         )}
       </Box>
     )

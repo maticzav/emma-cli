@@ -3,6 +3,7 @@ import { Box, StdinContext } from 'ink'
 
 import { IPackage, search } from './algolia'
 
+import { Footer } from './components/Footer'
 import Overview from './components/Overview'
 import Package from './components/Package'
 import Scroll from './components/Scroll'
@@ -18,17 +19,19 @@ interface State {
   view: 'SEARCH' | 'SCROLL' | 'OVERVIEW'
   query: string
   hits: IPackage[]
-  dependencies: IDependency[]
   page: number
+  loading: boolean
+  dependencies: IDependency[]
 }
 
 class Emma extends React.Component<WithStdin<{}>, State> {
   state: State = {
+    view: 'SEARCH',
     query: '',
     page: 0,
     hits: [],
+    loading: false,
     dependencies: [],
-    view: 'SEARCH',
   }
 
   constructor(props: WithStdin<{}>) {
@@ -41,7 +44,7 @@ class Emma extends React.Component<WithStdin<{}>, State> {
   componentDidMount() {
     const { stdin, setRawMode } = this.props
 
-    setRawMode!(true)
+    if (setRawMode) setRawMode(true)
     stdin.on('data', this.handleInput)
   }
 
@@ -49,7 +52,7 @@ class Emma extends React.Component<WithStdin<{}>, State> {
     const { stdin, setRawMode } = this.props
 
     stdin.removeListener('data', this.handleInput)
-    setRawMode!(false)
+    if (setRawMode) setRawMode(false)
   }
 
   handleInput = (data: any) => {
@@ -82,11 +85,12 @@ class Emma extends React.Component<WithStdin<{}>, State> {
       query: value,
       page: 0,
       view: 'SEARCH',
+      loading: true,
     })
 
     const hits = await search(value)
 
-    this.setState({ hits })
+    this.setState({ hits, loading: false })
   }
 
   /**
@@ -137,16 +141,21 @@ class Emma extends React.Component<WithStdin<{}>, State> {
   }
 
   render() {
-    const { query } = this.state
+    const { view, query, loading } = this.state
 
     return (
       <Box flexDirection="column">
-        <Search value={query} onChange={this.handleQueryChange} active />
+        <Search
+          value={query}
+          onChange={this.handleQueryChange}
+          loading={loading}
+          active
+        />
         <Scroll
           placeholder="Start typing or change query so we can find something!"
           values={this.state.hits}
           onWillReachEnd={this.handleWillReachEnd}
-          active
+          active={view === 'SCROLL'}
         >
           {pkg => (
             <Package
@@ -158,6 +167,7 @@ class Emma extends React.Component<WithStdin<{}>, State> {
           )}
         </Scroll>
         <Overview />
+        <Footer />
       </Box>
     )
   }

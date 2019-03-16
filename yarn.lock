@@ -103,11 +103,6 @@
   resolved "https://registry.yarnpkg.com/@types/algoliasearch/-/algoliasearch-3.30.7.tgz#9c7df87b49565b979c36f19317fa5318e483c06b"
   integrity sha512-ABsx6/j8LSf2lsX39WciYSzweUb/q8gUyHe85YLnqMLcjASzcSOwGESE63HwQguV8n2GoZbJ7OPcHyotzym9Ug==
 
-"@types/cli-spinners@*":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@types/cli-spinners/-/cli-spinners-1.3.0.tgz#631f5eec89e519447d326b12b2051ce40c88c0ea"
-  integrity sha512-hs+1QSCZC5/yZPNqTOC6Q/ic8DmRna65H2GpvC8zlXjgWZrQyYBD5T5dJafo70bfDTXrBO9c/j5cw3/nY/qMiA==
-
 "@types/execa@^0.9.0":
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/@types/execa/-/execa-0.9.0.tgz#9b025d2755f17e80beaf9368c3f4f319d8b0fb93"
@@ -115,16 +110,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/ink-spinner@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@types/ink-spinner/-/ink-spinner-2.0.1.tgz#510d6e5e5edbf41e7fc60c82dcb28c0d63a17f5c"
-  integrity sha512-O+9kFBwwsMpNYjhchtF99clccwXmvKdtKd99fdRiGq/kQAx9YmIfybHH1UoCmetFCXlKBTnwx/iwXDZRoSgBEg==
-  dependencies:
-    "@types/cli-spinners" "*"
-    "@types/ink" "*"
-    chalk "^2.1.0"
-
-"@types/ink@*", "@types/ink@^0.5.1":
+"@types/ink@^0.5.1":
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@types/ink/-/ink-0.5.1.tgz#6d6e7f2d1e3436385ff6bd2cf7ca68a8bebbcb00"
   integrity sha512-B2LoPN8Jedf1e7IVVhCztdooZ21NZWoFzunXXJostqxZ5Qdr/V2UbwlFUooKJ+Z0gfSYX5NWeA6GGi3S88p3ig==
@@ -567,7 +553,7 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
-chalk@2.4.2, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.3.0, chalk@^2.4.1, chalk@~2.4.1:
+chalk@2.4.2, chalk@^2.0.1, chalk@^2.3.0, chalk@^2.4.1, chalk@~2.4.1:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
   integrity sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==

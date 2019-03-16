@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text, StdinContext } from 'ink'
+import { Box, Color, Text, StdinContext } from 'ink'
 
 import { IPackage } from '../algolia'
 import { WithStdin } from '../utils'
@@ -14,7 +14,7 @@ class Package extends React.Component<WithStdin<Props>> {
   componentDidMount() {
     const { stdin, setRawMode } = this.props
 
-    setRawMode!(true)
+    if (setRawMode) setRawMode(true)
     stdin.on('data', this.handleInput)
   }
 
@@ -22,26 +22,38 @@ class Package extends React.Component<WithStdin<Props>> {
     const { stdin, setRawMode } = this.props
 
     stdin.removeListener('data', this.handleInput)
-    setRawMode!(false)
+    if (setRawMode) setRawMode(false)
   }
 
   handleInput = (data: any) => {
     const { active, onClick, pkg } = this.props
     const s = String(data)
 
-    if (active && s == 's') {
+    if (active && s == ' ') {
       onClick(pkg)
     }
   }
 
   render() {
-    const { pkg } = this.props
+    const { pkg, active } = this.props
 
     return (
-      <Box>
-        <Box>
+      <Box flexDirection="row">
+        <Box marginRight={1}>
+          <Color magenta>{active ? `›` : ` `}</Color>
+        </Box>
+        <Box marginRight={1}>
+          <Text>{pkg.humanDownloadsLast30Days}</Text>
+        </Box>
+        <Box marginRight={1}>
           <Text bold>{pkg.name}</Text>
         </Box>
+        <Box marginRight={1}>
+          <Text>{pkg.owner.name}</Text>
+        </Box>
+        {/* <Box>
+          <Text>{pkg.description}</Text>
+        </Box> */}
       </Box>
     )
   }
