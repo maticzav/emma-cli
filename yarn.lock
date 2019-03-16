@@ -1650,13 +1650,6 @@ ink-testing-library@^1.0.1:
   resolved "https://registry.yarnpkg.com/ink-testing-library/-/ink-testing-library-1.0.1.tgz#6a068997e66522c88b58c5ff65181faf5b932f88"
   integrity sha512-RT/JU1NDcf3XdSWsN9kcJHEd6zX5Sb4kt5SFlfnJiKIzt2xdPdbWCrhBdEOFtdP9Nu282HU3AJ1zt7yYUpyljw==
 
-ink-text-input@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/ink-text-input/-/ink-text-input-3.0.0.tgz#711691b8e9d3b46089ea2807a6f3f96d6e60b409"
-  integrity sha512-q2TM+E+Qf/zycCxLIvijmN3U6+rweW9P2991Lt3i0sshKtCCtwg2dS+7bspS6BFLWeuvn5/V2y4JJRFWiyLYIA==
-  dependencies:
-    prop-types "^15.5.10"
-
 ink@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/ink/-/ink-2.0.5.tgz#a7fcd79372f57bef0e436d087cbef9e545ee1051"

@@ -1,3 +1,4 @@
+import React from 'react'
 import algoliasearch from 'algoliasearch'
 
 /* Config */
@@ -57,3 +58,9 @@ export const search = async (
 
   return hits
 }
+
+/* Algolia Context */
+
+export type WithSearchContext<X> = X & { hits: IPackage[] }
+
+export const SearchContext = React.createContext<IPackage[]>([])

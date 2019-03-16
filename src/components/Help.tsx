@@ -1,4 +1,10 @@
 import React from 'react'
-import { Box } from 'ink'
+import { Box, Text, Color } from 'ink'
 
-export default () => <Box />
+export default () => (
+  <Box flexDirection="row">
+    <Text>
+      <Color grey>Press right on package for details</Color>
+    </Text>
+  </Box>
+)

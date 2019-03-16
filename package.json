@@ -39,7 +39,6 @@
     "execa": "^1.0.0",
     "ink": "^2.0.5",
     "ink-spinner": "^3.0.0",
-    "ink-text-input": "^3.0.0",
     "meow": "^5.0.0",
     "multilines": "^1.0.2",
     "react": "^16.8.4",

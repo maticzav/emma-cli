@@ -1,13 +1,27 @@
 import React from 'react'
 import { StdinContext } from 'ink'
 
+import { IDependency } from '../installer'
 import { WithStdin } from '../utils'
 
-interface Props {}
+interface Props {
+  dependencies: IDependency[]
+}
 
 class Overview extends React.Component<WithStdin<Props>> {
   render() {
-    return 'hey'
+    const { dependencies } = this.props
+    const sortedDependencies = this.sortDependencies(dependencies)
+
+    return sortedDependencies.map(d => d.name).join(',')
+  }
+
+  sortDependencies(deps: IDependency[]): IDependency[] {
+    return deps.sort((depA, depB) => {
+      if (depA.type > depB.type) return 1
+      if (depA.type < depB.type) return -1
+      return 0
+    })
   }
 }
 

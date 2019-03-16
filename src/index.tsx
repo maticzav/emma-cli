@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, StdinContext } from 'ink'
 
-import { IPackage, search } from './algolia'
+import { IPackage, SearchContext, search } from './algolia'
 
 import { Footer } from './components/Footer'
 import Overview from './components/Overview'
@@ -141,34 +141,36 @@ class Emma extends React.Component<WithStdin<{}>, State> {
   }
 
   render() {
-    const { view, query, loading } = this.state
+    const { view, query, loading, hits } = this.state
 
     return (
-      <Box flexDirection="column">
-        <Search
-          value={query}
-          onChange={this.handleQueryChange}
-          loading={loading}
-          active
-        />
-        <Scroll
-          placeholder="Start typing or change query so we can find something!"
-          values={this.state.hits}
-          onWillReachEnd={this.handleWillReachEnd}
-          active={view === 'SCROLL'}
-        >
-          {pkg => (
-            <Package
-              key={pkg.objectID}
-              pkg={pkg}
-              onClick={this.toggleDependency}
-              active={pkg.active}
-            />
-          )}
-        </Scroll>
-        <Overview />
-        <Footer />
-      </Box>
+      <SearchContext.Provider value={hits}>
+        <Box flexDirection="column">
+          <Search
+            value={query}
+            onChange={this.handleQueryChange}
+            loading={loading}
+            active
+          />
+          <Scroll
+            placeholder="Start typing or change query so we can find something!"
+            values={this.state.hits}
+            onWillReachEnd={this.handleWillReachEnd}
+            active={view === 'SCROLL'}
+          >
+            {pkg => (
+              <Package
+                key={pkg.objectID}
+                pkg={pkg}
+                onClick={this.toggleDependency}
+                active={pkg.active}
+              />
+            )}
+          </Scroll>
+          <Overview dependencies={this.state.dependencies} />
+          <Footer />
+        </Box>
+      </SearchContext.Provider>
     )
   }
 }
