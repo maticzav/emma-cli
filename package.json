@@ -34,7 +34,9 @@
     "url": "https://github.com/maticzav/emma-cli/issues"
   },
   "dependencies": {
+    "@types/ink-spinner": "^2.0.1",
     "algoliasearch": "^3.32.1",
+    "execa": "^1.0.0",
     "ink": "^2.0.5",
     "ink-spinner": "^3.0.0",
     "ink-text-input": "^3.0.0",
@@ -45,11 +47,13 @@
   },
   "devDependencies": {
     "@types/algoliasearch": "^3.30.7",
+    "@types/execa": "^0.9.0",
     "@types/ink": "^0.5.1",
     "@types/meow": "^5.0.0",
     "@types/node": "^11.11.3",
     "@types/react": "^16.8.8",
     "@types/update-notifier": "^2.5.0",
+    "@zeit/ncc": "^0.16.0",
     "husky": "^1.3.1",
     "ink-testing-library": "^1.0.1",
     "pkg": "^4.3.7",

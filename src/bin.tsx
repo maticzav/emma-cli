@@ -6,8 +6,7 @@ import meow from 'meow'
 import mls from 'multilines'
 import updateNotifier from 'update-notifier'
 
-import { Emma } from '.'
-import { getSearch } from './algolia'
+import Emma from '.'
 
 /* Spec */
 
@@ -34,5 +33,3 @@ if (notifier.update) {
 /* Main */
 
 render(<Emma />)
-
-getSearch('emma').then(res => console.log(res))

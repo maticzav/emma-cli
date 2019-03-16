@@ -15,11 +15,19 @@ const client = algoliasearch(algolia.appId, algolia.apiKey).initIndex(
 /* Client */
 
 export interface IPackage {
+  objectID: string
   name: string
   version: string
   description: string
-  owner: string
+  owner: IPackageOwner
   humanDownloadsLast30Days: string
+}
+
+export interface IPackageOwner {
+  name: string
+  email?: string
+  avatar: string
+  link: string
 }
 
 /**
@@ -30,9 +38,9 @@ export interface IPackage {
  * @param query
  * @param limit
  */
-export const getSearch = async (
+export const search = async (
   query: string,
-  limit?: number,
+  page: number = 0,
 ): Promise<IPackage[]> => {
   const { hits } = await client.search<IPackage>({
     query,
@@ -43,8 +51,8 @@ export const getSearch = async (
       'owner',
       'humanDownloadsLast30Days',
     ],
-    offset: 0,
-    length: limit,
+    page: page,
+    hitsPerPage: 10,
   })
 
   return hits

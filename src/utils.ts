@@ -1,20 +1,10 @@
-import * as fs from 'fs'
-import * as cp from 'child_process'
-
-const isYarnInstalled = async () => {
-  try {
-    await cp.execSync(`yarnpkg --version`, { stdio: `ignore` })
-    return true
-  } catch (err) {
-    return false
-  }
-}
-
-export const shouldUseYarn = async () => {
-  try {
-    await fs.existsSync('package-lock.json')
-    return false
-  } catch (err) {
-    return isYarnInstalled()
-  }
+export type WithStdin<X> = X & {
+  /**
+   * Stdin stream passed to `render()` in `options.stdin` or `process.stdin` by default. Useful if your app needs to handle user input.
+   */
+  readonly stdin: NodeJS.ReadStream
+  /**
+   * Ink exposes this function via own `<StdinContext>` to be able to handle Ctrl+C, that's why you should use Ink's `setRawMode` instead of `process.stdin.setRawMode`.
+   */
+  readonly setRawMode: NodeJS.ReadStream['setRawMode']
 }

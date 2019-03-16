@@ -4,6 +4,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noUnusedLocals": true,
+    "strict": true,
     "rootDir": "src",
     "outDir": "dist",
     "sourceMap": true,
@@ -12,6 +13,6 @@
     "skipLibCheck": true,
     "jsx": "react"
   },
-  "include": ["./src/**/*.ts", "src/bin.tsx"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }
