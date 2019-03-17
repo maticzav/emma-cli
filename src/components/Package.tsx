@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { Box, Color, Text, StdinContext } from 'ink'
 
 import { IPackage, SearchContext, WithSearchContext } from '../algolia'
+import { IDependency } from '../installer'
 import { WithStdin } from '../utils'
 
 const SPACE = ' '
@@ -12,11 +13,14 @@ interface Props {
   pkg: IPackage
   active: boolean
   onClick: (pkg: IPackage) => void
+  type: IDependency['type'] | undefined
 }
 
 interface State {
   showDetails: boolean
 }
+
+/* Package */
 
 class Package extends PureComponent<
   WithSearchContext<WithStdin<Props>>,
@@ -75,52 +79,76 @@ class Package extends PureComponent<
   }
 
   render() {
-    const { pkg, active } = this.props
+    const { pkg, active, type } = this.props
     const { showDetails } = this.state
+
+    const Cursor = () => (
+      <Box marginRight={1}>
+        {(() => {
+          if (active) {
+            if (type === 'dependency') return <Color cyan>{`›`}</Color>
+            if (type === 'devDependency') return <Color blue>{`›`}</Color>
+            return <Color magenta>{`›`}</Color>
+          } else {
+            if (type === 'dependency') return <Color cyan>{`◉`}</Color>
+            if (type === 'devDependency') return <Color blue>{`◉`}</Color>
+            return <Text>{` `}</Text>
+          }
+        })()}
+      </Box>
+    )
+
+    const Downloads = () => (
+      <Box
+        width={this.getColumnWidth('humanDownloadsLast30Days')}
+        marginRight={1}
+      >
+        <Text>{pkg.humanDownloadsLast30Days}</Text>
+      </Box>
+    )
+
+    const Name = () => (
+      <Box width={this.getColumnWidth('name')} marginRight={1}>
+        <Text bold>{pkg.name}</Text>
+      </Box>
+    )
+
+    const Owner = () => (
+      <Box width={this.getColumnWidth('owner')}>
+        <Text>
+          <Color grey>{pkg.owner.name}</Color>
+        </Text>
+      </Box>
+    )
+
+    const Description = () => (
+      <Box flexDirection="row" marginX={2}>
+        <Text>{pkg.description}</Text>
+      </Box>
+    )
 
     if (showDetails) {
       return (
         <Box flexDirection="column" marginY={1}>
           <Box flexDirection="row">
-            <Box marginRight={1}>
-              <Color magenta>{active ? `›` : ` `}</Color>
-            </Box>
-            <Box
-              width={this.getColumnWidth('humanDownloadsLast30Days')}
-              marginRight={1}
-            >
-              <Text>{pkg.humanDownloadsLast30Days}</Text>
-            </Box>
-            <Box width={this.getColumnWidth('name')} marginRight={1}>
-              <Text bold>{pkg.name}</Text>
-            </Box>
-            <Box width={this.getColumnWidth('owner')}>
-              <Text>
-                <Color grey>{pkg.owner.name}</Color>
-              </Text>
-            </Box>
+            <Cursor />
+            <Downloads />
+            <Name />
+            <Owner />
           </Box>
-          <Box flexDirection="row" marginX={2}>
-            <Text>{pkg.description}</Text>
+          <Box>
+            <Description />
           </Box>
         </Box>
       )
     }
 
     return (
-      <Box flexDirection="row" marginY={0}>
-        <Box marginRight={1}>
-          <Color magenta>{active ? `›` : ` `}</Color>
-        </Box>
-        <Box width={this.getColumnWidth('humanDownloadsLast30Days')}>
-          <Text>{pkg.humanDownloadsLast30Days}</Text>
-        </Box>
-        <Box width={this.getColumnWidth('name')} marginX={1}>
-          <Text bold>{pkg.name}</Text>
-        </Box>
-        <Box width={this.getColumnWidth('owner')}>
-          <Text>{pkg.owner.name}</Text>
-        </Box>
+      <Box flexDirection="row" marginY={0} marginX={0}>
+        <Cursor />
+        <Downloads />
+        <Name />
+        <Owner />
       </Box>
     )
   }

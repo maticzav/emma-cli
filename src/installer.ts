@@ -14,29 +14,17 @@ type DependencyType = keyof DependencyTypes
 interface DependencyTypes {
   dependency: InstallationInstruction
   devDependency: InstallationInstruction
-  peerDependency: InstallationInstruction
-  optionalDependency: InstallationInstruction
-  removedDependency: InstallationInstruction
 }
 
 type Installer = keyof InstallationInstruction
 
 type InstallationInstruction = { yarn: string; npm: string }
 
-export const dependencyTypes: DependencyType[] = [
-  'dependency',
-  'devDependency',
-  'optionalDependency',
-  'peerDependency',
-  'removedDependency',
-]
+export const dependencyTypes: DependencyType[] = ['dependency', 'devDependency']
 
 export const instructions: DependencyTypes = {
   dependency: { yarn: '', npm: '' },
   devDependency: { yarn: '-D', npm: '--save-dev' },
-  peerDependency: { yarn: '-P', npm: '--peer' },
-  optionalDependency: { yarn: '', npm: '' },
-  removedDependency: { yarn: '', npm: '' },
 }
 
 /**
@@ -46,9 +34,9 @@ export const instructions: DependencyTypes = {
  * @param dependency
  */
 export function getNextDependencyType(
-  dependency: IDependency,
+  type: DependencyType,
 ): DependencyType | undefined {
-  return dependencyTypes[dependencyTypes.indexOf(dependency.type) + 1]
+  return dependencyTypes[dependencyTypes.indexOf(type) + 1]
 }
 
 /* Installers */

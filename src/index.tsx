@@ -16,12 +16,14 @@ const ARROW_DOWN = '\u001B[B'
 const ENTER = '\r'
 
 interface State {
-  view: 'SEARCH' | 'SCROLL' | 'OVERVIEW'
+  view: 'SEARCH' | 'SCROLL' | 'OVERVIEW' | 'INSTALL'
   query: string
   hits: IPackage[]
   page: number
   loading: boolean
-  dependencies: IDependency[]
+  dependencies: {
+    [name: string]: IDependency
+  }
 }
 
 class Emma extends React.Component<WithStdin<{}>, State> {
@@ -31,7 +33,7 @@ class Emma extends React.Component<WithStdin<{}>, State> {
     page: 0,
     hits: [],
     loading: false,
-    dependencies: [],
+    dependencies: {},
   }
 
   constructor(props: WithStdin<{}>) {
@@ -63,15 +65,25 @@ class Emma extends React.Component<WithStdin<{}>, State> {
         if (s === ARROW_DOWN || s === ENTER) {
           this.setState({ view: 'SCROLL' })
         }
+        return
       }
 
       case 'SCROLL': {
         if (s === ENTER) {
           this.setState({ view: 'OVERVIEW' })
         }
+        return
       }
 
       case 'OVERVIEW': {
+        if (s === ENTER) {
+          this.setState({ view: 'INSTALL' })
+        }
+        return
+      }
+
+      case 'INSTALL': {
+        return
       }
     }
   }
@@ -113,65 +125,80 @@ class Emma extends React.Component<WithStdin<{}>, State> {
    */
   toggleDependency = (pkg: IPackage) => {
     const { dependencies } = this.state
-    const dependency = dependencies.find(dep => dep.name === pkg.name)
+    const dependency = dependencies[pkg.name]
 
     if (dependency === undefined) {
       this.setState({
-        dependencies: dependencies.concat({
-          name: pkg.name,
-          type: 'dependency',
-        }),
+        dependencies: {
+          ...dependencies,
+          [pkg.name]: { name: pkg.name, type: 'dependency' },
+        },
       })
     } else {
-      const nextType = getNextDependencyType(dependency)
+      const nextType = getNextDependencyType(dependency.type)
 
       if (nextType) {
         this.setState({
-          dependencies: dependencies.map(d => {
-            if (d.name === pkg.name) return { ...d, type: nextType }
-            else return d
-          }),
+          dependencies: {
+            ...dependencies,
+            [pkg.name]: { name: pkg.name, type: nextType },
+          },
         })
       } else {
         this.setState({
-          dependencies: dependencies.filter(d => d.name !== pkg.name),
+          dependencies: {
+            ...dependencies,
+            [pkg.name]: { name: pkg.name, type: 'dependency' },
+          },
         })
       }
     }
   }
 
   render() {
-    const { view, query, loading, hits } = this.state
+    const { view, query, loading, hits, dependencies } = this.state
 
-    return (
-      <SearchContext.Provider value={hits}>
-        <Box flexDirection="column">
-          <Search
-            value={query}
-            onChange={this.handleQueryChange}
-            loading={loading}
-            active
-          />
-          <Scroll
-            placeholder="Start typing or change query so we can find something!"
-            values={this.state.hits}
-            onWillReachEnd={this.handleWillReachEnd}
-            active={view === 'SCROLL'}
-          >
-            {pkg => (
-              <Package
-                key={pkg.objectID}
-                pkg={pkg}
-                onClick={this.toggleDependency}
-                active={pkg.active}
+    switch (view) {
+      case 'INSTALL': {
+        return <Box>Hey</Box>
+      }
+
+      default: {
+        return (
+          <SearchContext.Provider value={hits}>
+            <Box flexDirection="column">
+              <Search
+                value={query}
+                onChange={this.handleQueryChange}
+                loading={loading}
+                active
               />
-            )}
-          </Scroll>
-          <Overview dependencies={this.state.dependencies} />
-          <Footer />
-        </Box>
-      </SearchContext.Provider>
-    )
+              <Scroll
+                placeholder="Start typing or change query so we can find something!"
+                values={this.state.hits}
+                onWillReachEnd={this.handleWillReachEnd}
+                active={view === 'SCROLL'}
+              >
+                {pkg => (
+                  <Package
+                    key={pkg.objectID}
+                    pkg={pkg}
+                    onClick={this.toggleDependency}
+                    active={pkg.active}
+                    type={(dependencies[pkg.name] || {}).type}
+                  />
+                )}
+              </Scroll>
+              <Overview
+                dependencies={Object.values(dependencies)}
+                active={view === 'OVERVIEW'}
+              />
+              <Footer />
+            </Box>
+          </SearchContext.Provider>
+        )
+      }
+    }
   }
 }
 

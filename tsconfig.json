@@ -4,6 +4,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noUnusedLocals": true,
+    "noFallthroughCasesInSwitch": true,
     "strict": true,
     "rootDir": "src",
     "outDir": "dist",
