@@ -51,9 +51,13 @@ export function getNextDependencyType(
 export async function install(
   deps: IDependency[],
   type: IDependency['type'],
-): Promise<execa.ExecaReturns> {
+): Promise<execa.ExecaReturns | null> {
   const installer = getInstaller()
   const dependencies = deps.filter(dep => dep.type === type)
+
+  if (dependencies.length === 0) {
+    return Promise.resolve(null)
+  }
 
   const command = instructions[type][installer]
   const pkgs = dependencies.map(({ name }) => name).join(' ')
