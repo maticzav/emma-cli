@@ -1,5 +1,5 @@
 import React from 'react'
-import algoliasearch from 'algoliasearch'
+import algoliasearch, { Response } from 'algoliasearch'
 
 /* Config */
 
@@ -47,8 +47,8 @@ export interface IPackageOwner {
 export const search = async (
   query: string,
   page: number = 0,
-): Promise<IPackage[]> => {
-  const { hits } = await client.search<IPackage>({
+): Promise<Response<IPackage>> => {
+  const res = await client.search<IPackage>({
     query,
     attributesToRetrieve: [
       'name',
@@ -62,7 +62,7 @@ export const search = async (
     hitsPerPage: 10,
   })
 
-  return hits
+  return res
 }
 
 /* Algolia Context */

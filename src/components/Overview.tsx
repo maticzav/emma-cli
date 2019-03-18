@@ -1,18 +1,17 @@
 import React from 'react'
-import { Box, Color, StdinContext, Text } from 'ink'
+import { Box, Color, Text } from 'ink'
 
 import Heading from './Heading'
 import Dependency from './Dependency'
 
 import { IDependency } from '../installer'
-import { WithStdin } from '../utils'
 
 interface Props {
   dependencies: IDependency[]
   active: boolean
 }
 
-class Overview extends React.Component<WithStdin<Props>> {
+export default class Overview extends React.Component<Props> {
   render() {
     const { dependencies, active } = this.props
     const deps = this.sortDependencies(
@@ -60,20 +59,5 @@ class Overview extends React.Component<WithStdin<Props>> {
       if (depA.type < depB.type) return -1
       return 0
     })
-  }
-}
-
-/**
- * Wraps the component in stdin consumer.
- */
-export default class OverviewWithStdin extends React.Component<Props> {
-  render() {
-    return (
-      <StdinContext.Consumer>
-        {({ stdin, setRawMode }) => (
-          <Overview {...this.props} stdin={stdin} setRawMode={setRawMode} />
-        )}
-      </StdinContext.Consumer>
-    )
   }
 }

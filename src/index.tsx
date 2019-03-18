@@ -17,6 +17,7 @@ const SPACE = ' '
 const ARROW_UP = '\u001B[A'
 const ARROW_DOWN = '\u001B[B'
 const ENTER = '\r'
+const CTRL_C = '\x03'
 
 interface State {
   view: 'SEARCH' | 'SCROLL' | 'OVERVIEW' | 'INSTALL'
@@ -67,8 +68,19 @@ class Emma extends React.Component<WithStdin<{}>, State> {
     if (setRawMode) setRawMode(false)
   }
 
+  /**
+   * Keyboard events manager split based on the active view.
+   */
   async handleInput(data: any) {
     const s = String(data)
+
+    /**
+     * Create an exit listener.
+     */
+
+    if (s === CTRL_C) {
+      process.exit(0)
+    }
 
     switch (this.state.view) {
       case 'SEARCH': {
@@ -129,9 +141,11 @@ class Emma extends React.Component<WithStdin<{}>, State> {
       loading: true,
     })
 
-    const hits = await search(value)
+    const res = await search(value)
 
-    this.setState({ hits, loading: false })
+    if (res.query === this.state.query) {
+      this.setState({ hits: res.hits, loading: false })
+    }
   }
 
   /**
@@ -141,12 +155,14 @@ class Emma extends React.Component<WithStdin<{}>, State> {
     const { query, hits } = this.state
     const page = this.state.page + 1
 
-    const newHits = await search(query, page)
+    const res = await search(query)
 
-    this.setState({
-      page,
-      hits: [...hits, ...newHits],
-    })
+    if (res.query === this.state.query) {
+      this.setState({
+        page,
+        hits: [...hits, ...res.hits],
+      })
+    }
   }
 
   /**
