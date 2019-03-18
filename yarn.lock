@@ -417,7 +417,14 @@
   dependencies:
     "@types/node" "*"
 
-"@types/ink@^0.5.1":
+"@types/ink-testing-library@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/ink-testing-library/-/ink-testing-library-1.0.0.tgz#e135b64f9b1e63b39f9c34b0dfb31a206b8e3b5b"
+  integrity sha512-5bY/Zoh8exys8/CuM2xjvEKMyEGVqKG6q3rLdoCzDLgIxOFH4ekct96S8QNVIvfYFXfIjj38NFVEGsWo8r+NYA==
+  dependencies:
+    "@types/ink" "*"
+
+"@types/ink@*", "@types/ink@^0.5.1":
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@types/ink/-/ink-0.5.1.tgz#6d6e7f2d1e3436385ff6bd2cf7ca68a8bebbcb00"
   integrity sha512-B2LoPN8Jedf1e7IVVhCztdooZ21NZWoFzunXXJostqxZ5Qdr/V2UbwlFUooKJ+Z0gfSYX5NWeA6GGi3S88p3ig==
@@ -2200,6 +2207,13 @@ has-ansi@^2.0.0:
   dependencies:
     ansi-regex "^2.0.0"
 
+has-ansi@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/has-ansi/-/has-ansi-3.0.0.tgz#36077ef1d15f333484aa7fa77a28606f1c655b37"
+  integrity sha1-Ngd+8dFfMzSEqn+neihgbxxlWzc=
+  dependencies:
+    ansi-regex "^3.0.0"
+
 has-flag@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-3.0.0.tgz#b5d454dc2199ae225699f3467e5a07f3b955bafd"
@@ -3061,6 +3075,15 @@ jest-runtime@^24.5.0:
     slash "^2.0.0"
     strip-bom "^3.0.0"
     yargs "^12.0.2"
+
+jest-serializer-ansi@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/jest-serializer-ansi/-/jest-serializer-ansi-1.0.3.tgz#b4303a48159f8f3a92bb38c3c9e5df18014e2905"
+  integrity sha512-WYxhEjUxuAvOrECAzIBy65OWLfEnVOxb7RerNFpBSXW2cf4u8YaC/j7688OgCQ4WD80dYx5KnPh2jFVnk91XTw==
+  dependencies:
+    has-ansi "^3.0.0"
+    lodash "^4.17.4"
+    strip-ansi "^4.0.0"
 
 jest-serializer@^24.4.0:
   version "24.4.0"
