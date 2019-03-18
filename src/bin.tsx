@@ -32,4 +32,4 @@ if (notifier.update) {
 
 /* Main */
 
-render(<Emma />, { debug: false })
+render(<Emma />, { exitOnCtrlC: true })

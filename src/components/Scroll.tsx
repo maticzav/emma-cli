@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text, StdinContext } from 'ink'
+import { Box, Color, Text, StdinContext } from 'ink'
 
 import { WithStdin } from '../utils'
 
@@ -7,7 +7,6 @@ const ARROW_UP = '\u001B[A'
 const ARROW_DOWN = '\u001B[B'
 
 interface Props<T> {
-  placeholder: string
   active: boolean
   values: T[]
   children: (props: T & { active: boolean }) => React.ReactNode
@@ -101,16 +100,16 @@ class Scroll<T> extends React.Component<WithStdin<Props<T>>, State> {
       values = this.props.values.slice(mask, mask + size),
       render = this.props.children
 
-    /**
-     * Render placeholder when there are no items in the list.
-     */
-
-    if (values.length === 0) {
-      return <Text>{this.props.placeholder}</Text>
-    }
-
     return (
       <Box flexDirection="column">
+        {values.length === 0 && (
+          <Text>
+            <Color grey>
+              Start typing or change query so we can find something!
+            </Color>
+          </Text>
+        )}
+
         {values.map((value, i) =>
           render({
             ...value,

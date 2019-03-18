@@ -8,3 +8,20 @@ export type WithStdin<X> = X & {
    */
   readonly setRawMode: NodeJS.ReadStream['setRawMode']
 }
+
+/**
+ *
+ * Remove particular key from the object.
+ *
+ * @param k
+ * @param obj
+ */
+export function removeKey<T>(
+  k: string,
+  obj: { [key: string]: T },
+): { [key: string]: T } {
+  return Object.keys(obj).reduce<{ [key: string]: T }>((acc, key) => {
+    if (key === k) return acc
+    return { ...acc, [key]: obj[key] }
+  }, {})
+}

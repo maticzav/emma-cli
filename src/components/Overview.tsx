@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Color, StdinContext } from 'ink'
+import { Box, Color, StdinContext, Text } from 'ink'
 
 import Heading from './Heading'
 import Dependency from './Dependency'
@@ -24,6 +24,7 @@ class Overview extends React.Component<WithStdin<Props>> {
 
     return (
       <Box flexDirection="column">
+        <Text underline>Overview</Text>
         {deps.length > 0 && (
           <>
             <Heading>dependencies</Heading>
@@ -40,6 +41,12 @@ class Overview extends React.Component<WithStdin<Props>> {
               <Dependency key={dep.name} data={dep} />
             ))}
           </>
+        )}
+
+        {deps.length === 0 && devDeps.length === 0 && (
+          <Text>
+            <Color grey>Select packages using space!</Color>
+          </Text>
         )}
 
         {active && <Color greenBright>{`Press enter to install...`}</Color>}

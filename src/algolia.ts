@@ -20,8 +20,13 @@ export interface IPackage {
   name: string
   version: string
   description: string
+  repository?: IPackageRepository
   owner: IPackageOwner
   humanDownloadsLast30Days: string
+}
+
+export interface IPackageRepository {
+  url: string
 }
 
 export interface IPackageOwner {
@@ -50,6 +55,7 @@ export const search = async (
       'version',
       'description',
       'owner',
+      'repository',
       'humanDownloadsLast30Days',
     ],
     page: page,

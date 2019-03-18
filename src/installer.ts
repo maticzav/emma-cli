@@ -23,8 +23,8 @@ type InstallationInstruction = { yarn: string; npm: string }
 export const dependencyTypes: DependencyType[] = ['dependency', 'devDependency']
 
 export const instructions: DependencyTypes = {
-  dependency: { yarn: '', npm: '' },
-  devDependency: { yarn: '-D', npm: '--save-dev' },
+  dependency: { yarn: 'yarn add', npm: 'npm install --save' },
+  devDependency: { yarn: 'yarn add -D', npm: 'npm install --save-dev' },
 }
 
 /**
@@ -56,7 +56,7 @@ export async function install(
   const dependencies = deps.filter(dep => dep.type === type)
 
   const command = instructions[type][installer]
-  const pkgs = dependencies.join(' ')
+  const pkgs = dependencies.map(({ name }) => name).join(' ')
 
   return execa.shell(`${command} ${pkgs}`, { stdio: `ignore` })
 }

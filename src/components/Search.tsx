@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import { Box, Color, Text, StdinContext } from 'ink'
-// import Spinner from 'ink-spinner'
 
 import { WithStdin } from '../utils'
 
@@ -41,6 +40,9 @@ class Search extends React.Component<WithStdin<Props>> {
 
     const char = String(data)
 
+    /**
+     * Ignored input.
+     */
     if (
       [
         ARROW_UP,
@@ -56,6 +58,9 @@ class Search extends React.Component<WithStdin<Props>> {
       return
     }
 
+    /**
+     * Text input.
+     */
     if (char === BACKSPACE || char === DELETE) {
       onChange(value.slice(0, value.length - 1))
     } else {
@@ -75,9 +80,8 @@ class Search extends React.Component<WithStdin<Props>> {
           </Text>
         </Box>
         <Box>
-          <Color dim={!hasValue}>{hasValue ? value : 'graphql-shield'}</Color>
+          <Color dim={!hasValue}>{hasValue ? value : 'create-emma'}</Color>
         </Box>
-        {/* TODO: Think about how to display that loading indicator */}
       </Box>
     )
   }

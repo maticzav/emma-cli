@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Box, Color, Text, StdinContext } from 'ink'
+import opn from 'opn'
 
 import { IPackage, SearchContext, WithSearchContext } from '../algolia'
 import { IDependency } from '../installer'
@@ -55,6 +56,9 @@ class Package extends PureComponent<
         return onClick(pkg)
       }
       case ARROW_RIGHT: {
+        if (this.state.showDetails && pkg.repository) {
+          opn(pkg.repository.url)
+        }
         return this.setState({ showDetails: true })
       }
       case ARROW_LEFT: {
@@ -165,6 +169,13 @@ class Package extends PureComponent<
         switch (column) {
           case 'owner': {
             return hit.owner.name
+          }
+          case 'repository': {
+            if (hit.repository) {
+              return hit.repository.url
+            } else {
+              return ''
+            }
           }
           default: {
             return hit[column]

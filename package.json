@@ -10,12 +10,11 @@
   "engines": {
     "node": ">=8.0.0"
   },
-  "release": {
-    "branch": "master"
-  },
   "scripts": {
     "build": "tsc -d",
     "dev": "ts-node --files src/bin.tsx",
+    "prepack": "npm run build",
+    "pack": "pkg dist/bin.js -c package.json -o packed",
     "prepublish": "npm run build",
     "pretest": "npm run build",
     "semantic-release": "semantic-release",
@@ -41,6 +40,7 @@
     "ink-spinner": "^3.0.0",
     "meow": "^5.0.0",
     "multilines": "^1.0.2",
+    "opn": "^5.5.0",
     "react": "^16.8.4",
     "update-notifier": "^2.5.0"
   },
@@ -50,9 +50,10 @@
     "@types/ink": "^0.5.1",
     "@types/meow": "^5.0.0",
     "@types/node": "^11.11.3",
+    "@types/opn": "^5.1.0",
     "@types/react": "^16.8.8",
     "@types/update-notifier": "^2.5.0",
-    "@zeit/ncc": "^0.16.0",
+    "@zeit/ncc": "^0.16.1",
     "husky": "^1.3.1",
     "ink-testing-library": "^1.0.1",
     "pkg": "^4.3.7",
@@ -64,6 +65,25 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/maticzav/emma-cli.git"
+  },
+  "pkg": {
+    "scripts": "dist/**/*.js",
+    "targets": [
+      "node10-alpine-x64",
+      "node10-linux-x64",
+      "node10-macos-x64",
+      "node10-win-x64"
+    ]
+  },
+  "release": {
+    "branch": "master",
+    "publish": [
+      "@semantic-release/npm",
+      {
+        "path": "@semantic-release/github",
+        "assets": "packed/*"
+      }
+    ]
   },
   "collective": {
     "type": "opencollective",

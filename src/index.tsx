@@ -4,13 +4,14 @@ import { Box, StdinContext } from 'ink'
 import { IPackage, SearchContext, search } from './algolia'
 
 import { Footer } from './components/Footer'
+import Install from './components/Install'
 import Overview from './components/Overview'
 import Package from './components/Package'
 import Scroll from './components/Scroll'
 import Search from './components/Search'
 
 import { IDependency, getNextDependencyType } from './installer'
-import { WithStdin } from './utils'
+import { WithStdin, removeKey } from './utils'
 
 const ARROW_DOWN = '\u001B[B'
 const ENTER = '\r'
@@ -146,10 +147,7 @@ class Emma extends React.Component<WithStdin<{}>, State> {
         })
       } else {
         this.setState({
-          dependencies: {
-            ...dependencies,
-            [pkg.name]: { name: pkg.name, type: 'dependency' },
-          },
+          dependencies: removeKey(pkg.name, dependencies),
         })
       }
     }
@@ -160,7 +158,11 @@ class Emma extends React.Component<WithStdin<{}>, State> {
 
     switch (view) {
       case 'INSTALL': {
-        return <Box>Hey</Box>
+        return (
+          <Box flexDirection="column">
+            <Install dependencies={Object.values(dependencies)} active />
+          </Box>
+        )
       }
 
       default: {
@@ -174,7 +176,6 @@ class Emma extends React.Component<WithStdin<{}>, State> {
                 active
               />
               <Scroll
-                placeholder="Start typing or change query so we can find something!"
                 values={this.state.hits}
                 onWillReachEnd={this.handleWillReachEnd}
                 active={view === 'SCROLL'}
