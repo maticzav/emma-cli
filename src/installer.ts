@@ -64,7 +64,7 @@ export async function install(
   const pkgs = dependencies.map(({ name }) => name).join(' ')
   const args = argvs.join(' ')
 
-  return execa.shell(`echo "${command} ${pkgs} ${args}"`, { stdio: `inherit` })
+  return execa.shell(`${command} ${pkgs} ${args}`, { stdio: `ignore` })
 }
 
 /* Helpers */
