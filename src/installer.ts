@@ -54,6 +54,7 @@ export async function install(
 ): Promise<execa.ExecaReturns | null> {
   const installer = getInstaller()
   const dependencies = deps.filter(dep => dep.type === type)
+  const [, , ...argvs] = process.argv
 
   if (dependencies.length === 0) {
     return Promise.resolve(null)
@@ -61,8 +62,9 @@ export async function install(
 
   const command = instructions[type][installer]
   const pkgs = dependencies.map(({ name }) => name).join(' ')
+  const args = argvs.join(' ')
 
-  return execa.shell(`${command} ${pkgs}`, { stdio: `ignore` })
+  return execa.shell(`echo "${command} ${pkgs} ${args}"`, { stdio: `inherit` })
 }
 
 /* Helpers */

@@ -28,8 +28,7 @@ interface State {
   dependencies: {
     [name: string]: IDependency
   }
-  dependenciesInstallationStatus: InstallationStatus
-  devDependenciesInstallationStatus: InstallationStatus
+  status: InstallationStatus
 }
 
 class Emma extends React.Component<WithStdin<{}>, State> {
@@ -40,8 +39,7 @@ class Emma extends React.Component<WithStdin<{}>, State> {
     hits: [],
     loading: false,
     dependencies: {},
-    dependenciesInstallationStatus: 'NOT_STARTED',
-    devDependenciesInstallationStatus: 'NOT_STARTED',
+    status: 'NOT_STARTED',
   }
 
   constructor(props: WithStdin<{}>) {
@@ -51,7 +49,6 @@ class Emma extends React.Component<WithStdin<{}>, State> {
     this.handleInput = this.handleInput.bind(this)
     this.handleWillReachEnd = this.handleWillReachEnd.bind(this)
     this.installDependencies = this.installDependencies.bind(this)
-    this.installDevDependencies = this.installDevDependencies.bind(this)
   }
 
   componentDidMount() {
@@ -106,11 +103,7 @@ class Emma extends React.Component<WithStdin<{}>, State> {
           if (Object.values(this.state.dependencies).length > 0) {
             this.setState({ view: 'INSTALL' })
             try {
-              await Promise.all([
-                this.installDependencies(),
-                this.installDevDependencies(),
-              ])
-
+              await this.installDependencies()
               process.exit(0)
             } catch (err) {
               process.exit(1)
@@ -201,37 +194,21 @@ class Emma extends React.Component<WithStdin<{}>, State> {
    * Installation handlers.
    */
   async installDependencies() {
-    this.setState({ dependenciesInstallationStatus: 'LOADING' })
+    this.setState({ status: 'LOADING' })
     try {
-      await install(Object.values(this.state.dependencies), 'dependency')
-      this.setState({ dependenciesInstallationStatus: 'INSTALLED' })
+      await Promise.all([
+        install(Object.values(this.state.dependencies), 'dependency'),
+        install(Object.values(this.state.dependencies), 'devDependency'),
+      ])
+      this.setState({ status: 'INSTALLED' })
     } catch (err) {
-      this.setState({ dependenciesInstallationStatus: 'ERROR' })
-      throw err
-    }
-  }
-
-  async installDevDependencies() {
-    this.setState({ devDependenciesInstallationStatus: 'LOADING' })
-    try {
-      await install(Object.values(this.state.dependencies), 'devDependency')
-      this.setState({ devDependenciesInstallationStatus: 'INSTALLED' })
-    } catch (err) {
-      this.setState({ devDependenciesInstallationStatus: 'ERROR' })
+      this.setState({ status: 'ERROR' })
       throw err
     }
   }
 
   render() {
-    const {
-      view,
-      query,
-      loading,
-      hits,
-      dependencies,
-      dependenciesInstallationStatus,
-      devDependenciesInstallationStatus,
-    } = this.state
+    const { view, query, loading, hits, dependencies, status } = this.state
 
     return (
       <SearchContext.Provider value={hits}>
@@ -263,10 +240,7 @@ class Emma extends React.Component<WithStdin<{}>, State> {
           />
           <Install
             dependencies={Object.values(dependencies)}
-            dependenciesInstallationStatus={dependenciesInstallationStatus}
-            devDependenciesInstallationStatus={
-              devDependenciesInstallationStatus
-            }
+            status={status}
             active={view === 'INSTALL'}
           />
           <Footer />
