@@ -2,8 +2,6 @@ import React from 'react'
 import { Box, Color, Text } from 'ink'
 import Spinner from 'ink-spinner'
 
-import Heading from './Heading'
-
 import { IDependency } from '../installer'
 
 interface Props {
@@ -38,7 +36,6 @@ export default class Install extends React.Component<Props> {
           <Box flexDirection="column">
             {dependencies.length > 0 && (
               <>
-                <Heading>dependencies</Heading>
                 {(() => {
                   switch (status) {
                     case 'NOT_STARTED': {

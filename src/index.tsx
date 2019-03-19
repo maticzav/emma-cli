@@ -142,17 +142,19 @@ class Emma extends React.Component<WithStdin<{}>, State> {
   }
 
   /**
-   * Start querying new hits and update pagination.
+   * Start querying new hits and update pagination. But limit pagniation to
+   * ten pages.
    */
   async handleWillReachEnd() {
-    const { query, hits } = this.state
-    const page = this.state.page + 1
+    const { query, hits, page } = this.state
 
-    const res = await search(query)
+    if (page > 10) return
 
-    if (res.query === this.state.query) {
+    const res = await search(query, page + 1)
+
+    if (res.query === this.state.query && res.page - 1 === this.state.page) {
       this.setState({
-        page,
+        page: res.page,
         hits: [...hits, ...res.hits],
       })
     }
@@ -190,9 +192,6 @@ class Emma extends React.Component<WithStdin<{}>, State> {
     }
   }
 
-  /**
-   * Installation handlers.
-   */
   async installDependencies() {
     this.setState({ status: 'LOADING' })
     try {
