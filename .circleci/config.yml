@@ -6,6 +6,5 @@ jobs:
     steps:
       - checkout
       - run: yarn install
-      - run: yarn run test
       - run: yarn run build
       - run: yarn run release

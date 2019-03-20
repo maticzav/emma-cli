@@ -9,73 +9,69 @@
 
 > Install the package you are looking for.
 
-Powered by [Algolia search API](https://www.algolia.com/), [npm-suggestions](https://github.com/JureSotosek/npm-suggestions) and the [Yarn](http://yarnpkg.com/) package manager.
+Powered by [Algolia search API](https://www.algolia.com/).
 
-<p align="center"><img src="media/newExample.gif" width="655" /></p>
+<p align="center"><img src="media/demo.gif" width="655" /></p>
 
 ## Overview
 
-Emma is a command line assistant which helps you search and install packages more efficiently. Algolia's responsive and interactive features gives you the information you need to find the right package, while npm-suggestions make it quicker then ever to find the packages you need.
+Emma is a command line assistant which helps you search and install packages more efficiently from your CLI.
 
 ## Features
 
-- **Extremely fast:** Search all the packages from NPM and Yarn using your terminal.
-- **Suggestions:** Get packages selected based on the ones you have already selected.
-- **Build the stack:** Search for multiple packages and install them with one keystroke.
-- **Automatic tool detection:** Detects whether it should use Yarn or NPM, out of the box.
+- 🔍**Peek definitions:** Use right arrow keys to get description of the packages or peek README.
+- ⏳**Scroll infinitely:** Search all the packages from NPM and Yarn using your terminal.
+- 📚**Build the stack:** Search for multiple packages and install them with one keystroke.
 
 ## Install
 
 ```bash
-npm install -g emma-cli
+npx emma-cli
 ```
 
-Use Yarn or NPM to install.
+or
+
+```bash
+yarn global add emma-cli
+```
+
+> Exposes two global commands, `ema` and `emma`.
 
 ## Example
 
 ```
 ❯ emma-cli ~ emma
-Search packages 📦  : grap
-Search results:
-  11   grap           loopingrage     Utility that GReps for gAPs and out of sequence line in log
-  8.4m sass-graph     xzyfer          Parse sass files and extract a graph of imports
-  3.7m @types/graphql DefinitelyTyped TypeScript definitions for graphql
-❯ 2.9m graphql        graphql         A Query Language and Runtime which can target any service.
-  1.8m graphlib       dagrejs         A directed and undirected multi-graph library
-Suggestions results: Press Tab to select suggestions
-  10.2m react-dom  facebook  React package for working with the DOM.
-  14.6m prop-types facebook  Runtime type checking for React props and similar objects.
-  7m    classnames JedWatson A simple utility for conditionally joining classNames toget
-  65.3m lodash     lodash    Lodash modular utilities.
-  7.2m  redux      reactjs   Predictable state container for JavaScript apps
+Search packages on Yarn: @types/rea
+◉ 16.6m  @types/react                  DefinitelyTyped
+  7.3m   @types/react-dom              DefinitelyTyped
+  4m     @types/react-router           DefinitelyTyped
+  3.9m   @types/react-transition-group DefinitelyTyped
+  2.8m   @types/react-router-dom       DefinitelyTyped
+Overview
+dependencies
+ - react
+ - react-dom
+devDependencies
+ - @types/react
+Installation
+Successfully installed dependendencies!
 Search powered by Algolia.
-
-Picked: Press Space to install packages...
-› react  16.5.1
 ```
 
 ## API
 
 ```
 Usage
-$ emma
+  $ emma
 
-Options
---dev -D Add to dev dependencies.
---limit -L Number of packages shown, defaults to 5.
-
-Example
-$ emma -D
-
-Run without package-name to enter live search.
-Use keyboard to search through package library.
-Use up/down to select packages.
-Use enter to select a package.
-Use tab to move between search/suggestions.
-When query is empty use backspace to remove packages.
-Click space to trigger the install.
+Controls:
+  - space: toggle dependencies
+  - up/down: scroll the list
+  - right/left: hide or show details
+  - double right: show repo
 ```
+
+> All flags after `emma` are forwarded to installer.
 
 ## Contributors
 
