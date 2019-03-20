@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noFallthroughCasesInSwitch": true,
+    "strict": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "sourceMap": true,
+    "lib": ["dom", "es2017", "esnext.asynciterable"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "jsx": "react"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
