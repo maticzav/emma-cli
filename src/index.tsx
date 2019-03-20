@@ -195,10 +195,9 @@ class Emma extends React.Component<WithStdin<{}>, State> {
   async installDependencies() {
     this.setState({ status: 'LOADING' })
     try {
-      await Promise.all([
-        install(Object.values(this.state.dependencies), 'dependency'),
-        install(Object.values(this.state.dependencies), 'devDependency'),
-      ])
+      await install(Object.values(this.state.dependencies), 'dependency')
+      await install(Object.values(this.state.dependencies), 'devDependency')
+
       this.setState({ status: 'INSTALLED' })
     } catch (err) {
       this.setState({ status: 'ERROR' })
