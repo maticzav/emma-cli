@@ -63,7 +63,7 @@
     "jest": "24.7.1",
     "jest-serializer-ansi": "1.0.3",
     "pkg": "4.3.7",
-    "prettier": "1.16.4",
+    "prettier": "1.17.0",
     "pretty-quick": "1.10.0",
     "semantic-release": "12.4.1",
     "ts-jest": "24.0.2",
