@@ -49,7 +49,7 @@ export default class Install extends React.Component<Props> {
                       return (
                         <Box>
                           <Color greenBright>
-                            Successfully installed dependendencies!
+                            Successfully installed dependencies!
                           </Color>
                         </Box>
                       )
@@ -58,7 +58,7 @@ export default class Install extends React.Component<Props> {
                       return (
                         <Box>
                           <Color cyan>
-                            Loading dependendencies!
+                            Loading dependencies!
                             <Spinner />
                           </Color>
                         </Box>

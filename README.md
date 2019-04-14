@@ -54,7 +54,7 @@ dependencies
 devDependencies
  - @types/react
 Installation
-Successfully installed dependendencies!
+Successfully installed dependencies!
 Search powered by Algolia.
 ```
 
