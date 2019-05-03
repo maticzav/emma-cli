@@ -117,6 +117,12 @@ class Package extends PureComponent<
       </Box>
     )
 
+    const Version = () => (
+      <Box width={this.getColumnWidth('version')} marginRight={1}>
+        <Text italic>{pkg.version}</Text>
+      </Box>
+    )
+
     const Owner = () => (
       <Box width={this.getColumnWidth('owner')}>
         <Text>
@@ -138,6 +144,7 @@ class Package extends PureComponent<
             <Cursor />
             <Downloads />
             <Name />
+            <Version />
             <Owner />
           </Box>
           <Box>
@@ -152,6 +159,7 @@ class Package extends PureComponent<
         <Cursor />
         <Downloads />
         <Name />
+        <Version />
         <Owner />
       </Box>
     )
