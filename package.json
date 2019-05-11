@@ -62,7 +62,7 @@
     "ink-testing-library": "1.0.1",
     "jest": "24.8.0",
     "jest-serializer-ansi": "1.0.3",
-    "pkg": "4.3.8",
+    "pkg": "4.4.0",
     "prettier": "1.17.0",
     "pretty-quick": "1.10.0",
     "semantic-release": "12.4.1",
