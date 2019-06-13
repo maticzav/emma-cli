@@ -576,10 +576,10 @@
   resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-12.0.9.tgz#693e76a52f61a2f1e7fb48c0eef167b95ea4ffd0"
   integrity sha512-sCZy4SxP9rN2w30Hlmg5dtdRwgYQfYRiLo9usw8X9cxlf+H4FqM1xX7+sNH7NNKVdbXMJWqva7iyy+fxh/V7fA==
 
-"@zeit/ncc@0.19.0":
-  version "0.19.0"
-  resolved "https://registry.yarnpkg.com/@zeit/ncc/-/ncc-0.19.0.tgz#1aa89d71eecdcf55fec1c824e7b9bfc1dcb7dde3"
-  integrity sha512-SV/90XT+TTNAcdJDGXJU4Jh14ygQXTJFvg/qIa99m/ev3RrBk2KGrWoi0ENS8iP2mePoHW0jsapDS76X+O46Ag==
+"@zeit/ncc@0.19.1":
+  version "0.19.1"
+  resolved "https://registry.yarnpkg.com/@zeit/ncc/-/ncc-0.19.1.tgz#8914765cff5ddef5645f56de3ce244d3e5000e58"
+  integrity sha512-E7Erja/jzyE8tjfhMgSl+uDX200CGVfSKNcYYiZY2Ds2yHkD9ktDslu6qYZVoBw5ftzHSzv39J40u6mecno1wg==
 
 JSONStream@^1.0.4:
   version "1.3.5"
