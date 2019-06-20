@@ -2435,10 +2435,10 @@ ink-spinner@^3.0.0:
     cli-spinners "^1.0.0"
     prop-types "^15.5.10"
 
-ink-testing-library@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/ink-testing-library/-/ink-testing-library-1.0.1.tgz#6a068997e66522c88b58c5ff65181faf5b932f88"
-  integrity sha512-RT/JU1NDcf3XdSWsN9kcJHEd6zX5Sb4kt5SFlfnJiKIzt2xdPdbWCrhBdEOFtdP9Nu282HU3AJ1zt7yYUpyljw==
+ink-testing-library@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/ink-testing-library/-/ink-testing-library-1.0.2.tgz#4cc7224659ce97c40c1ee8bb1985196d224a62a1"
+  integrity sha512-VEG4W6j/csZOERsey1ocXRY2LtePHSWNUM2QN2l2ruv9UrwRov//26nNcz4NAFFRoWx4bZQcfaJ/q+QLAZKAyA==
 
 ink@^2.0.5:
   version "2.0.5"
