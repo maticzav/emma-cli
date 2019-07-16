@@ -388,10 +388,10 @@
     into-stream "^3.1.0"
     lodash "^4.17.4"
 
-"@types/algoliasearch@3.30.14":
-  version "3.30.14"
-  resolved "https://registry.yarnpkg.com/@types/algoliasearch/-/algoliasearch-3.30.14.tgz#2166c0fedfa029a4be0fd80e5b35b4eb2d99731e"
-  integrity sha512-GfUz6Cb7BXSyR/mQchUVy4Y6TNbho/0NrdqDtfSENJaBI9+miD00xowISIsidDJTonjQIq0tN7f/+OQBVBM1Cw==
+"@types/algoliasearch@3.30.15":
+  version "3.30.15"
+  resolved "https://registry.yarnpkg.com/@types/algoliasearch/-/algoliasearch-3.30.15.tgz#60aff270cea4b8b848fbb389a68988f163e80934"
+  integrity sha512-UpQvm0phg/wNyy64OGHgAw0as2DxprhihTurKIO+u2/VtXbRk/ZpbsuG/sGaKglJoOmD7a+fWl6k/t8N/jB6Pg==
 
 "@types/babel__core@^7.1.0":
   version "7.1.0"
