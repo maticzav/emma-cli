@@ -474,10 +474,18 @@
   dependencies:
     "@types/ink" "*"
 
-"@types/ink@*", "@types/ink@0.5.1":
+"@types/ink@*":
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@types/ink/-/ink-0.5.1.tgz#6d6e7f2d1e3436385ff6bd2cf7ca68a8bebbcb00"
   integrity sha512-B2LoPN8Jedf1e7IVVhCztdooZ21NZWoFzunXXJostqxZ5Qdr/V2UbwlFUooKJ+Z0gfSYX5NWeA6GGi3S88p3ig==
+  dependencies:
+    "@types/node" "*"
+    "@types/prop-types" "*"
+
+"@types/ink@0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@types/ink/-/ink-0.5.2.tgz#5e51b233d14639ee95df4d3c8b7f7845c51d094c"
+  integrity sha512-yEuhWTRMXJkIWiaM58c5kuRot5HFccv9kjjgy0fBZG0+tYb+sMBaxHNPVqyZXspGGlmwDOQ1d3BsygWpWlW17w==
   dependencies:
     "@types/node" "*"
     "@types/prop-types" "*"
