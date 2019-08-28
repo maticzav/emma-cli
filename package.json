@@ -68,7 +68,7 @@
     "semantic-release": "12.4.1",
     "ts-jest": "24.0.2",
     "ts-node": "8.3.0",
-    "typescript": "3.5.3"
+    "typescript": "3.6.2"
   },
   "license": "MIT",
   "repository": {
