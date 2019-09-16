@@ -408,10 +408,10 @@
     into-stream "^3.1.0"
     lodash "^4.17.4"
 
-"@types/algoliasearch@3.30.19":
-  version "3.30.19"
-  resolved "https://registry.yarnpkg.com/@types/algoliasearch/-/algoliasearch-3.30.19.tgz#3ba5a021b911db9afb41be15249aced9efdaf8ce"
-  integrity sha512-W52RL8sgqbJ5y+Ied2y7CbU5T8Kk2WVpe+J83RnCyt72a+oUNtPqyBK/6ZLy6m+5XOV08a3NB3NYalDdhyEtXQ==
+"@types/algoliasearch@3.34.1":
+  version "3.34.1"
+  resolved "https://registry.yarnpkg.com/@types/algoliasearch/-/algoliasearch-3.34.1.tgz#dbe1e3d1ff4badebc85ff9c157a7d476f6694d55"
+  integrity sha512-NfYkLsi8sXg9HMOGjr+NvwPxynmikpS9YHieEoqeWuk5fnFeS4LK6vPiJtrFZzb4Pi+/ssFKXDclkMh7Ffak9g==
 
 "@types/babel__core@^7.1.0":
   version "7.1.0"
