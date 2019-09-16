@@ -67,7 +67,7 @@
     "pretty-quick": "1.11.1",
     "semantic-release": "12.4.1",
     "ts-jest": "24.1.0",
-    "ts-node": "8.3.0",
+    "ts-node": "8.4.1",
     "typescript": "3.6.3"
   },
   "license": "MIT",
