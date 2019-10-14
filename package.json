@@ -43,7 +43,7 @@
     "multilines": "^1.0.2",
     "opn": "^5.5.0",
     "react": "^16.8.4",
-    "update-notifier": "^2.5.0"
+    "update-notifier": "^3.0.0"
   },
   "devDependencies": {
     "@types/algoliasearch": "3.34.5",
