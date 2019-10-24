@@ -54,7 +54,7 @@
     "@types/meow": "5.0.0",
     "@types/node": "11.13.23",
     "@types/opn": "5.1.0",
-    "@types/react": "16.9.9",
+    "@types/react": "16.9.10",
     "@types/update-notifier": "2.5.0",
     "@zeit/ncc": "0.20.5",
     "codecov": "3.6.1",
