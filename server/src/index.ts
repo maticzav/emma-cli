@@ -3,10 +3,17 @@ import * as t from 'io-ts'
 import { PathReporter } from 'io-ts/lib/PathReporter'
 import probot, { Octokit } from 'probot'
 
-/* Prisma */
+import { Photon, Starter, BatchPayload } from '@generated/photon'
 
 module.exports = (app: probot.Application) => {
+  /* Info */
   app.log.info('Emma server up 🚀')
+
+  /* Prisma */
+
+  const photon = new Photon({})
+
+  /* Events */
 
   app.on('push', async context => {
     const owner = context.payload.repository.owner.login
@@ -39,12 +46,28 @@ module.exports = (app: probot.Application) => {
     try {
       /* Loads starters. */
       const starters = await Promise.all(
-        config.starters.map(s =>
+        config.starters.map<Promise<EmmaStarter>>(s =>
           loadStarter(context.github, { repo, owner, ref }, s),
         ),
       )
 
       /* Syncs starters with database. */
+      const syncRes = await Promise.all(
+        starters.map(starter => saveStarter(photon, starter)),
+      )
+
+      context.log.debug({ res: syncRes, starters }, `Synced starters.`)
+
+      const cleanRes = await cleanRepositoryStarters(
+        photon,
+        { repo, owner },
+        starters,
+      )
+
+      context.log.debug(
+        { repo, owner, res: cleanRes },
+        `Cleaned starters in the database.`,
+      )
     } catch (err) {
       /* Log error on failure. */
       context.log.warn(err)
@@ -159,6 +182,52 @@ async function loadStarter(
       )
     }
   }
+}
+
+/* PRISMA */
+
+/**
+ * Writes a starter to database.
+ *
+ * @param photon
+ * @param starter
+ */
+async function saveStarter(
+  photon: Photon,
+  starter: EmmaStarter,
+): Promise<Starter> {
+  return photon.starters.create({
+    data: {
+      repo: starter.repo,
+      owner: starter.owner,
+      path: starter.path,
+      ref: starter.ref,
+      name: starter.name,
+      description: starter.description,
+      dependencies: { set: starter.dependencies },
+    },
+  })
+}
+
+/**
+ * Deletes legacy starters from the database.
+ *
+ * @param starters
+ */
+async function cleanRepositoryStarters(
+  photon: Photon,
+  { repo, owner }: { repo: string; owner: string },
+  starters: EmmaStarter[],
+): Promise<BatchPayload> {
+  const startersNames = starters.map(starter => starter.name)
+
+  return photon.starters.deleteMany({
+    where: {
+      repo: repo,
+      owner: owner,
+      name: { notIn: startersNames },
+    },
+  })
 }
 
 /* UTILS */
