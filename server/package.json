@@ -1,0 +1,25 @@
+{
+  "name": "@emma/server",
+  "version": "0.0.0",
+  "scripts": {
+    "generate:prisma": "prisma2 generate",
+    "postinstall": "prisma2 generate"
+  },
+  "dependencies": {
+    "@hapi/joi": "^16.1.7",
+    "express": "^4.17.1",
+    "fp-ts": "^2.1.1",
+    "io-ts": "^2.0.1",
+    "jsonwebtoken": "^8.5.0",
+    "probot": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.1",
+    "@types/hapi__joi": "^16.0.1",
+    "@types/jsonwebtoken": "^8.3.2",
+    "@types/node": "^12.7.12",
+    "prisma2": "^2.0.0-preview015",
+    "ts-node-dev": "^1.0.0-pre.32"
+  },
+  "license": "MIT"
+}
