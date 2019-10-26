@@ -9,6 +9,8 @@ release:
   command:
     - |
       ls .
-      pwd
+      ls ./scripts
+      ls ./server/dist
+      ./scripts/migrate.sh
 run:
-  web: ./node_modules/.bin/probot run server/dist/index.js -p $PORT
+  web: ./node_modules/.bin/probot run ./server/dist/index.js -p $PORT
