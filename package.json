@@ -5,7 +5,6 @@
   "scripts": {
     "build": "node scripts/build.js",
     "coverage": "codecov",
-    "prerelease": "yarn build",
     "release": "lerna publish --yes",
     "test": "jest"
   },
