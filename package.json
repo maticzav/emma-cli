@@ -11,7 +11,7 @@
     "test": "yarn run build; jest"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.9",
+    "@types/jest": "^24.0.20",
     "chalk": "^2.4.2",
     "codecov": "3.6.1",
     "execa": "^3.2.0",

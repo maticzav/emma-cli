@@ -1,6 +1,11 @@
 # dependencies
 node_modules
-/coverage
+coverage
+
+# photon
+!server/node_modules
+server/node_modules/*
+!server/node_modules/@generated
 
 # production
 dist

@@ -1,4 +1,0 @@
-FROM node:13-alpine
-
-ARG DATABASE_URL
-ARG APP_ID

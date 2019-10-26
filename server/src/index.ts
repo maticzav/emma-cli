@@ -5,6 +5,12 @@ import probot, { Octokit } from 'probot'
 
 import { Photon, Starter, BatchPayload } from '@generated/photon'
 
+/* Constants */
+
+const EmmaConfigurationFilePath = 'emma.yml'
+
+/* Webhooks */
+
 module.exports = (app: probot.Application) => {
   /* Info */
   app.log.info('Emma server up 🚀')
@@ -28,7 +34,7 @@ module.exports = (app: probot.Application) => {
     }
 
     /* Load configuration. */
-    const configFile = await context.config('emma.yml')
+    const configFile = await context.config(EmmaConfigurationFilePath)
     const eConfig = decodeConfiguration(configFile)
 
     /* Terminate faulty configuration. */
@@ -142,7 +148,7 @@ async function loadStarter(
     owner: owner,
     repo: repo,
     ref: ref,
-    path: config.path,
+    path: `${config.path}/package.json`,
   })
 
   switch (res.status) {
@@ -159,7 +165,7 @@ async function loadStarter(
 
       /* Make sure response includes all parameters. */
       if (!pkg.name || !pkg.dependencies) {
-        throw new Error(`Missing starter name or dependencies.`)
+        throw new Error(`Missing a starter name or dependencies.`)
       }
 
       return {
