@@ -8,9 +8,12 @@ release:
   image: web
   command:
     - |
+      echo "FILES"
+      pwd
       ls .
+      echo "SCRIPTS"
       ls ./scripts
-      ls ./server/dist
+      echo "MIGRAYE"
       ./scripts/migrate.sh
 run:
   web: ./node_modules/.bin/probot run ./server/dist/index.js -p $PORT
