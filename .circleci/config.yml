@@ -11,7 +11,13 @@ jobs:
           command: yarn install
       - run:
           name: Build packages
-          command: yarn build
+          command: |
+            # Generate Photon
+            cd server
+            yarn prisma:generate
+            # Build
+            cd ..
+            yarn build
       - run:
           name: Test packages
           command: yarn test
