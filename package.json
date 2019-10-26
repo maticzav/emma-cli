@@ -65,7 +65,7 @@
     "pkg": "4.4.0",
     "prettier": "1.18.2",
     "pretty-quick": "1.11.1",
-    "semantic-release": "12.4.1",
+    "semantic-release": "15.13.28",
     "ts-jest": "24.1.0",
     "ts-node": "8.4.1",
     "typescript": "3.6.4"
