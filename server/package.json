@@ -2,7 +2,7 @@
   "name": "@emma/server",
   "version": "0.0.0",
   "scripts": {
-    "prisma:generate": "prisma2 generate",
+    "prisma:generate": "DATABASE_URL='' prisma2 generate",
     "prisma:migrate": "prisma2 lift up"
   },
   "dependencies": {
