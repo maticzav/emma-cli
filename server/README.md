@@ -2,4 +2,4 @@
 
 ## environment variables
 
-- `DATABASE_URL`: url of the postgresql database.
+- `POSTGRESQL_URL`: url of the postgresql database.

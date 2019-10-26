@@ -21,7 +21,7 @@ services:
     expose:
       - '3000'
     environment:
-      DATABASE_URL: postgres
+      POSTGRESQL_URL: postgres
       APP_ID: 123
       APP_SECRET: secret
 
