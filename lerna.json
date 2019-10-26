@@ -4,7 +4,7 @@
   "npmClient": "yarn",
   "command": {
     "publish": {
-      "ignoreChanges": ["ignored-file", "*.md"],
+      "ignoreChanges": ["*.md"],
       "conventionalCommits": true
     }
   },
