@@ -7,6 +7,8 @@ build:
 release:
   image: web
   command:
-    - ./scripts/migrate.sh
+    - |
+      ls .
+      pwd
 run:
   web: ./node_modules/.bin/probot run server/dist/index.js -p $PORT
