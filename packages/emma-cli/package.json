@@ -1,8 +1,8 @@
 {
-  "name": "@emma/cli",
+  "name": "emma-cli",
   "description": "Advanced package search from your terminal.",
   "author": "Matic Zavadlal <matic.zavadlal@gmail.com>",
-  "version": "0.0.0",
+  "version": "3.0.0",
   "bin": {
     "emma": "dist/bin.js",
     "ema": "dist/bin.js"
