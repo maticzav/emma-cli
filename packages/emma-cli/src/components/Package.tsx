@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Box, Color, Text, StdinContext } from 'ink'
-import opn from 'opn'
+import opn from 'open'
 
 import { IPackage, SearchContext, WithSearchContext } from '../algolia'
 import { IDependency } from '../installer'

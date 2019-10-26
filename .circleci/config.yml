@@ -11,10 +11,8 @@ jobs:
           name: Build packages
           command: |
             # Generate Photon
-            cd server
-            yarn prisma:generate
+            ./scripts/generate.sh
             # Build
-            cd ..
             yarn build
       - run: yarn test
       - run: yarn coverage
