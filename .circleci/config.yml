@@ -1,10 +1,47 @@
-version: 2
+version: 2.0
+
 jobs:
-  build:
+  test:
     docker:
-      - image: 'circleci/node:latest'
+      - image: 'circleci/node:11.3.0'
     steps:
       - checkout
-      - run: yarn install
-      - run: yarn run build
-      - run: yarn run release
+      - run:
+          name: Install monorepo
+          command: yarn install
+      - run:
+          name: Test packages
+          command: yarn test
+      - run:
+          name: Get coverage of packages
+          command: yarn coverage
+  publish:
+    docker:
+      - image: 'circleci/node:11.3.0'
+    steps:
+      - checkout
+      - run:
+          name: Install monorepo
+          command: yarn install
+      - run:
+          name: Setup NPM and Github credentials
+          command: |
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+            git config --global github.token $GH_TOKEN
+            git config --global user.email $GH_EMAIL
+            git config --global user.name $GH_USER
+      - run:
+          name: Release packages
+          command: npm run release
+
+workflows:
+  version: 2
+  test-and-publish:
+    jobs:
+      - test
+      - publish:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master

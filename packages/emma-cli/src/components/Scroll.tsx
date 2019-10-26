@@ -84,7 +84,7 @@ class Scroll<T> extends React.Component<WithStdin<Props<T>>, State> {
    * @param props
    * @param state
    */
-  componentDidUpdate<T>(props: Props<T>, state: State) {
+  componentDidUpdate() {
     const cursor = this.state.cursor
 
     /**

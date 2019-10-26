@@ -1,5 +1,5 @@
 module.exports = {
-  roots: ['<rootDir>/packages/', '<rootDir>/server/tests'],
+  roots: ['<rootDir>/packages/', '<rootDir>/server/'],
   testEnvironment: 'node',
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
@@ -11,6 +11,7 @@ module.exports = {
   collectCoverageFrom: [
     '**/*.{ts,tsx}',
     '!**/node_modules/**',
+    '!**/dist/**',
     '!**/vendor/**',
     '!**/generated/**',
   ],

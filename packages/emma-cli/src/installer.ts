@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import * as cp from 'child_process'
-import execa = require('execa')
+import execa, { ExecaReturnValue } from 'execa'
 
 /* Spec */
 
@@ -51,7 +51,7 @@ export function getNextDependencyType(
 export async function install(
   deps: IDependency[],
   type: IDependency['type'],
-): Promise<execa.ExecaReturns | null> {
+): Promise<ExecaReturnValue | null> {
   const installer = getInstaller()
   const dependencies = deps.filter(dep => dep.type === type)
   const [, , ...argvs] = process.argv
@@ -64,7 +64,7 @@ export async function install(
   const pkgs = dependencies.map(({ name }) => name).join(' ')
   const args = argvs.join(' ')
 
-  return execa.shell(`${command} ${pkgs} ${args}`, { stdio: `ignore` })
+  return execa(`${command} ${pkgs} ${args}`, { stdio: `ignore`, shell: true })
 }
 
 /* Helpers */

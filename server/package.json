@@ -2,8 +2,8 @@
   "name": "@emma/server",
   "version": "0.0.0",
   "scripts": {
-    "generate:prisma": "prisma2 generate",
-    "postinstall": "prisma2 generate"
+    "prisma:generate": "prisma2 generate",
+    "prisma:migrate": "prisma2 lift up"
   },
   "dependencies": {
     "@hapi/joi": "^16.1.7",

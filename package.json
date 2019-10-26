@@ -7,9 +7,8 @@
     "build-clean": "rimraf ./packages/*/dist",
     "clean-all": "rimraf ./node_modules && rimraf ./packages/*/node_modules && yarn build-clean",
     "coverage": "yarn codecov",
-    "postinstall": "yarn build",
     "publish": "yarn build-clean && yarn build && lerna publish --silent",
-    "test": "yarn lint; yarn run build; yarn jest"
+    "test": "yarn run build; jest"
   },
   "devDependencies": {
     "@types/jest": "^24.0.9",

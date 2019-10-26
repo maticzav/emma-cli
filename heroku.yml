@@ -1,0 +1,14 @@
+setup:
+  addons:
+    - plan: heroku-postgresql
+
+build:
+  docker:
+    web: server/Dockerfile
+release:
+  image: web
+  command:
+    - ./scripts/migrate.sh
+run:
+  web:
+    LOG_LEVEL: TRACE
