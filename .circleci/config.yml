@@ -6,9 +6,7 @@ jobs:
       - image: 'circleci/node:11.3.0'
     steps:
       - checkout
-      - run:
-          name: Install monorepo
-          command: yarn install
+      - run: yarn install
       - run:
           name: Build packages
           command: |
@@ -18,20 +16,14 @@ jobs:
             # Build
             cd ..
             yarn build
-      - run:
-          name: Test packages
-          command: yarn test
-      - run:
-          name: Get coverage of packages
-          command: yarn coverage
+      - run: yarn test
+      - run: yarn coverage
   publish:
     docker:
       - image: 'circleci/node:11.3.0'
     steps:
       - checkout
-      - run:
-          name: Install monorepo
-          command: yarn install
+      - run: yarn install
       - run:
           name: Setup NPM and Github credentials
           command: |
