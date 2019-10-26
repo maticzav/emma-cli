@@ -1,0 +1,26 @@
+datasource pg {
+  provider = "postgres"
+  url = "***"
+}
+
+generator photon {
+  provider = "photonjs"
+  output   = "./node_modules/@generated/photon"
+}
+
+model Starter {
+  // System
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  // Meta
+  repo         String
+  owner        String
+  // Info
+  path         String
+  ref          String
+  // Search
+  name         String
+  description  String?
+  dependencies String[]
+}

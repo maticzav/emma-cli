@@ -1,12 +1,18 @@
 # dependencies
-/node_modules
-/coverage
+node_modules
+coverage
+
+# photon
+!server/node_modules
+server/node_modules/*
+!server/node_modules/@generated
 
 # production
-/dist
+dist
 
 # misc
 .DS_Store
+*.tsbuildinfo
 
 npm-debug.log*
 yarn-debug.log*

@@ -1,0 +1,79 @@
+{
+  "name": "@emma/cli",
+  "description": "Advanced package search from your terminal.",
+  "author": "Matic Zavadlal <matic.zavadlal@gmail.com>",
+  "version": "0.0.0",
+  "bin": {
+    "emma": "dist/bin.js",
+    "ema": "dist/bin.js"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "build": "tsc -d",
+    "coverage": "yarn codecov",
+    "dev": "ts-node --files src/bin.tsx",
+    "prepack": "npm run build",
+    "pack": "pkg dist/bin.js -c package.json -o packed",
+    "prepublish": "npm run build",
+    "pretest": "npm run build",
+    "test": "jest"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/maticzav/emma-cli",
+  "keywords": [
+    "emma",
+    "yarn",
+    "npm"
+  ],
+  "bugs": {
+    "url": "https://github.com/maticzav/emma-cli/issues"
+  },
+  "dependencies": {
+    "algoliasearch": "^3.32.1",
+    "execa": "^3.2.0",
+    "ink": "^2.0.5",
+    "ink-spinner": "^3.0.0",
+    "meow": "^5.0.0",
+    "multilines": "^1.0.2",
+    "opn": "^6.0.0",
+    "react": "^16.8.4",
+    "update-notifier": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/algoliasearch": "3.34.5",
+    "@types/execa": "2.0.0",
+    "@types/ink": "0.5.2",
+    "@types/ink-testing-library": "1.0.0",
+    "@types/meow": "5.0.0",
+    "@types/opn": "5.5.0",
+    "@types/react": "16.9.11",
+    "@types/update-notifier": "2.5.0",
+    "@zeit/ncc": "0.20.5",
+    "ink-testing-library": "1.0.2",
+    "pkg": "4.4.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maticzav/emma-cli.git"
+  },
+  "pkg": {
+    "scripts": "dist/**/*.js",
+    "targets": [
+      "node10-alpine-x64",
+      "node10-linux-x64",
+      "node10-macos-x64",
+      "node10-win-x64"
+    ]
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/emma-cli",
+    "logo": "https://opencollective.com/emma-cli/logo.txt"
+  }
+}
