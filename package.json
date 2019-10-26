@@ -4,11 +4,10 @@
   "private": true,
   "scripts": {
     "build": "node scripts/build.js",
-    "build-clean": "rimraf ./packages/*/dist",
-    "clean-all": "rimraf ./node_modules && rimraf ./packages/*/node_modules && yarn build-clean",
-    "coverage": "yarn codecov",
-    "publish": "yarn build-clean && yarn build && lerna publish --silent",
-    "test": "yarn run build; jest"
+    "coverage": "codecov",
+    "prerelease": "yarn build",
+    "release": "lerna publish --yes",
+    "test": "jest"
   },
   "devDependencies": {
     "@types/jest": "^24.0.20",
@@ -22,6 +21,7 @@
     "multilines": "^1.0.2",
     "prettier": "1.18.2",
     "pretty-quick": "2.0.0",
+    "rimraf": "^3.0.0",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.2",
     "tslint": "^5.13.1",

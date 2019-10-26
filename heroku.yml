@@ -10,5 +10,4 @@ release:
   command:
     - ./scripts/migrate.sh
 run:
-  web:
-    LOG_LEVEL: TRACE
+  web: probot run $APP -p $PORT
