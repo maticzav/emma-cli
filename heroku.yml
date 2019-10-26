@@ -1,7 +1,6 @@
 setup:
   addons:
     - plan: heroku-postgresql
-
 build:
   docker:
     web: server/Dockerfile
@@ -10,4 +9,4 @@ release:
   command:
     - ./scripts/migrate.sh
 run:
-  web: probot run $APP -p $PORT
+  web: ./node_modules/.bin/probot run server/dist/index.js -p $PORT
