@@ -8,7 +8,9 @@ release:
   image: web
   command:
     - |
-      export POSTGRESQL_URL=${$DATABASE_URL/postgres\:\/\//postgresql\:\/\/}
+      echo $DATABASE_URL
+      export POSTGRESQL_URL="${DATABASE_URL/postgres\:\/\//postgresql\:\/\/}"
+      echo $POSTGRESQL_URL
       ./scripts/migrate.sh
 run:
   web: ./node_modules/.bin/probot run ./server/dist/index.js -p $PORT
