@@ -49,6 +49,8 @@ module.exports = (app: probot.Application) => {
 
     const config = eConfig.right
 
+    context.log.debug({ config, owner, repo }, 'received configuration')
+
     try {
       /* Loads starters. */
       const starters = await Promise.all(
