@@ -3,10 +3,11 @@
   "version": "0.0.2",
   "scripts": {
     "prisma:generate": "POSTGRESQL_URL='' prisma2 generate",
-    "prisma:migrate": "prisma2 lift up"
+    "prisma:migrate": "prisma2 lift up",
+    "postinstall": "yarn prisma:generate"
   },
   "dependencies": {
-    "@hapi/joi": "^16.1.7",
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "fp-ts": "^2.1.1",
     "io-ts": "^2.0.1",
@@ -14,8 +15,8 @@
     "probot": "^9.0.0"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.17.1",
     "@types/express": "^4.17.1",
-    "@types/hapi__joi": "^16.0.1",
     "@types/jsonwebtoken": "^8.3.2",
     "@types/node": "^12.7.12",
     "prisma2": "^2.0.0-preview015",
