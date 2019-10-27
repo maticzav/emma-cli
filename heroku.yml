@@ -9,4 +9,4 @@ release:
   command:
     - bash ./scripts/migrate.sh
 run:
-  web: ./node_modules/.bin/probot run ./server/dist/index.js -p $PORT
+  web: bash ./scripts/start.sh
