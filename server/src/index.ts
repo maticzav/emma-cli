@@ -1,3 +1,4 @@
+import bodyParser from 'body-parser'
 import * as e from 'fp-ts/lib/Either'
 import * as t from 'io-ts'
 import { PathReporter } from 'io-ts/lib/PathReporter'
@@ -79,6 +80,27 @@ module.exports = (app: probot.Application) => {
     } catch (err) {
       /* Log error on failure. */
       context.log.warn(err)
+    }
+  })
+
+  /* Endpoints */
+
+  const router = app.route('/api')
+
+  router.use(bodyParser.json())
+
+  router.post('/search', async (req, res) => {
+    try {
+      const dependencies = req.param('dependencies')
+
+      const starters = await photon.starters.findMany({
+        where: {
+          de: '',
+        },
+      })
+    } catch (err) {
+      app.log.error(err, "couldn't process search")
+      res.send('Internal error.')
     }
   })
 }
