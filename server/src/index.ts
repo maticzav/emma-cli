@@ -125,6 +125,7 @@ interface EmmaStarter {
   repo: string
   owner: string
   /* Info */
+  signature: string
   path: string
   ref: string
   /* Search */
@@ -175,10 +176,11 @@ async function loadStarter(
         repo: repo,
         owner: owner,
         /* Info */
+        signature: `${owner}/${repo}:${config.name}`,
         path: config.path,
         ref: ref,
         /* Search */
-        name: pkg.name,
+        name: config.name,
         description: withDefault(pkg.description, config.description),
         dependencies: Object.keys(pkg.dependencies),
       }
@@ -204,8 +206,19 @@ async function saveStarter(
   photon: Photon,
   starter: EmmaStarter,
 ): Promise<Starter> {
-  return photon.starters.create({
-    data: {
+  return photon.starters.upsert({
+    where: { signature: starter.signature },
+    create: {
+      signature: starter.signature,
+      repo: starter.repo,
+      owner: starter.owner,
+      path: starter.path,
+      ref: starter.ref,
+      name: starter.name,
+      description: starter.description,
+      dependencies: { set: starter.dependencies },
+    },
+    update: {
       repo: starter.repo,
       owner: starter.owner,
       path: starter.path,
@@ -227,7 +240,7 @@ async function cleanRepositoryStarters(
   { repo, owner }: { repo: string; owner: string },
   starters: EmmaStarter[],
 ): Promise<BatchPayload> {
-  const startersNames = starters.map(starter => starter.name)
+  const startersNames = starters.map(starter => starter.signature)
 
   return photon.starters.deleteMany({
     where: {

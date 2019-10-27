@@ -1,6 +1,6 @@
 datasource pg {
   provider = "postgres"
-  url      = env("POSTGRESQL_URL")
+  url = "***"
 }
 
 generator photon {
