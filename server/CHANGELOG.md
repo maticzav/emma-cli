@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://github.com/maticzav/emma-cli/compare/@emma/server@0.1.0...@emma/server@0.1.1) (2019-11-01)
+
+
+### Bug Fixes
+
+* delete by name not signature ([ac7bf88](https://github.com/maticzav/emma-cli/commit/ac7bf8811cc5767542c87cf3988c9f2ed1f74448))
+
+
+
+
+
 # [0.1.0](https://github.com/maticzav/emma-cli/compare/@emma/server@0.0.2...@emma/server@0.1.0) (2019-11-01)
 
 
