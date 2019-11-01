@@ -1,3 +1,7 @@
+import algoliasearch, {
+  Index as AlgoliaIndex,
+  Task as AlgoliaTask,
+} from 'algoliasearch'
 import * as e from 'fp-ts/lib/Either'
 import * as t from 'io-ts'
 import { PathReporter } from 'io-ts/lib/PathReporter'
@@ -18,6 +22,18 @@ module.exports = (app: probot.Application) => {
   /* Prisma */
 
   const photon = new Photon({})
+
+  /* Algolia */
+
+  const algolia = algoliasearch(
+    process.env.ALGOLIA_APP_ID!,
+    process.env.ALGOLIA_API_KEY!,
+  )
+
+  const algoliaStartersIndexName = process.env.ALGOLIA_STARTERS_INDEX!
+  const algoliaStartersIndex = algolia.initIndex(algoliaStartersIndexName)
+
+  app.log.info(`Algolia starters index: ${algoliaStartersIndexName}`)
 
   /* Events */
 
@@ -61,13 +77,16 @@ module.exports = (app: probot.Application) => {
 
       /* Syncs starters with database. */
       const syncRes = await Promise.all(
-        starters.map(starter => saveStarter(photon, starter)),
+        starters.map(starter =>
+          saveStarter(photon, algoliaStartersIndex, starter),
+        ),
       )
 
       context.log.debug({ res: syncRes, starters }, `Synced starters.`)
 
       const cleanRes = await cleanRepositoryStarters(
         photon,
+        algoliaStartersIndex,
         { repo, owner },
         starters,
       )
@@ -204,9 +223,11 @@ async function loadStarter(
  */
 async function saveStarter(
   photon: Photon,
+  algolia: AlgoliaIndex,
   starter: EmmaStarter,
-): Promise<Starter> {
-  return photon.starters.upsert({
+): Promise<[Starter, AlgoliaTask]> {
+  /* Save to database. */
+  const prismaRes = await photon.starters.upsert({
     where: { signature: starter.signature },
     create: {
       signature: starter.signature,
@@ -228,6 +249,18 @@ async function saveStarter(
       dependencies: { set: starter.dependencies },
     },
   })
+
+  const algoliaRes = await algolia.addObject({
+    objectID: starter.signature,
+    owner: starter.owner,
+    repo: starter.repo,
+    name: starter.name,
+    description: starter.description,
+    downloads: 0,
+    dependencies: starter.dependencies,
+  })
+
+  return [prismaRes, algoliaRes]
 }
 
 /**
@@ -237,18 +270,33 @@ async function saveStarter(
  */
 async function cleanRepositoryStarters(
   photon: Photon,
+  index: AlgoliaIndex,
   { repo, owner }: { repo: string; owner: string },
   starters: EmmaStarter[],
-): Promise<BatchPayload> {
+): Promise<[Starter[], AlgoliaTask, BatchPayload]> {
   const startersNames = starters.map(starter => starter.signature)
 
-  return photon.starters.deleteMany({
+  const dbStarters = await photon.starters.findMany({
     where: {
       repo: repo,
       owner: owner,
       name: { notIn: startersNames },
     },
   })
+
+  const algoliaRes = await index.deleteObjects(
+    dbStarters.map(starter => starter.signature),
+  )
+
+  const prismaRes = await photon.starters.deleteMany({
+    where: {
+      repo: repo,
+      owner: owner,
+      name: { notIn: startersNames },
+    },
+  })
+
+  return [dbStarters, algoliaRes, prismaRes]
 }
 
 /* UTILS */
