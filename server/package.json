@@ -3,8 +3,7 @@
   "version": "0.0.2",
   "scripts": {
     "prisma:generate": "POSTGRESQL_URL='' prisma2 generate",
-    "prisma:migrate": "prisma2 lift up",
-    "postinstall": "yarn prisma:generate"
+    "prisma:migrate": "prisma2 lift up"
   },
   "dependencies": {
     "algoliasearch": "^3.35.1",
