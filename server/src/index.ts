@@ -274,7 +274,7 @@ async function cleanRepositoryStarters(
   { repo, owner }: { repo: string; owner: string },
   starters: EmmaStarter[],
 ): Promise<[Starter[], AlgoliaTask, BatchPayload]> {
-  const startersNames = starters.map(starter => starter.signature)
+  const startersNames = starters.map(starter => starter.name)
 
   const dbStarters = await photon.starters.findMany({
     where: {
