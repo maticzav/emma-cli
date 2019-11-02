@@ -22,7 +22,7 @@ export default class Overview extends React.Component<Props, {}> {
           )}
 
           {dependencies.map(d => (
-            <Box marginX={1}>
+            <Box key={`dependency-overview-${d.name}`} marginX={1}>
               <Text italic bold>
                 {d.name}
               </Text>

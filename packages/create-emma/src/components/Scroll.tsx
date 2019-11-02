@@ -34,10 +34,9 @@ class Scroll<T> extends React.Component<WithStdin<Props<T>>, State> {
   }
 
   componentWillUnmount() {
-    const { stdin, setRawMode } = this.props
+    const { stdin } = this.props
 
     stdin.removeListener('data', this.handleInput)
-    if (setRawMode) setRawMode(false)
   }
 
   handleInput = (data: any) => {

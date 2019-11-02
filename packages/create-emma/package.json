@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "algoliasearch": "^3.32.1",
+    "creato": "^1.0.8",
     "execa": "^3.2.0",
     "ink": "^2.0.5",
     "ink-spinner": "^3.0.0",

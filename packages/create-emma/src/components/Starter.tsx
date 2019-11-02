@@ -36,10 +36,9 @@ class Starter extends PureComponent<
   }
 
   componentWillUnmount() {
-    const { stdin, setRawMode } = this.props
+    const { stdin } = this.props
 
     stdin.removeListener('data', this.handleInput)
-    if (setRawMode) setRawMode(false)
   }
 
   handleInput = (data: any) => {
