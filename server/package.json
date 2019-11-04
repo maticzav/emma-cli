@@ -19,7 +19,7 @@
     "@types/jsonwebtoken": "8.3.5",
     "@types/node": "12.12.5",
     "prisma2": "2.0.0-preview015",
-    "ts-node-dev": "1.0.0-pre.43"
+    "ts-node-dev": "1.0.0-pre.44"
   },
   "license": "MIT"
 }
