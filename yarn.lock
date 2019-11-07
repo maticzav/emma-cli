@@ -1258,14 +1258,14 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/ink-testing-library@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@types/ink-testing-library/-/ink-testing-library-1.0.0.tgz#e135b64f9b1e63b39f9c34b0dfb31a206b8e3b5b"
-  integrity sha512-5bY/Zoh8exys8/CuM2xjvEKMyEGVqKG6q3rLdoCzDLgIxOFH4ekct96S8QNVIvfYFXfIjj38NFVEGsWo8r+NYA==
+"@types/ink-testing-library@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@types/ink-testing-library/-/ink-testing-library-1.0.1.tgz#f933017198e00d2867714e06a0d50c0e10797ed6"
+  integrity sha512-L0B0PAPm2mIN9pgBMgpBWqOzB9VAa9c/a7J+Z8RKS8pjHTDJMxHr8iF0npZd+/ShyhrbMqVW7ePH4YVKeU4X/Q==
   dependencies:
-    "@types/ink" "*"
+    "@types/ink" "^0.5.2"
 
-"@types/ink@*", "@types/ink@0.5.2":
+"@types/ink@0.5.2", "@types/ink@^0.5.2":
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/@types/ink/-/ink-0.5.2.tgz#5e51b233d14639ee95df4d3c8b7f7845c51d094c"
   integrity sha512-yEuhWTRMXJkIWiaM58c5kuRot5HFccv9kjjgy0fBZG0+tYb+sMBaxHNPVqyZXspGGlmwDOQ1d3BsygWpWlW17w==
