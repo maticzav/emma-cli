@@ -35,6 +35,31 @@ module.exports = (app: probot.Application) => {
 
   app.log.info(`Algolia starters index: ${algoliaStartersIndexName}`)
 
+  /* API */
+
+  const api = app.route('/api')
+
+  api.get('/starter/:signiture/', async (req, res) => {
+    const starter = await photon.starters.findOne({
+      where: { signature: req.body.signature },
+    })
+
+    /* Process response */
+    if (!starter) {
+      res.sendStatus(404)
+    } else {
+      res.setHeader('Content-Type', 'application/json')
+      res.send(
+        JSON.stringify({
+          ref: starter.ref,
+          path: starter.path,
+          owner: starter.owner,
+          repo: starter.repo,
+        }),
+      )
+    }
+  })
+
   /* Events */
 
   app.on('push', async context => {
