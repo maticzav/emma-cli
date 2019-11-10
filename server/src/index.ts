@@ -5,6 +5,7 @@ import algoliasearch, {
 import * as e from 'fp-ts/lib/Either'
 import * as t from 'io-ts'
 import { PathReporter } from 'io-ts/lib/PathReporter'
+import hash from 'object-hash'
 import probot, { Octokit } from 'probot'
 
 import { Photon, Starter, BatchPayload } from '@generated/photon'
@@ -39,7 +40,7 @@ module.exports = (app: probot.Application) => {
 
   const api = app.route('/api')
 
-  api.get('/starter/:signiture/', async (req, res) => {
+  api.get('/starters/:signiture/', async (req, res) => {
     const starter = await photon.starters.findOne({
       where: { signature: req.body.signature },
     })
@@ -220,7 +221,7 @@ async function loadStarter(
         repo: repo,
         owner: owner,
         /* Info */
-        signature: `${owner}/${repo}:${config.name}`,
+        signature: hash({ owner, repo, name: config.name, ref: ref }),
         path: config.path,
         ref: ref,
         /* Search */
