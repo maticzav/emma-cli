@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.3](https://github.com/maticzav/emma-cli/compare/@emma/server@0.2.2...@emma/server@0.2.3) (2019-11-10)
+
+
+### Bug Fixes
+
+* hash signature ([09b210c](https://github.com/maticzav/emma-cli/commit/09b210c581be16c982c2ac6588573f00cbe112dd))
+
+
+
+
+
 ## [0.2.2](https://github.com/maticzav/emma-cli/compare/@emma/server@0.2.1...@emma/server@0.2.2) (2019-11-10)
 
 
