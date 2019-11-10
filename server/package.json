@@ -1,6 +1,6 @@
 {
   "name": "@emma/server",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "scripts": {
     "prisma:generate": "POSTGRESQL_URL='' prisma2 generate",
     "prisma:migrate": "prisma2 lift up"
