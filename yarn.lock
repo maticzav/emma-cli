@@ -1076,7 +1076,7 @@
     "@octokit/types" "^2.0.0"
     universal-user-agent "^4.0.0"
 
-"@octokit/plugin-enterprise-compatibility@^1.0.0":
+"@octokit/plugin-enterprise-compatibility@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@octokit/plugin-enterprise-compatibility/-/plugin-enterprise-compatibility-1.2.1.tgz#ea8fa7fd4b04fac2289bac1d63791c77a23a74fb"
   integrity sha512-c77pFG3CyxhQbu2B80TI/GVA0ex9krEAyBbdMGn8h8EtZoldK+4Bru2ecdFKfy5xi8RlmzIXIeTwi6wApd5/VQ==
@@ -6698,14 +6698,14 @@ prisma2@2.0.0-preview015:
   resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-preview015.tgz#0390b1db7c0b7d4eb5892652d77756f7598ff398"
   integrity sha512-1vPWsdikTTrIsNlDq6TIIGzZfb5BEurryL6lnT5QxdHYvTZXvNj9pJFHlvlxQpegtqZGITUNM+h7Dud+Y1kUtA==
 
-probot@9.6.2:
-  version "9.6.2"
-  resolved "https://registry.yarnpkg.com/probot/-/probot-9.6.2.tgz#c77777d65022aa2758ad4573fb214297d2884637"
-  integrity sha512-7HERD8WaX0OyqEbqQuHBWOudIbzxIfnmboyURPZflsUDPuOYigow+tpvUJeYkMtLyDmwOrOk1J8mgKckEjZfsA==
+probot@9.6.4:
+  version "9.6.4"
+  resolved "https://registry.yarnpkg.com/probot/-/probot-9.6.4.tgz#e125cd0f127c4d35803096836a76cb8f390b76be"
+  integrity sha512-RYIcczJArPNSF9D4piZi6S5KZ67V+As+Jr6ymYlVb7BBREaaFluLblKb69xT/AvSAoDq6L66gJtC5k/dAc9rCw==
   dependencies:
     "@octokit/app" "^4.0.0"
     "@octokit/graphql" "^4.2.0"
-    "@octokit/plugin-enterprise-compatibility" "^1.0.0"
+    "@octokit/plugin-enterprise-compatibility" "^1.2.1"
     "@octokit/plugin-retry" "^2.1.1"
     "@octokit/plugin-throttling" "^2.3.0"
     "@octokit/request" "^5.1.0"

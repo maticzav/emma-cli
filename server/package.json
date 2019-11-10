@@ -12,7 +12,7 @@
     "io-ts": "2.0.1",
     "jsonwebtoken": "8.5.1",
     "object-hash": "^2.0.0",
-    "probot": "9.6.2"
+    "probot": "9.6.4"
   },
   "devDependencies": {
     "@types/algoliasearch": "3.34.5",
