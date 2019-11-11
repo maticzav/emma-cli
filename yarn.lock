@@ -6693,10 +6693,10 @@ pretty-quick@2.0.1:
     mri "^1.1.4"
     multimatch "^4.0.0"
 
-prisma2@2.0.0-preview015:
-  version "2.0.0-preview015"
-  resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-preview015.tgz#0390b1db7c0b7d4eb5892652d77756f7598ff398"
-  integrity sha512-1vPWsdikTTrIsNlDq6TIIGzZfb5BEurryL6lnT5QxdHYvTZXvNj9pJFHlvlxQpegtqZGITUNM+h7Dud+Y1kUtA==
+prisma2@2.0.0-preview016.2:
+  version "2.0.0-preview016.2"
+  resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-preview016.2.tgz#36f3e9cf8f1e44215df4ab9347033b32563d21d0"
+  integrity sha512-K/xnzfpuAiISUGAkqEAvVXRfMe6DyJWTT0Nk8xaTspc3ymm3nU35PR49DeqX839WMTb5tXLnzyi3hgi+074Jwg==
 
 probot@9.6.2:
   version "9.6.2"
