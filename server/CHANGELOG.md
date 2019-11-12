@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.4](https://github.com/maticzav/emma-cli/compare/@emma/server@0.2.3...@emma/server@0.2.4) (2019-11-12)
+
+
+### Bug Fixes
+
+* bump deps ([35e3b9c](https://github.com/maticzav/emma-cli/commit/35e3b9cd8b6fdc6bf532161ae9e5eb031f0e60e0))
+
+
+
+
+
 ## [0.2.3](https://github.com/maticzav/emma-cli/compare/@emma/server@0.2.2...@emma/server@0.2.3) (2019-11-10)
 
 
