@@ -4,6 +4,7 @@ coverage
 
 # production
 dist
+packed-*
 
 # misc
 .DS_Store

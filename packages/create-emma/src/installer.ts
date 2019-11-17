@@ -17,7 +17,7 @@ export async function getStarterTemplateRepo(
 ): Promise<[string] | [null, TemplateRepository]> {
   try {
     const res = await fetch(
-      `${EMMA_CLI_URL}/starters/${starter.signature}`,
+      `${EMMA_CLI_URL}/starters/${starter.objectID}`,
     ).then(res => res.json())
 
     return [

@@ -42,7 +42,7 @@ module.exports = (app: probot.Application) => {
 
   api.get('/starters/:signiture/', async (req, res) => {
     const starter = await photon.starters.findOne({
-      where: { signature: req.body.signature },
+      where: { signature: req.params.signature },
     })
 
     /* Process response */

@@ -4,15 +4,14 @@
   "author": "Matic Zavadlal <matic.zavadlal@gmail.com>",
   "version": "0.2.0",
   "bin": {
-    "emma": "dist/bin.js",
-    "ema": "dist/bin.js"
+    "create-emma": "dist/bin.js",
+    "create-ema": "dist/bin.js"
   },
   "engines": {
     "node": ">=8.0.0"
   },
   "scripts": {
     "dev": "ts-node --files src/bin.tsx",
-    "prepack": "npm run build",
     "pack": "pkg dist/bin.js -c package.json -o packed"
   },
   "main": "dist/index.js",

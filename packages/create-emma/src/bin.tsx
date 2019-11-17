@@ -114,8 +114,13 @@ export async function main(cwd: string) {
   }
 
   app = render(<Emma onSelect={handleStarterSelect} />, {
-    exitOnCtrlC: false,
+    exitOnCtrlC: true,
   })
 }
 
-main(process.cwd())
+try {
+  main(process.cwd())
+} catch (err) {
+  console.error(err)
+  process.exit(1)
+}

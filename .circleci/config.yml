@@ -36,9 +36,7 @@ jobs:
             ./scripts/generate.sh
             # Build
             yarn build
-      - run:
-          name: Release packages
-          command: npm run release
+      - run: ./scripts/release.sh
 
 workflows:
   version: 2

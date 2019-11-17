@@ -5,7 +5,6 @@
   "scripts": {
     "build": "node scripts/build.js",
     "coverage": "codecov",
-    "release": "lerna publish --yes",
     "test": "jest"
   },
   "devDependencies": {
