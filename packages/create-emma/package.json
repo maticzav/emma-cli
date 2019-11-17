@@ -37,7 +37,7 @@
     "meow": "^5.0.0",
     "multilines": "^1.0.2",
     "open": "^7.0.0",
-    "react": "^16.8.4",
+    "react": "^16.12.0",
     "update-notifier": "^3.0.1"
   },
   "devDependencies": {
@@ -45,7 +45,7 @@
     "@types/execa": "2.0.0",
     "@types/ink": "2.0.3",
     "@types/ink-testing-library": "1.0.1",
-    "@types/jest": "24.0.22",
+    "@types/jest": "24.0.23",
     "@types/meow": "5.0.0",
     "@types/react": "16.9.11",
     "@types/update-notifier": "2.5.0",

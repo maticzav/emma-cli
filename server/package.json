@@ -18,9 +18,9 @@
     "@types/algoliasearch": "3.34.5",
     "@types/express": "4.17.2",
     "@types/jsonwebtoken": "8.3.5",
-    "@types/node": "12.12.7",
+    "@types/node": "12.12.8",
     "@types/object-hash": "^1.3.0",
-    "prisma2": "2.0.0-preview016.2",
+    "prisma2": "^2.0.0-alpha.305",
     "ts-node-dev": "1.0.0-pre.44"
   },
   "license": "MIT"
