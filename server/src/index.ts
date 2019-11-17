@@ -40,7 +40,7 @@ module.exports = (app: probot.Application) => {
 
   const api = app.route('/api')
 
-  api.get('/starters/:signiture/', async (req, res) => {
+  api.get('/starters/:signature/', async (req, res) => {
     const starter = await photon.starters.findOne({
       where: { signature: req.params.signature },
     })
