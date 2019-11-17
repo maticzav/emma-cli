@@ -6,6 +6,7 @@ import { loadTemplate } from 'creato'
 import { render, Instance } from 'ink'
 import meow from 'meow'
 import mls from 'multilines'
+import ora from 'ora'
 import updateNotifier from 'update-notifier'
 import prompts from 'prompts'
 
@@ -13,6 +14,7 @@ import { IStarter } from './algolia'
 import Emma from './Emma'
 import { getDistDirectory, getStarterTemplateRepo } from './installer'
 import { drawBox } from './structure'
+import { mkdirSync } from 'fs'
 
 /* Spec */
 
@@ -99,6 +101,15 @@ export async function main(cwd: string) {
 
     if (templateError || !repo) return console.error(templateError)
 
+    /* Load starter */
+
+    const spinner = ora({
+      text: `Loading ${starter.name} from ${repo.uri} to ${dist}.`,
+    })
+
+    /* Creates a dist folder. */
+    mkdirSync(dist, { recursive: true })
+
     /* Use creato to load the template. */
     const loadStatus = await loadTemplate(
       {
@@ -109,8 +120,13 @@ export async function main(cwd: string) {
       dist,
     )
 
-    if (loadStatus.status === 'err') return console.error(loadStatus.message)
-    else console.log(loadStatus.message)
+    if (loadStatus.status === 'err') {
+      spinner.fail()
+      console.error(loadStatus.message)
+    } else {
+      spinner.succeed()
+      console.log(loadStatus.message)
+    }
   }
 
   app = render(<Emma onSelect={handleStarterSelect} />, {
