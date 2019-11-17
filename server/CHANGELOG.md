@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.8](https://github.com/maticzav/emma-cli/compare/@emma/server@0.2.7...@emma/server@0.2.8) (2019-11-17)
+
+
+### Bug Fixes
+
+* express typo ([ac82fc3](https://github.com/maticzav/emma-cli/commit/ac82fc33d2e1c230200d7a34b751254876748fec))
+
+
+
+
+
 ## [0.2.7](https://github.com/maticzav/emma-cli/compare/@emma/server@0.2.6...@emma/server@0.2.7) (2019-11-17)
 
 
