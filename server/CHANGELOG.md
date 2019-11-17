@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.6](https://github.com/maticzav/emma-cli/compare/@emma/server@0.2.5...@emma/server@0.2.6) (2019-11-17)
+
+
+### Bug Fixes
+
+* migrate prisma to preview 16 ([ac8d2f6](https://github.com/maticzav/emma-cli/commit/ac8d2f695884f193d745c585ca727b287474d292))
+
+
+
+
+
 ## [0.2.5](https://github.com/maticzav/emma-cli/compare/@emma/server@0.2.4...@emma/server@0.2.5) (2019-11-17)
 
 
