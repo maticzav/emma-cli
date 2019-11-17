@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/maticzav/emma-cli/compare/create-emma@0.2.0...create-emma@0.2.1) (2019-11-17)
+
+
+### Bug Fixes
+
+* create-emma, server ([2a9a17a](https://github.com/maticzav/emma-cli/commit/2a9a17ad88b1271ca76b8a024ddcbc589cd09f63))
+
+
+
+
+
 # [0.2.0](https://github.com/maticzav/emma-cli/compare/create-emma@0.1.4...create-emma@0.2.0) (2019-11-17)
 
 
