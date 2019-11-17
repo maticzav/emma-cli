@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/maticzav/emma-cli/compare/create-emma@0.1.4...create-emma@0.2.0) (2019-11-17)
+
+
+### Features
+
+* create-emma flow ([91db543](https://github.com/maticzav/emma-cli/commit/91db543b78b6a1b9633734f01482a9362493d560))
+
+
+
+
+
 ## [0.1.4](https://github.com/maticzav/emma-cli/compare/create-emma@0.1.3...create-emma@0.1.4) (2019-11-17)
 
 
