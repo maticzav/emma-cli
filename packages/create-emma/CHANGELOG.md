@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/maticzav/emma-cli/compare/create-emma@0.2.1...create-emma@0.3.0) (2019-11-17)
+
+
+### Features
+
+* add spinner indicator, minor fixes ([fc136ff](https://github.com/maticzav/emma-cli/commit/fc136ff4873ec628a62a5308953717dae1d04934))
+
+
+
+
+
 ## [0.2.1](https://github.com/maticzav/emma-cli/compare/create-emma@0.2.0...create-emma@0.2.1) (2019-11-17)
 
 
