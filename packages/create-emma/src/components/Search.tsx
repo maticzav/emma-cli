@@ -76,7 +76,7 @@ class Search extends React.Component<WithStdin<Props>> {
       <Box flexDirection="row">
         <Box marginRight={1}>{this.props.heading}</Box>
         <Box>
-          <Color dim={!hasValue}>{hasValue ? value : 'create-emma'}</Color>
+          <Color dim={!hasValue}>{hasValue ? value : 'label-sync'}</Color>
         </Box>
       </Box>
     )

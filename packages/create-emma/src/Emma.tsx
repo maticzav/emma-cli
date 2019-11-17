@@ -12,7 +12,6 @@ import {
 
 import DependencyFacet from './components/DependencyFacet'
 import Footer from './components/Footer'
-import FSPathInput from './components/FSPathInput'
 import Overview from './components/Overview'
 import Starter from './components/Starter'
 import Scroll from './components/Scroll'
@@ -45,15 +44,12 @@ type State =
       loading: boolean
       starters: IStarter[]
     }
-  | {
-      view: 'INSTALLATION'
-      /* Installation status. */
-      starter: IStarter
-      destination: string | null
-      // status: InstallationStatus
-    }
 
-class Emma extends React.Component<WithStdin<{}>, State> {
+interface Props {
+  onSelect: (starter: IStarter) => any
+}
+
+class Emma extends React.Component<WithStdin<Props>, State> {
   state: State = {
     view: 'DEPENDENCIES_SEARCH',
     query: '',
@@ -63,15 +59,13 @@ class Emma extends React.Component<WithStdin<{}>, State> {
     starters: [],
   }
 
-  constructor(props: WithStdin<{}>) {
+  constructor(props: WithStdin<Props>) {
     super(props)
 
     this.handleQueryChange = this.handleQueryChange.bind(this)
     this.handleInput = this.handleInput.bind(this)
     this.handleWillReachEnd = this.handleWillReachEnd.bind(this)
     this.handleDependencyToggle = this.handleDependencyToggle.bind(this)
-    this.handleInstallStarter = this.handleInstallStarter.bind(this)
-    this.handleStarterDestChange = this.handleStarterDestChange.bind(this)
   }
 
   componentDidMount() {
@@ -135,11 +129,14 @@ class Emma extends React.Component<WithStdin<{}>, State> {
         })
 
         const [starters, facets] = await Promise.all([
-          searchStarters('', this.state.dependencies),
+          searchStarters('', this.state.dependencies, 0, query),
           searchDependencies(query, this.state.dependencies),
         ])
 
-        if (this.state.view === 'DEPENDENCIES_SEARCH') {
+        if (
+          this.state.view === 'DEPENDENCIES_SEARCH' &&
+          starters.state === this.state.query
+        ) {
           this.setState({
             view: 'DEPENDENCIES_SEARCH',
             query: query,
@@ -256,28 +253,6 @@ class Emma extends React.Component<WithStdin<{}>, State> {
     }
   }
 
-  /**
-   * Performs a starter installation.
-   */
-  async handleInstallStarter(starter: IStarter) {
-    this.setState({ view: 'INSTALLATION', starter, destination: null })
-  }
-
-  /**
-   * Modifies the target destination of a starter.
-   * @param dest
-   */
-  handleStarterDestChange(dest: string) {
-    switch (this.state.view) {
-      case 'INSTALLATION': {
-        this.setState({
-          view: 'INSTALLATION',
-          destination: dest,
-        })
-      }
-    }
-  }
-
   render() {
     switch (this.state.view) {
       case 'DEPENDENCIES_SEARCH': {
@@ -369,7 +344,7 @@ class Emma extends React.Component<WithStdin<{}>, State> {
                   <Starter
                     key={starter.objectID}
                     starter={starter}
-                    onSubmit={this.handleInstallStarter}
+                    onSubmit={this.props.onSelect}
                     active={starter.active}
                   />
                 )}
@@ -380,28 +355,11 @@ class Emma extends React.Component<WithStdin<{}>, State> {
           </SearchContext.Provider>
         )
       }
-      case 'INSTALLATION': {
-        const { starter, destination } = this.state
-
-        return (
-          <Box flexDirection="column">
-            <Color underline bold>
-              {starter.name}
-            </Color>
-
-            <FSPathInput
-              cwd={process.cwd()}
-              onSubmit={this.handleStarterDestChange}
-              active={destination === null}
-            />
-          </Box>
-        )
-      }
     }
   }
 }
 
-export default class EmmaWithStdin extends React.Component {
+export default class EmmaWithStdin extends React.Component<Props, {}> {
   render() {
     return (
       <StdinContext.Consumer>

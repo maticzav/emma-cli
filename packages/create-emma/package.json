@@ -30,14 +30,19 @@
   },
   "dependencies": {
     "algoliasearch": "^3.32.1",
+    "chalk": "^3.0.0",
+    "cli-truncate": "^2.0.0",
     "creato": "^1.1.0",
     "execa": "^3.2.0",
     "ink": "^2.0.5",
     "ink-spinner": "^3.0.0",
     "meow": "^5.0.0",
     "multilines": "^1.0.2",
+    "node-fetch": "^2.6.0",
     "open": "^7.0.0",
+    "prompts": "^2.3.0",
     "react": "^16.12.0",
+    "string-width": "^4.2.0",
     "update-notifier": "^3.0.1"
   },
   "devDependencies": {
@@ -47,6 +52,8 @@
     "@types/ink-testing-library": "1.0.1",
     "@types/jest": "24.0.23",
     "@types/meow": "5.0.0",
+    "@types/node-fetch": "^2.5.3",
+    "@types/prompts": "^2.0.3",
     "@types/react": "16.9.11",
     "@types/update-notifier": "2.5.0",
     "@zeit/ncc": "0.20.5",

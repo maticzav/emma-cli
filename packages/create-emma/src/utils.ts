@@ -9,6 +9,8 @@ export type WithStdin<X> = X & {
   readonly setRawMode: NodeJS.ReadStream['setRawMode']
 }
 
+export type Maybe<A> = A | null
+
 /**
  *
  * Remove particular key from the object.

@@ -40,17 +40,20 @@ export async function searchStarters(
   query: string,
   dependencies: IStarterDependency[],
   page: number = 0,
-): Promise<Response<IStarter>> {
+  state: string = '',
+): Promise<Response<IStarter> & { state: string }> {
   const filters = dependencies
     .map(dependency => `dependencies:${dependency.name}`)
     .join(' AND ')
 
-  return startersIndex.search<IStarter>({
+  const res = await startersIndex.search<IStarter>({
     query: query,
     filters: filters,
     page: page,
     hitsPerPage: 10,
   })
+
+  return { ...res, state }
 }
 
 /**
