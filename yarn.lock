@@ -6699,10 +6699,10 @@ pretty-quick@2.0.1:
     mri "^1.1.4"
     multimatch "^4.0.0"
 
-prisma2@^2.0.0-alpha.305:
-  version "2.0.0-alpha.305"
-  resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-alpha.305.tgz#3c2091feae08c07da6b4b5dd68b9713714dd0acc"
-  integrity sha512-3cLaNfKa6UdlHDcbOJS9S+zJ/LbYjw0nYykRyEPR+eE/Ry9ERh/x3q01M+1JTY8paNQj5w8agbTgbvZNHSug3w==
+prisma2@^2.0.0-preview016.2:
+  version "2.0.0-preview016.2"
+  resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-preview016.2.tgz#36f3e9cf8f1e44215df4ab9347033b32563d21d0"
+  integrity sha512-K/xnzfpuAiISUGAkqEAvVXRfMe6DyJWTT0Nk8xaTspc3ymm3nU35PR49DeqX839WMTb5tXLnzyi3hgi+074Jwg==
 
 probot@9.6.4:
   version "9.6.4"

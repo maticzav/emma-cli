@@ -20,7 +20,7 @@
     "@types/jsonwebtoken": "8.3.5",
     "@types/node": "12.12.8",
     "@types/object-hash": "^1.3.0",
-    "prisma2": "^2.0.0-alpha.305",
+    "prisma2": "^2.0.0-preview016.2",
     "ts-node-dev": "1.0.0-pre.44"
   },
   "license": "MIT"
