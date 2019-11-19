@@ -22,6 +22,13 @@ Emma is a command line assistant which helps you search and install packages mor
 - 🔍**Peek definitions:** Use right arrow keys to get description of the packages or peek README.
 - ⏳**Scroll infinitely:** Search all the packages from NPM and Yarn using your terminal.
 - 📚**Build the stack:** Search for multiple packages and install them with one keystroke.
+- 👷‍♀️**Discover starters for your next project:** Select from numerous starters that you can use to scaffold your project.
+
+## To start a new project
+
+```bash
+yarn create emma
+```
 
 ## Install
 
