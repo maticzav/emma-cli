@@ -46,7 +46,7 @@
     "update-notifier": "^3.0.1"
   },
   "devDependencies": {
-    "@types/algoliasearch": "3.34.5",
+    "@types/algoliasearch": "3.34.6",
     "@types/execa": "2.0.0",
     "@types/ink": "2.0.3",
     "@types/ink-testing-library": "1.0.1",
