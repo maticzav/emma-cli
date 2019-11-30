@@ -6,7 +6,6 @@
     "prisma:migrate": "prisma2 lift up"
   },
   "dependencies": {
-    "@prisma/photon": "^2.0.0-preview017.2",
     "algoliasearch": "3.35.1",
     "express": "4.17.1",
     "fp-ts": "2.2.0",
@@ -24,7 +23,7 @@
     "execa": "3.4.0",
     "husky": "3.1.0",
     "lerna": "3.19.0",
-    "prisma2": "^2.0.0-preview017.2",
+    "prisma2": "2.0.0-preview016.2",
     "ts-jest": "24.2.0",
     "ts-node": "8.5.4",
     "ts-node-dev": "1.0.0-pre.44"

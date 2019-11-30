@@ -1523,11 +1523,6 @@
   dependencies:
     debug "^4.0.0"
 
-"@prisma/photon@^2.0.0-preview017.2":
-  version "2.0.0-preview017.2"
-  resolved "https://registry.yarnpkg.com/@prisma/photon/-/photon-2.0.0-preview017.2.tgz#046ffe1a21ec8f00e54815ac917bf2269e3691b1"
-  integrity sha512-cWAmYKYpMh0o33yGMpjs8KoDjTGwJ4M/kR+0ACDMSWocc3Rote0EZcGSL4AsJ2u5TrT9yLymECHDiAzDdDcTjQ==
-
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
@@ -7217,10 +7212,10 @@ pretty-quick@2.0.1:
     mri "^1.1.4"
     multimatch "^4.0.0"
 
-prisma2@^2.0.0-preview017.2:
-  version "2.0.0-preview017.2"
-  resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-preview017.2.tgz#a5f741fda24f13a060b570dc591d52c456277dae"
-  integrity sha512-xT8uB1Afxk64yk35BvfTw2+LBywzca8DuSTEob08VmJ41tKHtXGbaWIJRA75dAXDMWEGvW+Y4749rKJge3n8rA==
+prisma2@2.0.0-preview016.2:
+  version "2.0.0-preview016.2"
+  resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-preview016.2.tgz#36f3e9cf8f1e44215df4ab9347033b32563d21d0"
+  integrity sha512-K/xnzfpuAiISUGAkqEAvVXRfMe6DyJWTT0Nk8xaTspc3ymm3nU35PR49DeqX839WMTb5tXLnzyi3hgi+074Jwg==
 
 probot@9.6.6:
   version "9.6.6"
