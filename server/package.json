@@ -3,8 +3,7 @@
   "version": "0.2.8",
   "scripts": {
     "prisma:generate": "POSTGRESQL_URL='' prisma2 generate",
-    "prisma:migrate": "prisma2 lift up",
-    "postinstall": "yarn run prisma:generate"
+    "prisma:migrate": "prisma2 lift up"
   },
   "dependencies": {
     "@prisma/photon": "^2.0.0-preview017.2",
