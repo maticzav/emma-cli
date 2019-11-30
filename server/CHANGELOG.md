@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.9](https://github.com/maticzav/emma-cli/compare/@emma/server@0.2.8...@emma/server@0.2.9) (2019-11-30)
+
+
+### Bug Fixes
+
+* bump dependencies ([e30a98d](https://github.com/maticzav/emma-cli/commit/e30a98dff3dff69f1f55cb2fc5e0b12ecc4bb61a))
+* remove postinstall script in server ([d819e5e](https://github.com/maticzav/emma-cli/commit/d819e5e788c019de9a97dd75f7eb98e40a6c5a28))
+* rollback prisma to preview16.2 ([9c6e93f](https://github.com/maticzav/emma-cli/commit/9c6e93f984cd87f5141968a3e568822ebb193cf7))
+
+
+
+
+
 ## [0.2.8](https://github.com/maticzav/emma-cli/compare/@emma/server@0.2.7...@emma/server@0.2.8) (2019-11-17)
 
 

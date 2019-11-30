@@ -2,7 +2,7 @@
   "name": "create-emma",
   "description": "All boilerplates you could dream of.",
   "author": "Matic Zavadlal <matic.zavadlal@gmail.com>",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "bin": {
     "create-emma": "dist/bin.js",
     "create-ema": "dist/bin.js"
