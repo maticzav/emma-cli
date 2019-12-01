@@ -1,6 +1,6 @@
 import probot from 'probot'
 
-import { starter } from './endpoints/starters/'
+import { downloadStarter } from './endpoints/starters/download'
 
 import { syncRepository } from './events/sync/repository'
 
@@ -31,7 +31,7 @@ module.exports = (app: probot.Application) => {
 
   const api = app.route('/api')
 
-  api.get('/starters/:signature/', starter(sources))
+  api.get('/starters/:signature/', downloadStarter(sources))
 
   /* Events */
 

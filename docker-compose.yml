@@ -13,17 +13,5 @@ services:
       POSTGRES_DB: prisma
     volumes:
       - postgres:/var/lib/postgresql/data
-  # server:
-  #   image: Dockerfile
-  #   restart: always
-  #   ports:
-  #     - '3000:3000'
-  #   expose:
-  #     - '3000'
-  #   environment:
-  #     POSTGRESQL_URL: postgres
-  #     APP_ID: 123
-  #     APP_SECRET: secret
-
 volumes:
   postgres:

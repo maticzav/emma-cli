@@ -7,7 +7,7 @@ import { Sources } from '../../sources'
  *
  * @param photon
  */
-export const starter = ({ prisma }: Sources): RequestHandler => async (
+export const downloadStarter = ({ prisma }: Sources): RequestHandler => async (
   req,
   res,
 ) => {

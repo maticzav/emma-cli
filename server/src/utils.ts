@@ -4,7 +4,7 @@
  * @param fallback
  * @param value
  */
-function withDefault<T>(fallback: T, value: T | undefined | null): T {
+export function withDefault<T>(fallback: T, value: T | undefined | null): T {
   if (value === null || value === undefined) return fallback
   else return value
 }

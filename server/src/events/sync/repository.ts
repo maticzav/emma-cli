@@ -8,6 +8,7 @@ import { Context, Octokit } from 'probot'
 import { StarterConfiguration, decodeConfiguration } from '../../configuration'
 import { EmmaStarter } from '../../models'
 import { Sources } from '../../sources'
+import { withDefault } from '../../utils'
 
 /**
  * Performs a repository sync.
