@@ -15,7 +15,7 @@
     "probot": "9.6.6"
   },
   "devDependencies": {
-    "@types/algoliasearch": "3.34.6",
+    "@types/algoliasearch": "3.34.7",
     "@types/express": "4.17.2",
     "@types/jsonwebtoken": "8.3.5",
     "@types/node": "12.12.14",
