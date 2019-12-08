@@ -1,4 +1,5 @@
 import ml from 'multilines'
+import { EOL } from 'os'
 import { Context, Octokit } from 'probot'
 import yaml from 'js-yaml'
 
@@ -49,7 +50,7 @@ export const discoverStarters = (sources: Sources) => async (
       `Composed PR content for ${owner}/${repo}`,
     )
 
-    const configFile = yaml.safeDump(generatedConfig)
+    const configFile = yaml.dump(generatedConfig)
 
     ctx.log.debug(
       { configFile },
@@ -251,7 +252,7 @@ export function explainConfiguration(config: EmmaConfiguration): string {
   | If you have any questions try reading our [docs](https://github.com/maticzav/emma-cli), or file an issue [here](https://github.com/maticzav/emma-cli).
   |
   | ## Detected Starters
-  | ${config.starters.map(st => ` * ${st.name}: \`${st.path}\`\n`)}
+  | ${config.starters.map(st => ` * ${st.name}: \`${st.path}\``).join(EOL)}
   |
   | ## What to expect
   |
