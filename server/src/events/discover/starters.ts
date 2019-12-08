@@ -19,8 +19,6 @@ export const discoverStarters = (sources: Sources) => async (
   repo: string,
   default_branch: string,
 ) => {
-  const masterRef = `refs/heads/${default_branch}`
-
   ctx.log.info(`Discovering starters in ${owner}:${repo}.`)
 
   /* Check that a configuration file doesn't exist yet. */
@@ -65,7 +63,7 @@ export const discoverStarters = (sources: Sources) => async (
       owner,
       repo,
       sources.constants.configurationBranch,
-      masterRef,
+      default_branch,
     )
 
     await ctx.github.repos.createOrUpdateFile({
@@ -82,7 +80,7 @@ export const discoverStarters = (sources: Sources) => async (
       owner: owner,
       repo: repo,
       head: sources.constants.configurationBranch,
-      base: masterRef,
+      base: default_branch,
       title: `EmmaCLI Starters onboarding`,
       body: configExplanation,
       maintainer_can_modify: true,

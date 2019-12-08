@@ -4,7 +4,9 @@ import { ReposGetContentsResponse, ReposGetResponse } from '@octokit/rest'
 
 /**
  *
- * Create or Re-Create branch on a given repository
+ * Create or Re-Create branch on a given repository.
+ *
+ * Branch names should include no `heads` and `refs`.
  *
  * Taken from opencollective/opencollective-bot
  *
@@ -28,7 +30,7 @@ export async function resetBranch(
       repo,
       branch: branchName,
     })
-    .then((res: any) => res.data)
+    .then(res => res.data)
     .catch(() => null)
 
   // Delete the branch in this case
@@ -47,7 +49,7 @@ export async function resetBranch(
       repo,
       ref: `heads/${defaultBranchName}`,
     })
-    .then((res: any) => res.data)
+    .then(res => res.data)
 
   // Create the target branch
   return github.git.createRef({
