@@ -47,11 +47,7 @@ module.exports = (app: probot.Application) => {
       ctx.payload.repositories_added,
     ).then(repos =>
       /* Prevent flooding */
-      orderBy(
-        repos.filter(repo => repo.stargazers_count >= 100),
-        'stargazers_count',
-        'desc',
-      ).slice(0, 2),
+      orderBy(repos, 'stargazers_count', 'desc').slice(0, 2),
     )
 
     for (const repo of repos) {
