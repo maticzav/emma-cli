@@ -128,6 +128,11 @@ export const discoverStarters = (sources: Sources) => async (
       ),
     )
 
+    ctx.log.debug(
+      { starterLookups },
+      `found these potential starters in ${owner}/${repo}`,
+    )
+
     const starters: StarterLookup[] = starterLookups.reduce<StarterLookup[]>(
       (acc, lookup) => {
         if (lookup === false) {
@@ -163,6 +168,7 @@ export function filterPotentialStarters(
     'public/.*/package.json$',
     'web/.*/package.json$',
     'server/.*/package.json$',
+    'action.*/package.json$',
   ]
 
   const matches = files.filter(

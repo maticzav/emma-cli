@@ -42,13 +42,7 @@ module.exports = (app: probot.Application) => {
   app.on('push', syncRepository(sources))
 
   app.on('installation_repositories.added', async ctx => {
-    const repos = await fetchRepos(
-      ctx.github,
-      ctx.payload.repositories_added,
-    ).then(repos =>
-      /* Prevent flooding */
-      orderBy(repos, 'stargazers_count', 'desc').slice(0, 2),
-    )
+    const repos = await fetchRepos(ctx.github, ctx.payload.repositories_added)
 
     for (const repo of repos) {
       await discoverStarters(sources)(
