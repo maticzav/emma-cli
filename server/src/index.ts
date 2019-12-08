@@ -1,10 +1,14 @@
 import probot from 'probot'
 
+import { orderBy } from 'lodash'
+
 import { downloadStarter } from './endpoints/starters/download'
 
 import { syncRepository } from './events/sync/repository'
 
 import { getSources } from './sources'
+import { fetchRepos } from './github'
+import { discoverStarters } from './events/discover/starters'
 
 /* Webhooks */
 
@@ -36,4 +40,27 @@ module.exports = (app: probot.Application) => {
   /* Events */
 
   app.on('push', syncRepository(sources))
+
+  app.on('installation_repositories.added', async ctx => {
+    const repos = await fetchRepos(
+      ctx.github,
+      ctx.payload.repositories_added,
+    ).then(repos =>
+      /* Prevent flooding */
+      orderBy(
+        repos.filter(repo => repo.stargazers_count >= 100),
+        'stargazers_count',
+        'desc',
+      ).slice(0, 2),
+    )
+
+    for (const repo of repos) {
+      await discoverStarters(sources)(
+        ctx,
+        repo.owner.login,
+        repo.name,
+        repo.default_branch,
+      )
+    }
+  })
 }

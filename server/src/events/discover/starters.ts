@@ -12,18 +12,20 @@ import { base64, sha } from '../../utils'
  *
  * @param sources
  */
-export const discoverStarters = (sources: Sources) => async (ctx: Context) => {
-  const owner = ctx.payload.repository.owner.login
-  const repo = ctx.payload.repository.name
-  const ref = ctx.payload.ref
-  const masterRef = `refs/heads/${ctx.payload.repository.default_branch}`
+export const discoverStarters = (sources: Sources) => async (
+  ctx: Context,
+  owner: string,
+  repo: string,
+  default_branch: string,
+) => {
+  const masterRef = `refs/heads/${default_branch}`
 
-  ctx.log.info(`Discovering starters in ${owner}:${repo}/${ref}.`)
+  ctx.log.info(`Discovering starters in ${owner}:${repo}.`)
 
   /* Check that a configuration file doesn't exist yet. */
   const config = await getConfig(sources)(ctx.github, owner, repo)
   if (config !== null) {
-    ctx.log.info(`${owner}:${repo}/${ref} has an existing configuration.`)
+    ctx.log.info(`${owner}:${repo} has an existing configuration.`)
     return
   }
 
@@ -122,7 +124,7 @@ export const discoverStarters = (sources: Sources) => async (ctx: Context) => {
   ): Promise<EmmaConfiguration> {
     const starterLookups = await Promise.all(
       filePaths.map(filePath =>
-        lookupStarter(ctx.github, { repo, owner, ref }, filePath),
+        lookupStarter(ctx.github, { repo, owner }, filePath),
       ),
     )
 
@@ -187,14 +189,13 @@ interface StarterLookup {
  */
 async function lookupStarter(
   github: Octokit,
-  { repo, owner, ref }: { repo: string; owner: string; ref: string },
+  { repo, owner }: { repo: string; owner: string },
   path: string,
 ): Promise<StarterLookup | false> {
   /* Attempt to laod configuration. */
   const res = await github.repos.getContents({
     owner: owner,
     repo: repo,
-    ref: ref,
     path: path,
   })
 

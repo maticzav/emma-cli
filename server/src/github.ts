@@ -1,4 +1,6 @@
 import { Octokit } from 'probot'
+import { WebhookPayloadInstallationRepositoriesRepositoriesAddedItem } from '@octokit/webhooks'
+import { ReposGetContentsResponse, ReposGetResponse } from '@octokit/rest'
 
 /**
  *
@@ -54,4 +56,39 @@ export async function resetBranch(
     ref: `refs/heads/${branchName}`,
     sha: reference.object.sha,
   })
+}
+
+/**
+ *
+ * Fetch multiple repositories
+ *
+ * @param github
+ * @param repositories
+ */
+export async function fetchRepos(
+  github: Octokit,
+  repositories: WebhookPayloadInstallationRepositoriesRepositoriesAddedItem[],
+): Promise<ReposGetResponse[]> {
+  return Promise.all(
+    repositories.map(repository => {
+      const [owner, repo] = repository.full_name.split('/')
+      return getRepo(github, owner, repo)
+    }),
+  )
+}
+
+/**
+ *
+ * Get a single repository
+ *
+ * @param github
+ * @param owner
+ * @param repo
+ */
+export async function getRepo(
+  github: Octokit,
+  owner: string,
+  repo: string,
+): Promise<ReposGetResponse> {
+  return github.repos.get({ owner, repo }).then((res: any) => res.data)
 }
