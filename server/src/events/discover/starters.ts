@@ -62,8 +62,8 @@ export const discoverStarters = (sources: Sources) => async (
      */
     await resetBranch(
       ctx.github,
-      repo,
       owner,
+      repo,
       sources.constants.configurationBranch,
       masterRef,
     )

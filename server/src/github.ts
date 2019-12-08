@@ -50,7 +50,7 @@ export async function resetBranch(
     .then((res: any) => res.data)
 
   // Create the target branch
-  return await github.git.createRef({
+  return github.git.createRef({
     owner,
     repo,
     ref: `refs/heads/${branchName}`,
