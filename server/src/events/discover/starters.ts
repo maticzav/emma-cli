@@ -43,11 +43,17 @@ export const discoverStarters = (sources: Sources) => async (
 
     const generatedConfig = await generateConfigurationFile(starters)
     const configExplanation = explainConfiguration(generatedConfig)
+
+    ctx.log.debug(
+      { generatedConfig, configExplanation },
+      `Composed PR content for ${owner}/${repo}`,
+    )
+
     const configFile = yaml.safeDump(generatedConfig)
 
     ctx.log.debug(
-      { generatedConfig, configExplanation, configFile },
-      `Composed PR content for ${owner}/${repo}`,
+      { configFile },
+      `Generating a configuration file and making a PR.`,
     )
 
     /**
