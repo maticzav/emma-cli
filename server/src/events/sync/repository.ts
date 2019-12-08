@@ -1,11 +1,10 @@
 import { Starter, BatchPayload } from '@prisma/photon'
 import { Task } from 'algoliasearch'
 import * as e from 'fp-ts/lib/Either'
-import { PathReporter } from 'io-ts/lib/PathReporter'
 import hash from 'object-hash'
 import { Octokit, Context } from 'probot'
 
-import { decodeConfiguration, StarterConfiguration } from '../../configuration'
+import { StarterConfiguration, getConfig } from '../../configuration'
 import { EmmaStarter } from '../../models'
 import { Sources } from '../../sources'
 import { withDefault } from '../../utils'
@@ -28,20 +27,13 @@ export const syncRepository = (sources: Sources) => async (ctx: Context) => {
   }
 
   /* Load configuration. */
-  const configFile = await ctx.config(sources.constants.configurationFile)
-  const eConfig = decodeConfiguration(configFile)
+  const config = await getConfig(sources)(ctx.github, owner, repo)
 
   /* Terminate faulty configuration. */
-  if (e.isLeft(eConfig)) {
-    const report = PathReporter.report(eConfig)
-    ctx.log.debug(
-      { report, errors: eConfig.left },
-      `Couldn't load configuration.`,
-    )
+  if (config === null) {
+    ctx.log.debug(`Couldn't load ${owner}/${repo} configuration.`)
     return
   }
-
-  const config = eConfig.right
 
   ctx.log.debug({ config, owner, repo }, 'received configuration')
 

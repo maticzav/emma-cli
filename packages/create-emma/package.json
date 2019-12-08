@@ -30,7 +30,7 @@
   "dependencies": {
     "algoliasearch": "^3.32.1",
     "chalk": "^3.0.0",
-    "cli-truncate": "^2.0.0",
+    "cli-truncate": "^2.1.0",
     "creato": "^1.1.0",
     "execa": "^3.4.0",
     "ink": "^2.6.0",
@@ -46,7 +46,7 @@
     "update-notifier": "^3.0.1"
   },
   "devDependencies": {
-    "@types/algoliasearch": "3.34.6",
+    "@types/algoliasearch": "3.34.7",
     "@types/execa": "2.0.0",
     "@types/ink": "2.0.3",
     "@types/ink-testing-library": "1.0.1",
@@ -55,7 +55,7 @@
     "@types/node-fetch": "^2.5.4",
     "@types/ora": "^3.2.0",
     "@types/prompts": "^2.0.3",
-    "@types/react": "16.9.13",
+    "@types/react": "16.9.15",
     "@types/update-notifier": "2.5.0",
     "@zeit/ncc": "0.20.5",
     "ink-testing-library": "1.0.2",

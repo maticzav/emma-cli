@@ -1,8 +1,11 @@
 import ml from 'multilines'
 import { Context, Octokit } from 'probot'
+import yaml from 'js-yaml'
 
-import { EmmaConfiguration } from '../../configuration'
+import { EmmaConfiguration, getConfig } from '../../configuration'
 import { Sources } from '../../sources'
+import { resetBranch } from '../../github'
+import { base64, sha } from '../../utils'
 
 /**
  * Seeks potential starters in a repository.
@@ -13,15 +16,72 @@ export const discoverStarters = (sources: Sources) => async (ctx: Context) => {
   const owner = ctx.payload.repository.owner.login
   const repo = ctx.payload.repository.name
   const ref = ctx.payload.ref
+  const masterRef = `refs/heads/${ctx.payload.repository.default_branch}`
 
-  ctx.log.debug(`Discovering starters in ${owner}:${repo}/${ref}.`)
+  ctx.log.info(`Discovering starters in ${owner}:${repo}/${ref}.`)
+
+  /* Check that a configuration file doesn't exist yet. */
+  const config = await getConfig(sources)(ctx.github, owner, repo)
+  if (config !== null) {
+    ctx.log.info(`${owner}:${repo}/${ref} has an existing configuration.`)
+    return
+  }
+
   const query = `filename:package.json+repo:${owner}/${repo}`
 
   try {
+    /**
+     * Searches for potential starters and generates
+     * a configuration file out of the results.
+     */
     const files = await findFiles(query)
-    const starters = findPotentialStarters(files)
+    const starters = filterPotentialStarters(files)
 
-    const configFile = generateConfigurationFile(starters)
+    ctx.log.debug({ starters }, `potential starters found in ${owner}/${repo}`)
+
+    const generatedConfig = await generateConfigurationFile(starters)
+    const configExplanation = explainConfiguration(generatedConfig)
+    const configFile = yaml.safeDump(generatedConfig)
+
+    ctx.log.debug(
+      { generatedConfig, configExplanation, configFile },
+      `Composed PR content for ${owner}/${repo}`,
+    )
+
+    /**
+     * Creates a configuration PR on the designated branch.
+     */
+    await resetBranch(
+      ctx.github,
+      repo,
+      owner,
+      sources.constants.configurationBranch,
+      masterRef,
+    )
+
+    await ctx.github.repos.createOrUpdateFile({
+      owner: owner,
+      repo: repo,
+      path: sources.constants.configurationFilePath,
+      message: `chore: Create Emma CLI configuration`,
+      content: base64(configFile),
+      sha: sha(configFile),
+      branch: sources.constants.configurationBranch,
+    })
+
+    const pr = await ctx.github.pulls.create({
+      owner: owner,
+      repo: repo,
+      head: sources.constants.configurationBranch,
+      base: masterRef,
+      title: `EmmaCLI Starters onboarding`,
+      body: configExplanation,
+      maintainer_can_modify: true,
+    })
+
+    ctx.log.info(
+      `Submitted onboarding pr (${pr.data.number}) to ${owner}/${repo}`,
+    )
   } catch (err) {
     ctx.log.error(err)
   }
@@ -51,6 +111,12 @@ export const discoverStarters = (sources: Sources) => async (ctx: Context) => {
       return files.data.items.concat(remainingFiles)
     }
   }
+
+  /**
+   * Looks up each potential starter and derives configuraiton.
+   *
+   * @param filePaths
+   */
   async function generateConfigurationFile(
     filePaths: string[],
   ): Promise<EmmaConfiguration> {
@@ -86,7 +152,7 @@ export const discoverStarters = (sources: Sources) => async (ctx: Context) => {
  *
  * @param files
  */
-export function findPotentialStarters(
+export function filterPotentialStarters(
   files: Octokit.SearchCodeResponseItemsItem[],
 ): string[] {
   const exceptions = [
@@ -104,16 +170,6 @@ export function findPotentialStarters(
   )
 
   return matches.map(item => item.path)
-
-  // const tree = matches.reduce((files, file) => {
-
-  // })
-
-  // /* Helper functions */
-
-  // function fileDepth(f: Octokit.SearchCodeResponseItemsItem): number {
-  //   return f.path.split('/').length
-  // }
 }
 
 interface StarterLookup {
@@ -168,10 +224,29 @@ async function lookupStarter(
 /**
  * Translates machine readable configuration into
  * a human readable piece of writing.
+ *
  * @param config
  */
 export function explainConfiguration(config: EmmaConfiguration): string {
   return ml`
-  | 
+  | # Configure Emma CLI Starters
+  |
+  | Welcome to Emma CLI!
+  |
+  | This is onboarding pull request that will help you understand and configure Emma CLI Starters.
+  |
+  | If you have any questions try reading our [docs](https://github.com/maticzav/emma-cli), or file an issue [here](https://github.com/maticzav/emma-cli).
+  |
+  | ## Detected Starters
+  | ${config.starters.map(st => ` * ${st.name}: \`${st.path}\`\n`)}
+  |
+  | ## What to expect
+  |
+  | Based on your current configuration, Emma CLI will:
+  | * Inspect ${config.starters.length} starters,
+  | * Index your starters in our database,
+  | * Make starters available to everyone using \`create-emma\`.
+  |
+  | We are happy to have you onboard! :tada:
   `
 }

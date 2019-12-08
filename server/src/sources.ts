@@ -12,7 +12,8 @@ export interface Sources {
     url: string
   }
   constants: {
-    configurationFile: string
+    configurationFilePath: string
+    configurationBranch: string
   }
 }
 
@@ -57,7 +58,8 @@ export function getSources(config: SourcesConfig): Sources {
       url: config.prisma.url,
     },
     constants: {
-      configurationFile: 'emma.yml',
+      configurationFilePath: 'emma.yml',
+      configurationBranch: 'emma/configuration',
     },
   }
 }
