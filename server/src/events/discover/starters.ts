@@ -48,7 +48,9 @@ export const discoverStarters = (sources: Sources) => async (
       `Composed PR content for ${owner}/${repo}`,
     )
 
-    const configFile = yaml.dump(generatedConfig)
+    /* Cleans the confiuration of undefined vlaues and dumps YML. */
+    const cleanedConfiguration = JSON.parse(JSON.stringify(generatedConfig))
+    const configFile = yaml.safeDump(cleanedConfiguration)
 
     ctx.log.debug(
       { configFile },
