@@ -5,7 +5,6 @@ datasource pg {
 
 generator photon {
   provider = "photonjs"
-  output   = "./node_modules/@prisma/photon"
 }
 
 model Starter {
