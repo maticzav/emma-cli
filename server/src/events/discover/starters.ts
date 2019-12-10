@@ -205,7 +205,7 @@ async function lookupStarter(
   { repo, owner }: { repo: string; owner: string },
   path: string,
 ): Promise<StarterLookup | false> {
-  /* Attempt to laod configuration. */
+  /* Attempt to load configuration. */
   const res = await github.repos.getContents({
     owner: owner,
     repo: repo,
@@ -224,7 +224,8 @@ async function lookupStarter(
       if (!pkg.name || !pkg.dependencies) return false
 
       return {
-        path: path,
+        /* remove the last package.json reference. */
+        path: path.replace(/package\.json$/, ''),
         name: pkg.name,
         description: pkg.description,
       }
