@@ -39,7 +39,7 @@ export interface SourcesConfig {
 export function getSources(config: SourcesConfig): Sources {
   /* Prisma */
 
-  const photon = new Photon({ datasources: { pg: config.prisma.url } })
+  const photon = new Photon({})
 
   /* Algolia */
 
