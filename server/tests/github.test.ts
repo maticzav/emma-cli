@@ -14,8 +14,6 @@ describe('github:', () => {
     const branchName = 'test-branch'
     const defaultBranchName = 'default-branch'
 
-    beforeAll(() => {})
-
     beforeEach(() => {
       github = new Octokit()
       getBranch = jest.fn()
