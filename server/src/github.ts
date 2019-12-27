@@ -1,6 +1,6 @@
 import { Octokit } from 'probot'
 import { WebhookPayloadInstallationRepositoriesRepositoriesAddedItem } from '@octokit/webhooks'
-import { ReposGetContentsResponse, ReposGetResponse } from '@octokit/rest'
+import { ReposGetResponse } from '@octokit/rest'
 
 /**
  *

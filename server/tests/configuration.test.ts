@@ -1,35 +1,105 @@
-import { decodeConfiguration } from '../src/configuration'
+import { Octokit } from 'probot'
+import mls from 'multilines'
+import { getConfig } from '../src/configuration'
+import { Sources } from '../src/sources'
+import { getMockSources } from './__mock__/sources'
 
 describe('configuration:', () => {
-  test('errors on incorrect', () => {
-    const config = {
-      starters: [
-        {
-          name: 'starter',
-          path: '/templates/starter',
-        },
-        {
-          faulty: '',
-        },
-      ],
-    }
+  describe('getConfig:', () => {
+    let sources: Sources = getMockSources()
+    let github: Octokit
+    let getContents: jest.Mock
 
-    expect(decodeConfiguration(config)._tag).toBe('Left')
-  })
+    const owner = 'maticzav'
+    const repo = 'emma-cli'
 
-  test('passes on correct', () => {
-    const config = {
-      starters: [
-        {
-          name: 'starter',
-          path: '/templates/starter',
+    beforeAll(() => {
+      sources = getMockSources()
+    })
+
+    beforeEach(() => {
+      github = new Octokit()
+      getContents = jest.fn()
+      github.repos.getContents = getContents as any
+    })
+
+    test('should return null if occur some error', async () => {
+      getContents.mockRejectedValueOnce(new Error('exception'))
+
+      const result = await getConfig(sources)(github, owner, repo)
+
+      expect(result).toBeNull()
+      expect(getContents).toBeCalledTimes(1)
+    })
+
+    test('should return null if repo is not a file', async () => {
+      getContents
+        .mockResolvedValueOnce({
+          data: [],
+        })
+        .mockResolvedValueOnce({
+          data: {},
+        })
+
+      const result1 = await getConfig(sources)(github, owner, repo)
+      const result2 = await getConfig(sources)(github, owner, repo)
+
+      expect(result1).toBeNull()
+      expect(result2).toBeNull()
+      expect(getContents).toBeCalledTimes(2)
+    })
+
+    test('should return null if configuration is invalid', async () => {
+      const invalidConfig = mls`
+      | starters:
+      |   - name: correct_name
+      |     paths_invalid: /invalid/field
+      |   - name: correct_name
+      |     path: /this/field/is/valid
+      `
+
+      getContents.mockResolvedValueOnce({
+        data: {
+          content: Buffer.from(invalidConfig).toString('base64'),
         },
-      ],
-    }
+      })
 
-    expect(decodeConfiguration(config)).toEqual({
-      _tag: 'Right',
-      right: config,
+      const result = await getConfig(sources)(github, owner, repo)
+
+      expect(result).toBeNull()
+      expect(getContents).toBeCalledTimes(1)
+    })
+
+    test('should return the config if it is valid', async () => {
+      const validConfig = mls`
+      | starters:
+      |   - name: correct_name
+      |     path: /this/field/is/valid
+      |   - name: correct_name2
+      |     path: /this/field/is/valid/too
+      |     description: valid_again
+      `
+
+      getContents.mockResolvedValueOnce({
+        data: {
+          content: Buffer.from(validConfig).toString('base64'),
+        },
+      })
+
+      const result = await getConfig(sources)(github, owner, repo)
+
+      expect(result).toEqual({
+        starters: [
+          { name: 'correct_name', path: '/this/field/is/valid' },
+          {
+            name: 'correct_name2',
+            path: '/this/field/is/valid/too',
+            description: 'valid_again',
+          },
+        ],
+      })
+
+      expect(getContents).toBeCalledTimes(1)
     })
   })
 })
