@@ -1,51 +1,79 @@
-import * as probot from 'probot'
+import { LoggerWithTarget } from 'probot/lib/wrap-logger'
+import { GitHubAPI } from 'probot/lib/github'
+import { Context } from 'probot'
+import mls from 'multilines'
 import { getMockSources } from '../../__mock__/sources'
 import { syncRepository } from '../../../src/events/sync/repository'
 import { Sources } from '../../../src/sources'
-import { Octokit } from 'probot'
-import mls from 'multilines'
 import { base64 } from '../../../src/utils'
 
+
 describe('syncRepository:', () => {
-  let app: probot.Application
-  let github: Octokit
-  let upsert: jest.Mock
-  let addObject: jest.Mock
+  // github
+  let github: GitHubAPI
   let getContents: jest.Mock
+
+  // prisma
+  let upsert: jest.Mock
   let findMany: jest.Mock
   let deleteMany: jest.Mock
+
+  // algolia
+  let addObject: jest.Mock
   let deleteObjects: jest.Mock
+
+  // log
+  let log: LoggerWithTarget
+  let logInfo: jest.Mock
+  let logWarn: jest.Mock
+  let logDebug: jest.Mock
+  let logError: jest.Mock
+
   let sources: Sources
+
+  const makeContext = (event: any) => new Context(event, github, log)
 
   beforeEach(() => {
     sources = getMockSources()
+
+    // prisma
     upsert = jest.fn()
-    addObject = jest.fn()
-    getContents = jest.fn()
     findMany = jest.fn()
     deleteMany = jest.fn()
-    deleteObjects = jest.fn()
-    app = new probot.Application()
-    github = new Octokit()
-
     Object.defineProperty(sources.prisma.photon, 'starters', {
       get: () => ({
         upsert,
         findMany,
         deleteMany,
-      }),
+      })
     })
 
+    // algolia
+    addObject = jest.fn()
+    deleteObjects = jest.fn()
     sources.algolia.indices.starters.addObject = addObject
     sources.algolia.indices.starters.deleteObjects = deleteObjects
+
+    // github
+    github = GitHubAPI()
+    getContents = jest.fn()
     github.repos.getContents = getContents as any
 
-    app.auth = () => Promise.resolve(github as any)
-    app.on('push', syncRepository(sources))
+    // log
+    logInfo = jest.fn()
+    logWarn = jest.fn()
+    logDebug = jest.fn()
+    logError = jest.fn()
+    log = {
+      info: logInfo,
+      warn: logWarn,
+      debug: logDebug,
+      error: logError,
+    } as any
   })
 
   test('should ignore execution if ref is non-default', async () => {
-    await app.receive({
+    const ctx = makeContext({
       id: '123',
       name: 'push',
       payload: {
@@ -57,6 +85,8 @@ describe('syncRepository:', () => {
         },
       },
     })
+
+    await syncRepository(sources)(ctx)
 
     expect(upsert).not.toBeCalled()
     expect(addObject).not.toBeCalled()
@@ -77,7 +107,7 @@ describe('syncRepository:', () => {
       },
     })
 
-    await app.receive({
+    const ctx = makeContext({
       id: '123',
       name: 'push',
       payload: {
@@ -89,6 +119,8 @@ describe('syncRepository:', () => {
         },
       },
     })
+
+    await syncRepository(sources)(ctx)
 
     expect(getContents).toBeCalledTimes(1)
     expect(upsert).not.toBeCalled()
@@ -112,7 +144,7 @@ describe('syncRepository:', () => {
       }
     })
 
-    await app.receive({
+    const ctx = makeContext({
       id: '123',
       name: 'push',
       payload: {
@@ -124,6 +156,8 @@ describe('syncRepository:', () => {
         },
       },
     })
+
+    await syncRepository(sources)(ctx)
 
     expect(getContents).toBeCalledTimes(2)
     expect(upsert).not.toBeCalled()
@@ -147,7 +181,7 @@ describe('syncRepository:', () => {
       }
     })
 
-    await app.receive({
+    const ctx = makeContext({
       id: '123',
       name: 'push',
       payload: {
@@ -159,6 +193,8 @@ describe('syncRepository:', () => {
         },
       },
     })
+
+    await syncRepository(sources)(ctx)
 
     expect(getContents).toBeCalledTimes(2)
     expect(upsert).not.toBeCalled()
@@ -188,7 +224,7 @@ describe('syncRepository:', () => {
       }
     })
 
-    await app.receive({
+    const ctx = makeContext({
       id: '123',
       name: 'push',
       payload: {
@@ -200,6 +236,8 @@ describe('syncRepository:', () => {
         },
       },
     })
+
+    await syncRepository(sources)(ctx)
 
     expect(getContents).toBeCalledTimes(2)
     expect(upsert).not.toBeCalled()
@@ -229,7 +267,7 @@ describe('syncRepository:', () => {
       }
     })
 
-    await app.receive({
+    const ctx = makeContext({
       id: '123',
       name: 'push',
       payload: {
@@ -241,6 +279,8 @@ describe('syncRepository:', () => {
         },
       },
     })
+
+    await syncRepository(sources)(ctx)
 
     expect(getContents).toBeCalledTimes(2)
     expect(upsert).not.toBeCalled()
@@ -277,7 +317,7 @@ describe('syncRepository:', () => {
 
     findMany.mockResolvedValueOnce([])
 
-    await app.receive({
+    const ctx = makeContext({
       id: '123',
       name: 'push',
       payload: {
@@ -289,6 +329,8 @@ describe('syncRepository:', () => {
         },
       },
     })
+
+    await syncRepository(sources)(ctx)
 
     expect(getContents).toBeCalledTimes(2)
     expect(upsert).toBeCalledTimes(1)
@@ -363,7 +405,7 @@ describe('syncRepository:', () => {
       },
     ])
 
-    await app.receive({
+    const ctx = makeContext({
       id: '123',
       name: 'push',
       payload: {
@@ -375,6 +417,8 @@ describe('syncRepository:', () => {
         },
       },
     })
+
+    await syncRepository(sources)(ctx)
 
     expect(getContents).toBeCalledTimes(2)
     expect(findMany).toBeCalledTimes(1)
