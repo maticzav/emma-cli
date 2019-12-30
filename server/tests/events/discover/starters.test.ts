@@ -12,15 +12,6 @@ import * as packages from './__fixtures__/packages'
 jest.mock('../../../src/github')
 
 describe('discoverStarters:', () => {
-  // prisma
-  let upsert: jest.Mock
-  let findMany: jest.Mock
-  let deleteMany: jest.Mock
-
-  // algolia
-  let addObject: jest.Mock
-  let deleteObjects: jest.Mock
-
   // github
   let github: GitHubAPI
   let getContents: jest.Mock
@@ -52,24 +43,6 @@ describe('discoverStarters:', () => {
 
   beforeEach(() => {
     sources = getMockSources()
-
-    // prisma
-    upsert = jest.fn()
-    findMany = jest.fn()
-    deleteMany = jest.fn()
-    Object.defineProperty(sources.prisma.photon, 'starters', {
-      get: () => ({
-        upsert,
-        findMany,
-        deleteMany,
-      }),
-    })
-
-    // algolia
-    addObject = jest.fn()
-    deleteObjects = jest.fn()
-    sources.algolia.indices.starters.addObject = addObject
-    sources.algolia.indices.starters.deleteObjects = deleteObjects
 
     // github
     github = GitHubAPI()
