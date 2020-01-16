@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Box, Color, Text, StdinContext } from 'ink'
-import opn from 'open'
+import open from 'open'
 
 import { IPackage, SearchContext, WithSearchContext } from '../algolia'
 import { IDependency } from '../installer'
@@ -57,7 +57,7 @@ class Package extends PureComponent<
       }
       case ARROW_RIGHT: {
         if (this.state.showDetails && pkg.repository) {
-          opn(pkg.repository.url)
+          open(pkg.repository.url)
         }
         return this.setState({ showDetails: true })
       }
