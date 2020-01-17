@@ -10,15 +10,14 @@ const repo = 'emma-cli'
 describe('getConfig:', () => {
   let sources: Sources = getMockSources()
   let github: Octokit
-  let getContents: jest.Mock
 
   beforeEach(() => {
     github = new Octokit()
-    getContents = jest.fn()
-    github.repos.getContents = getContents as any
   })
 
-  test('should return null if occur some error', async () => {
+  test('return null if occur some error', async () => {
+    const getContents = jest.fn()
+    github.repos.getContents = getContents as any
     getContents.mockRejectedValueOnce(new Error('exception'))
 
     const result = await getConfig(sources)(github, owner, repo)
@@ -27,7 +26,9 @@ describe('getConfig:', () => {
     expect(getContents).toBeCalledTimes(1)
   })
 
-  test('should return null if repo is not a file', async () => {
+  test('return null if repo is not a file', async () => {
+    const getContents = jest.fn()
+    github.repos.getContents = getContents as any
     getContents
       .mockResolvedValueOnce({
         data: [],
@@ -44,7 +45,7 @@ describe('getConfig:', () => {
     expect(getContents).toBeCalledTimes(2)
   })
 
-  test('should return null if configuration is invalid', async () => {
+  test('return null if configuration is invalid', async () => {
     const invalidConfig = mls`
     | starters:
     |   - name: correct_name
@@ -53,6 +54,8 @@ describe('getConfig:', () => {
     |     path: /this/field/is/valid
     `
 
+    const getContents = jest.fn()
+    github.repos.getContents = getContents as any
     getContents.mockResolvedValueOnce({
       data: {
         content: Buffer.from(invalidConfig).toString('base64'),
@@ -65,7 +68,7 @@ describe('getConfig:', () => {
     expect(getContents).toBeCalledTimes(1)
   })
 
-  test('should return the config if it is valid', async () => {
+  test('return the config if it is valid', async () => {
     const validConfig = mls`
     | starters:
     |   - name: correct_name
@@ -75,6 +78,8 @@ describe('getConfig:', () => {
     |     description: valid_again
     `
 
+    const getContents = jest.fn()
+    github.repos.getContents = getContents as any
     getContents.mockResolvedValueOnce({
       data: {
         content: Buffer.from(validConfig).toString('base64'),
