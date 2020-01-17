@@ -6,8 +6,8 @@ import { getSources, Sources } from '../../src/sources'
 export function getMockSources(): Sources {
   return getSources({
     algolia: {
-      apiKey: '',
-      appId: '',
+      apiKey: 'apiKey',
+      appId: 'appId',
       indices: {
         starters: 'dev_STARTERS',
       },

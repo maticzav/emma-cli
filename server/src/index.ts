@@ -1,11 +1,6 @@
 import probot from 'probot'
-
-import { orderBy } from 'lodash'
-
 import { downloadStarter } from './endpoints/starters/download'
-
 import { syncRepository } from './events/sync/repository'
-
 import { getSources } from './sources'
 import { fetchRepos } from './github'
 import { discoverStarters } from './events/discover/starters'

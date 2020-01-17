@@ -1,6 +1,5 @@
 import { Starter, BatchPayload } from '@prisma/photon'
 import { Task } from 'algoliasearch'
-import * as e from 'fp-ts/lib/Either'
 import hash from 'object-hash'
 import { Octokit, Context } from 'probot'
 
@@ -70,7 +69,7 @@ async function loadStarter(
   { repo, owner, ref }: { repo: string; owner: string; ref: string },
   config: StarterConfiguration,
 ): Promise<EmmaStarter> {
-  /* Attempt to laod configuration. */
+  /* Attempt to load configuration. */
   const res = await github.repos.getContents({
     owner: owner,
     repo: repo,
