@@ -50,7 +50,7 @@
     "@types/execa": "2.0.0",
     "@types/ink": "2.0.3",
     "@types/ink-testing-library": "1.0.1",
-    "@types/jest": "24.0.23",
+    "@types/jest": "24.9.1",
     "@types/meow": "5.0.0",
     "@types/node-fetch": "^2.5.4",
     "@types/ora": "^3.2.0",
