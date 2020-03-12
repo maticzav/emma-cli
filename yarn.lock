@@ -7343,10 +7343,10 @@ pretty-quick@2.0.1:
     mri "^1.1.4"
     multimatch "^4.0.0"
 
-prisma2@^2.0.0-preview018:
-  version "2.0.0-preview018"
-  resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-preview018.tgz#ff44fe3e4997b20d7816406c0cbaadaf13e83dc8"
-  integrity sha512-OB1jPk1QyMtJH9juxLzFsH7Alh2IqqZbC7jpGdHH6pJAVFGs86tPj5dxr2m9zNZHa8RrrcMMA0La1xqwY6YQjQ==
+prisma2@2.0.0-previewnull-1:
+  version "2.0.0-previewnull-1"
+  resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-previewnull-1.tgz#18d17d05ada12df272ce023bd491f0316b71c584"
+  integrity sha512-tileM0fP3FkNYkxUe/YFCCgkkuDXFLCCykJinMi72ss0riinJ3GCLuCq/xC3CjjpA9wwh5ep201ws2UQi4yIEA==
 
 probot@9.6.6:
   version "9.6.6"
