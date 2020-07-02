@@ -15,7 +15,7 @@
     "husky": "3.0.9",
     "jest": "24.9.0",
     "jest-serializer-ansi": "1.0.3",
-    "lerna": "3.18.4",
+    "lerna": "3.22.1",
     "multilines": "1.0.2",
     "prettier": "1.19.1",
     "pretty-quick": "2.0.1",
