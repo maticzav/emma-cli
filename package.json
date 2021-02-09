@@ -12,7 +12,7 @@
     "chalk": "3.0.0",
     "codecov": "3.6.1",
     "execa": "3.3.0",
-    "husky": "3.0.9",
+    "husky": "3.1.0",
     "jest": "24.9.0",
     "jest-serializer-ansi": "1.0.3",
     "lerna": "3.18.4",
