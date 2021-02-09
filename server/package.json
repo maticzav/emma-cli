@@ -34,7 +34,7 @@
     "nock": "^11.7.0",
     "prisma2": "2.0.0-preview016.2",
     "supertest": "^4.0.2",
-    "ts-jest": "24.2.0",
+    "ts-jest": "24.3.0",
     "ts-node": "8.5.4",
     "ts-node-dev": "1.0.0-pre.44",
     "typescript": "3.7.3"
