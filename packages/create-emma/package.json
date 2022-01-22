@@ -37,7 +37,7 @@
     "ink-spinner": "^3.0.0",
     "meow": "^5.0.0",
     "multilines": "^1.0.2",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.1.1",
     "open": "^7.0.0",
     "ora": "^4.0.3",
     "prompts": "^2.3.0",
