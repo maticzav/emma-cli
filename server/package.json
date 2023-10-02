@@ -37,7 +37,7 @@
     "ts-jest": "24.2.0",
     "ts-node": "8.5.4",
     "ts-node-dev": "1.0.0-pre.44",
-    "typescript": "3.7.3"
+    "typescript": "3.9.10"
   },
   "license": "MIT"
 }
