@@ -4822,10 +4822,10 @@ invariant@^2.2.4:
   dependencies:
     loose-envify "^1.0.0"
 
-io-ts@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-2.0.1.tgz#1261c12f915c2f48d16393a36966636b48a45aa1"
-  integrity sha512-RezD+WcCfW4VkMkEcQWL/Nmy/nqsWTvTYg7oUmTGzglvSSV2P9h2z1PVeREPFf0GWNzruYleAt1XCMQZSg1xxQ==
+io-ts@2.2.22:
+  version "2.2.22"
+  resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-2.2.22.tgz#5ab0d3636fe8494a275f0266461ab019da4b8d0b"
+  integrity sha512-FHCCztTkHoV9mdBsHpocLpdTAfh956ZQcIkWQxxS0U5HT53vtrcuYdQneEJKH6xILaLNzXVl2Cvwtoy8XNN0AA==
 
 ioredis@^4.5.1:
   version "4.14.1"
