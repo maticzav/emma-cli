@@ -9,7 +9,7 @@
     "@prisma/photon": "^2.0.0-preview018",
     "algoliasearch": "3.35.1",
     "crypto": "^1.0.1",
-    "express": "4.17.1",
+    "express": "4.17.3",
     "fp-ts": "2.2.0",
     "io-ts": "2.0.1",
     "js-yaml": "^3.13.1",
