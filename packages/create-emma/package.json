@@ -59,7 +59,7 @@
     "@types/update-notifier": "2.5.0",
     "@zeit/ncc": "0.20.5",
     "ink-testing-library": "1.0.2",
-    "pkg": "4.4.0"
+    "pkg": "4.5.1"
   },
   "license": "MIT",
   "repository": {
