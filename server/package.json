@@ -30,7 +30,7 @@
     "@types/supertest": "^2.0.8",
     "execa": "3.4.0",
     "husky": "3.1.0",
-    "lerna": "3.19.0",
+    "lerna": "3.22.1",
     "nock": "^11.7.0",
     "prisma2": "2.0.0-preview016.2",
     "supertest": "^4.0.2",
