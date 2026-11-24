@@ -47,7 +47,7 @@
     "@types/meow": "5.0.0",
     "@types/react": "16.9.15",
     "@types/update-notifier": "2.5.0",
-    "@zeit/ncc": "0.20.5",
+    "@zeit/ncc": "0.22.3",
     "ink-testing-library": "1.0.2",
     "pkg": "4.4.0"
   },
